@@ -1,2 +1,2 @@
-# arpeggio
+# Arpeggio
 Musician Connector App

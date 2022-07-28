@@ -1,11 +1,11 @@
 import React from 'react';
-
+import '../scss/custom.scss';
 import {Nav, Navbar, NavDropdown, Form, Container, Button} from 'react-bootstrap'
 
 function Nav1(props) {
  return (
   <>
-   <Navbar bg="light" expand="lg">
+   <Navbar bg="light" expand="lg" className='navbar'>
     <Container fluid>
      <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
      <Navbar.Toggle aria-controls="navbarScroll" />

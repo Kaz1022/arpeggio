@@ -1,36 +1,44 @@
 import React from 'react';
+import { Nav, Navbar } from 'react-bootstrap';
 import '../scss/custom.scss';
-import {Nav, Navbar, NavDropdown, Dropdown, Form, Container, Button} from 'react-bootstrap'
+import styled from 'styled-components';
+
+const Styles = styled.div`
+  .navbar{
+    background-color: rgba(187, 13, 190, 0.8);
+  }
+
+  .navbar-brand {
+    color: #49205E;
+    font-weight: bold;
+    font: roboto;
+    font-size: 3.5em;
+    margin-left: 0.5em;
+  }
+
+  .navbar-nav, .navbar-link {
+    color: #E2EF70;
+
+    &:hover {
+      color: #E2EF70;
+    }
+  }
+`;
 
 function Nav2(props) {
   return (
-    <Navbar variant="dark" bg="dark" expand="lg">
-      <Container fluid>
-        <Navbar.Brand href="#home">ARPEGGIO</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbar-dark-example" />
-        <Navbar.Collapse id="navbar-dark-example">
-          <Nav.Link href="#home">MY FAVOURITES</Nav.Link>
-          <Nav>
-            <Dropdown>
-            <Dropdown.Toggle id="dropdown-button-dark-example1" variant="dark">
-              Hello, Mari!<br/>Account
-            </Dropdown.Toggle>
-              <Dropdown.Menu variant="dark">
-                <NavDropdown.Item href="#action/3.1">MY PROFILE</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  CREATE A SESSION
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">MY SESSIONS</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  LOGOUT
-                </NavDropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+    <Styles>
+      <Navbar expand="lg">
+        <Navbar.Brand href="/">ARPEGGIO</Navbar.Brand>
+        <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <Nav.Item><Nav.Link href="/favourite">MY FAVOURITES</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/favourite">MY FAVOURITES</Nav.Link></Nav.Item>
           </Nav>
         </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      </Navbar>
+    </Styles>
   );
 }
 

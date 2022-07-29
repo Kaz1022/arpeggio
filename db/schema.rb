@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_040032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "attendees", force: :cascade do |t|
+  create_table "attandees", force: :cascade do |t|
     t.integer "user_id"
     t.integer "event_instrument_id"
     t.boolean "accepted"

@@ -52,6 +52,24 @@ class Signup extends Component {
 		});
 	}
 
+  handleCityChange = (e) => {
+		this.setState({
+			city: e.target.value,
+		});
+	}
+
+  handleCountryChange = (e) => {
+		this.setState({
+			country: e.target.value,
+		});
+	}
+
+  handlePhoneChange = (e) => {
+		this.setState({
+			phone: e.target.value,
+		});
+	}
+
 render() {
   return (
 	  <form onSubmit={this.onSubmitHandler}>

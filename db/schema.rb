@@ -10,12 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_28_234033) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_29_040032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "attandees", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_instrument_id"
+    t.boolean "accepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_instruments", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "instrument_id"
+    t.integer "quantity"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.integer "event_date"
+    t.integer "start_time"
+    t.integer "end_time"
+    t.string "city"
+    t.string "country"
+    t.string "level"
+    t.string "venue_style"
+    t.string "genre"
+    t.string "event_image"
+    t.string "description"
+    t.boolean "post_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "instruments", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_favourites", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_instruments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "instrument_id"
+    t.string "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

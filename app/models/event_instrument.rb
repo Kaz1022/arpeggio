@@ -1,0 +1,2 @@
+class EventInstrument < ApplicationRecord
+end

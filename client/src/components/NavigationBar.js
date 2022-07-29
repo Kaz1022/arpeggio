@@ -7,11 +7,12 @@ import '../scss/custom.scss';
 
 const Styles = styled.div`
   .navbar{
-    background-color: $primary;
+    background-color: #49205E;
   }
   .navbar-brand{
     font-family: var(--bs-font-sans-serif);
     font-size: 3rem;
+    color:$dark;
   }
 `;
 
@@ -24,7 +25,7 @@ function NavigationBar() {
      <Navbar.Toggle aria-controls="navbarScroll" />
      <Navbar.Collapse id="navbarScroll">
       <Nav
-       className="ml-auto my-1 my-lg-0"
+       className="me-auto my-1 my-lg-0"
        style={{ maxHeight: '100px' }}
        navbarScroll
       >

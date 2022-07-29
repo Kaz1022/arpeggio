@@ -5,26 +5,27 @@ import '../scss/custom.scss';
 import {
  Nav,
  Navbar,
- Container
+ Container,
+ Button
 } from 'react-bootstrap';
 
 function Nav1(props) {
  return (
   <>
-   <Navbar bg="primary" expand="lg" className="navbar">
+   <Navbar bg="light" expand="lg">
     <Container fluid>
-     <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
-     <Navbar.Toggle aria-controls="navbarScroll" />
-     <Navbar.Collapse id="navbarScroll">
+     <Navbar.Brand href="#">ARPEGGIO</Navbar.Brand>
+     {/* <Navbar.Toggle aria-controls="navbarScroll" /> */}
+     <Navbar id="navbarScroll" className='d-flex justify-content-end'>
       <Nav
-       className="me-auto my-2 my-lg-0"
+       className="me-auto my-1 my-lg-0"
        style={{ maxHeight: '100px' }}
        navbarScroll
       >
-       <Nav.Link href="#login">Log In</Nav.Link>
-       <Nav.Link href="#signup">Sign Up</Nav.Link>
+       <Button variant="primary" href="#login" className="m-1">Log In</Button>
+       <Button variant="dark"href="#signup" className="m-1">Sign Up</Button>
       </Nav>
-     </Navbar.Collapse>
+     </Navbar>
     </Container>
    </Navbar>
   </>

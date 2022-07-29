@@ -1,10 +1,12 @@
 import React from 'react';
-import Nav1 from './components/Nav1';
+import NavigationBar from './components/NavigationBar';
 
 function App() {
  return (
   <div className="App">
-   <Nav1/>
+   <>
+    <NavigationBar />
+   </>
   </div>
  );
 }

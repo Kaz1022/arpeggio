@@ -73,7 +73,7 @@ class Signup extends Component {
 render() {
   return (
 	  <form onSubmit={this.onSubmitHandler}>
-		  <h1>{message}</h1>
+		  <h1>Sign up form</h1>
 				<input
           onChange={this.handleUsernameChange}
           type="text"
@@ -102,7 +102,31 @@ render() {
           onChange={this.handleAvatarChange}
           type="file"
           accept="/images/*"
-        />      
+        />   
+        <input
+          onChange={this.handleCityChange}
+          type="text"
+          name="city"
+          placeholder="city"
+          required
+			/>
+
+        <input
+          onChange={this.handleCountryChange}
+          type="text"
+          name="country"
+          placeholder="country"
+          required
+			/>
+
+        <input
+          onChange={this.handlePhoneChange}
+          type="text"
+          name="phone"
+          placeholder="phone"
+          required
+			/>
+
         <button type="submit">
           Create Account
         </button>

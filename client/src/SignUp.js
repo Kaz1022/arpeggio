@@ -4,11 +4,28 @@ class Signup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+      first_name: '',
+      last_name: '',
 			username: '',
 			email: '',
 			password: '',
 			picture: '',
+      city: '',
+      country: '',
+      phone: ''
 		};
+	}
+
+  handleFirstNameChange = (e) => {
+		this.setState({
+			first_name: e.target.value,
+		});
+	}
+
+  handleLastNameChange = (e) => {
+		this.setState({
+			last_name: e.target.value,
+		});
 	}
 
 	handleUsernameChange = (e) => {

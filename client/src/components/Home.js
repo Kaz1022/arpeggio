@@ -19,39 +19,88 @@ const Container = styled.div`
  height: 75vh;
  width: 100%;
 
- .head{
+ .head {
  }
 
  p,
  button {
   position: absolute;
   color: white;
-  font-family: var(--bs-font-sans-serif);
-}
+  font-family: 'Oswald', sans-serif;
+ }
 
-p {
+ p {
   font-size: 2.3rem;
-  top: 35%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
  }
 
  button {
   font-size: 1.3rem;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid white;
   border-radius: 3px;
   padding: 8px 18px;
-  background:none;
+  background: none;
+ }
+
+ .features,
+ .artists {
+  padding: 30px;
+  height: min-content;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
  }
 
  .features {
-  padding-top:30px;
-  height: 200px;
-  background-color: #E2EF70;
+  background-color: #e2ef70;
+ }
+
+ .artists {
+  background-color: #ffe7ff;
+ }
+
+ .connect,
+ .collaborate,
+ .learn,
+ .create,
+ .user1,
+ .user2,
+ .user3 {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 1px 3px 8px 0px rgba(148, 148, 148, 1);
+ }
+ .connect,
+ .collaborate,
+ .learn,
+ .create {
+  height: 10rem;
+  width: 25rem;
+ }
+ .user1,
+ .user2,
+ .user3 {
+  height: 10rem;
+  width: 35rem;
+ }
+
+ .feature {
+  margin: 5px;
+  font-family: 'Oswald', sans-serif;
+ }
+ .description {
+  font-family: 'Roboto', sans-serif;
  }
 `;
 
@@ -83,6 +132,29 @@ function Home() {
      <div className="icon">ICON</div>
      <div className="feature">CREATE</div>
      <div className="description">Make new sounds</div>
+    </div>
+   </section>
+   <section className="artists">
+    <div className="user1">
+     <div className="icon">USER ICON</div>
+     <div className="feature">MARINA BEKKER</div>
+     <div className="description">
+      Before Arpeggio, It was so difficult to find someone to .......Lorem Ipsum
+     </div>
+    </div>
+    <div className="user2">
+     <div className="icon">USER ICON</div>
+     <div className="feature">MARINA BEKKER</div>
+     <div className="description">
+      Before Arpeggio, It was so difficult to find someone to .......Lorem Ipsum
+     </div>
+    </div>
+    <div className="user3">
+     <div className="icon">USER ICON</div>
+     <div className="feature">MARINA BEKKER</div>
+     <div className="description">
+      Before Arpeggio, It was so difficult to find someone to .......Lorem Ipsum
+     </div>
     </div>
    </section>
   </Container>

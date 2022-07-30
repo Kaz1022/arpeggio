@@ -1,13 +1,15 @@
 class Api::UsersController < ApplicationController
   
     def create
-        new_user = User.new(user_params)
-        if new_user.save
-          token = JsonWebToken.encode(user_id: new_user.id)
-          time = Time.now + 24.hours.to_i
-          render json: { token: token, time: time }, status: :ok
+        user = User.new(user_params)
+        if user
+          session[:user_id] = user.id
+          render json: {
+            status:created,
+            user:user
+          }
         else
-          head(:unprocessable_entity)
+          render json: {status: 500 }
         end
       end
     
@@ -15,11 +17,16 @@ class Api::UsersController < ApplicationController
     
       def user_params
         params.require(:user).permit(
+          :first_name,
+          :last_name,
           :username,
           :email,
           :country,
           :password,
-          :picture
+          :password_confirmation,
+          :picture,
+          :city,
+          :phone,
         )
       end
   end

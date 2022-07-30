@@ -107,6 +107,22 @@ render() {
 	  <form onSubmit={this.handleSubmit}>
 		  <h1>Sign up form</h1>
 				<input
+          onChange={this.handleFirstNameChange}
+          type="text"
+          name="first_name"
+          placeholder="First Name"
+          required
+          />
+
+					<input
+          onChange={this.handleLastNameChange}
+          type="text"
+          name="last_name"
+          placeholder="Last Name"
+          required
+          />
+
+				<input
           onChange={this.handleUsernameChange}
           type="text"
           name="username"

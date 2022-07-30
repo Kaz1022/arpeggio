@@ -150,8 +150,10 @@ render() {
 			
         <input
           onChange={this.handleAvatarChange}
-          type="file"
-          accept="/images/*"
+          type="text"
+          name="handle"
+          placeholder="Username"
+          required
         />   
         <input
           onChange={this.handleCityChange}

@@ -11,8 +11,8 @@ const Styles = styled.div`
   }
   .navbar-brand{
     font-family: var(--bs-font-sans-serif);
-    font-size: 3rem;
-    color:$dark;
+    font-size: 3em;
+    color: #49205E;
   }
 `;
 
@@ -23,14 +23,10 @@ function NavigationBar() {
     <Container fluid>
      <Navbar.Brand href="#">ARPEGGIO</Navbar.Brand>
      <Navbar.Toggle aria-controls="navbarScroll" />
-     <Navbar.Collapse id="navbarScroll">
-      <Nav
-       className="me-auto my-1 my-lg-0"
-       style={{ maxHeight: '100px' }}
-       navbarScroll
-      >
+     <Navbar.Collapse className="justify-content-end">
+      <Nav>
        <Button variant="primary" href="#login" className="m-1">Log In</Button>
-       <Button variant="dark"href="#signup" className="m-1">Sign Up</Button>
+       <Button variant="dark" href="#signup" className="m-1">Sign Up</Button>
       </Nav>
      </Navbar.Collapse>
     </Container>

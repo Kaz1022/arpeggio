@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Signup extends Component {
 	constructor(props) {
@@ -9,11 +10,16 @@ class Signup extends Component {
 			username: '',
 			email: '',
 			password: '',
+			password_confirmation: '',
+			registrationErrors: '',
 			picture: '',
       city: '',
       country: '',
       phone: ''
-		};
+		}
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleEmailChange = this.handleEmailChange.bind(this);
 	}
 
   handleFirstNameChange = (e) => {
@@ -70,9 +76,35 @@ class Signup extends Component {
 		});
 	}
 
+	handleSubmit = (e) => {
+
+		axios.post("https://localhost:3000/api/signup", {
+			user: {
+				first_name: this.state.first_name,
+				last_name: this.state.last_name,
+				username: this.state.username,
+				email: this.state.email,
+				password: this.password,
+				password_confirmation: this.password_confirmation,
+				picture: this.picture,
+				city: this.city,
+				phone: this.phone,
+				country: this.country
+			}
+		},
+		{ withCredentials: true }
+		).then(response => {
+			console.log("registration res", response);
+		}).catch(error => {
+			console.log("registration error", error);
+		})
+		e.preventDefault();
+	}
+
+
 render() {
   return (
-	  <form onSubmit={this.onSubmitHandler}>
+	  <form onSubmit={this.handleSubmit}>
 		  <h1>Sign up form</h1>
 				<input
           onChange={this.handleUsernameChange}
@@ -87,6 +119,7 @@ render() {
           type="email"
           name="email"
           placeholder="Email"
+					value={this.state.email}
           required
         />
           
@@ -95,6 +128,7 @@ render() {
           type="password"
           name="password"
           placeholder="Password"
+					value ={this.state.password}
           required
 			/>
 			

@@ -25,8 +25,8 @@ function NavigationBar() {
      <Navbar.Toggle aria-controls="navbarScroll" />
      <Navbar.Collapse className="justify-content-end">
       <Nav>
-       <Button variant="primary" href="#login" className="m-1">Log In</Button>
-       <Button variant="dark" href="#signup" className="m-1">Sign Up</Button>
+       <Button variant="primary" href="login" className="m-1">Log In</Button>
+       <Button variant="dark" href="signup" className="m-1">Sign Up</Button>
       </Nav>
      </Navbar.Collapse>
     </Container>

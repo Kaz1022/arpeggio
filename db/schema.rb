@@ -10,29 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_29_040032) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_30_213634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendees", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "event_instrument_id"
     t.boolean "accepted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "event_instrument_id", null: false
+    t.index ["event_instrument_id"], name: "index_attendees_on_event_instrument_id"
+    t.index ["user_id"], name: "index_attendees_on_user_id"
   end
 
   create_table "event_instruments", force: :cascade do |t|
-    t.integer "event_id"
-    t.integer "instrument_id"
     t.integer "quantity"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id", null: false
+    t.bigint "instrument_id", null: false
+    t.index ["event_id"], name: "index_event_instruments_on_event_id"
+    t.index ["instrument_id"], name: "index_event_instruments_on_instrument_id"
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "user_id"
     t.string "title"
     t.integer "event_date"
     t.integer "start_time"
@@ -47,6 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_040032) do
     t.boolean "post_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "instruments", force: :cascade do |t|
@@ -56,18 +61,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_040032) do
   end
 
   create_table "user_favourites", force: :cascade do |t|
-    t.integer "event_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["event_id"], name: "index_user_favourites_on_event_id"
+    t.index ["user_id"], name: "index_user_favourites_on_user_id"
   end
 
   create_table "user_instruments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "instrument_id"
     t.string "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "instrument_id", null: false
+    t.index ["instrument_id"], name: "index_user_instruments_on_instrument_id"
+    t.index ["user_id"], name: "index_user_instruments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -85,4 +94,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_040032) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "attendees", "event_instruments"
+  add_foreign_key "attendees", "users"
+  add_foreign_key "event_instruments", "events"
+  add_foreign_key "event_instruments", "instruments"
+  add_foreign_key "events", "users"
+  add_foreign_key "user_favourites", "events"
+  add_foreign_key "user_favourites", "users"
+  add_foreign_key "user_instruments", "instruments"
+  add_foreign_key "user_instruments", "users"
 end

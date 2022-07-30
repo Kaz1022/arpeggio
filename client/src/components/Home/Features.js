@@ -1,26 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import '../scss/custom.scss';
-import main from '../assets/images/main.jpeg';
+import '../../scss/custom.scss';
+//ICONS
+import connect from '../../assets/images/connect.jpg';
+import collaborate from '../../assets/images/collaborate.jpg';
+import learn from '../../assets/images/learn.jpg';
+import create from '../../assets/images/create.jpg';
 
-const Img = styled.img.attrs({
- src: `${main}`,
-})`
- width: 100vw;
- height: 100%;
- object-fit: cover;
- object-position: top;
- background: linear-gradient(45deg, pink, pink, hotpink);
-`;
-//this linear gradient doesnt work, working on it
 
 const Container = styled.div`
  position: relative;
- height: 75vh;
+ height: auto;
  width: 100%;
-
- .head {
- }
 
  p,
  button {
@@ -45,16 +36,26 @@ const Container = styled.div`
   border-radius: 3px;
   padding: 8px 18px;
   background: none;
+  &:hover {
+   background: #bb0dbe;
+   color: #e2ef70;
+   border: 1px solid #e2ef70;
+  }
  }
 
  .features,
  .artists {
   padding: 30px;
   height: min-content;
+ }
+
+ .features,
+ .users-container{
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  line-height: 30px;
  }
 
  .features {
@@ -63,6 +64,14 @@ const Container = styled.div`
 
  .artists {
   background-color: #ffe7ff;
+ }
+
+ h4{
+  text-align:center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  font-weight:bold;
  }
 
  .connect,
@@ -77,7 +86,7 @@ const Container = styled.div`
   align-items: center;
   background: white;
   margin: 10px;
-  padding: 15px;
+  padding: 23px 10px 23px 10px;
   border-radius: 10px;
   box-shadow: 1px 3px 8px 0px rgba(148, 148, 148, 1);
  }
@@ -85,86 +94,95 @@ const Container = styled.div`
  .collaborate,
  .learn,
  .create {
-  height: 10rem;
-  width: 25rem;
+  height: auto;
+  width: 21rem;
  }
  .user1,
  .user2,
  .user3 {
-  height: 10rem;
-  width: 35rem;
+  height: auto;
+  width: 30rem;
+  padding: 3rem;
+  text-align: center;
  }
 
  .feature {
-  margin: 5px;
   font-family: 'Oswald', sans-serif;
+  margin: 15px 0px 15px 0px;
+  font-size: 1.5rem;
  }
  .description {
   font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
  }
 `;
+//FEATURE ICONS
+const ConnectIcon = styled.img.attrs({
+ src: `${connect}`,
+})`
+ width: auto;
+ height: 100%;
+ object-fit: cover;
+}
+`;
 
-function Home() {
+const CollaborateIcon = styled.img.attrs({
+ src: `${collaborate}`,
+})`
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+ }
+ `;
+
+const LearnIcon = styled.img.attrs({
+ src: `${learn}`,
+})`
+  width: 14.8%;
+  height: auto;
+  object-fit: cover;
+ }
+ `;
+
+const CreateIcon = styled.img.attrs({
+ src: `${create}`,
+})`
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+ }
+ `;
+
+function Features() {
  return (
+  <>
   <Container>
-   <Img src="../assets/images/main.jpeg" />
-   <section className="head">
-    <p>FIND A MUSICIAN IN YOUR AREA</p>
-    <button>BROWSE EVENTS</button>
-   </section>
    <section className="features">
     <div className="connect">
-     <div className="icon">ICON</div>
+     <ConnectIcon src="../assets/images/connect.jpg" />
      <div className="feature">CONNECT</div>
      <div className="description">Grow your network of Artists</div>
     </div>
     <div className="collaborate">
-     <div className="icon">ICON</div>
+     <CollaborateIcon src="../assets/images/collaborate.jpg" />
      <div className="feature">COLLABORATE</div>
      <div className="description">Jam with amazing People</div>
     </div>
     <div className="learn">
-     <div className="icon">ICON</div>
+     <LearnIcon src="../assets/images/learn.jpg" />
      <div className="feature">LEARN</div>
      <div className="description">Pick up a thing or two</div>
     </div>
     <div className="create">
-     <div className="icon">ICON</div>
+     <CreateIcon src="../assets/images/create.jpg" />
      <div className="feature">CREATE</div>
      <div className="description">Make new sounds</div>
     </div>
    </section>
-   <section className="artists">
-    <div className="user1">
-     <div className="icon">USER ICON</div>
-     <div className="feature">MARINA BEKKER</div>
-     <div className="description">
-      Before Arpeggio, It was so difficult to find someone to .......Lorem Ipsum
-     </div>
-    </div>
-    <div className="user2">
-     <div className="icon">USER ICON</div>
-     <div className="feature">MARINA BEKKER</div>
-     <div className="description">
-      Before Arpeggio, It was so difficult to find someone to .......Lorem Ipsum
-     </div>
-    </div>
-    <div className="user3">
-     <div className="icon">USER ICON</div>
-     <div className="feature">MARINA BEKKER</div>
-     <div className="description">
-      Before Arpeggio, It was so difficult to find someone to .......Lorem Ipsum
-     </div>
-    </div>
-   </section>
   </Container>
+  </>
  );
 }
 
-export default Home;
+export default Features;
 
-// background-position:fixed;
-// background-size: cover;
-// background-repeat: no-repeat;
-// background-image: url(${main});
-// overflow:hidden;

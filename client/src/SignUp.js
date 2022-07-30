@@ -78,7 +78,7 @@ class Signup extends Component {
 
 	handleSubmit = (e) => {
 
-		axios.post("https://localhost:3000/signup", {
+		axios.post("https://localhost:3000/api/signup", {
 			user: {
 				first_name: this.state.first_name,
 				last_name: this.state.last_name,

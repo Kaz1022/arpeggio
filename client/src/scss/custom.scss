@@ -1,18 +1,23 @@
-// @import "../../node_modules/bootstrap/scss/functions";
-// @import "../../node_modules/bootstrap/scss/variables";
-
-// testing bootstrap modification
+//CUSTOMIZED BOOTSTRAP COLOURS
 $primary: #BB0DBE;
-$secondary:  rgba(187, 13, 190, 0.8);
+$secondary: rgba(187, 13, 190, 0.8);
 $dark: #49205E;
 $light: #FFE7FF;
 $success: #E2EF70;
-$info: #E2EF70;
+$info: #555;
 $warning: #ff0;
 $danger: #f00;
 
 
-
-//import bootstrap
+//IMPORT BOOTSTRAP
 // @import "~bootstrap/scss/bootstrap.scss";
 @import"../../node_modules/bootstrap/scss/bootstrap.scss";
+
+
+//FONTS
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Roboto:wght@300&display=swap');
+
+:root{
+  --bs-font-sans-serif:'Oswald', sans-serif;
+  --bs-body-font-family: 'Roboto', sans-serif;
+}

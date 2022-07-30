@@ -1,5 +1,6 @@
 import React from 'react';
-import Home from './components/Home';
+import Footer from './components/Footer';
+import Home from './components/Home/Main';
 import NavigationBar from './components/NavigationBar';
 
 
@@ -9,6 +10,7 @@ function App() {
    <>
     <NavigationBar />
     <Home/>
+    <Footer/>
    </>
   </div>
  );

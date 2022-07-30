@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_30_211721) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_30_212832) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,10 +59,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_30_211721) do
   end
 
   create_table "user_favourites", force: :cascade do |t|
-    t.integer "event_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["event_id"], name: "index_user_favourites_on_event_id"
+    t.index ["user_id"], name: "index_user_favourites_on_user_id"
   end
 
   create_table "user_instruments", force: :cascade do |t|
@@ -93,6 +95,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_30_211721) do
   add_foreign_key "event_instruments", "events"
   add_foreign_key "event_instruments", "instruments"
   add_foreign_key "events", "users"
+  add_foreign_key "user_favourites", "events"
+  add_foreign_key "user_favourites", "users"
   add_foreign_key "user_instruments", "instruments"
   add_foreign_key "user_instruments", "users"
 end

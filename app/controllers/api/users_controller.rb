@@ -19,14 +19,14 @@ class Api::UsersController < ApplicationController
         params.require(:user).permit(
           :first_name,
           :last_name,
-          :username,
+          :handle,
           :email,
           :country,
           :password,
           :password_confirmation,
-          :picture,
+          :profile_image,
           :city,
-          :phone,
+          :phone
         )
       end
   end

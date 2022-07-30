@@ -7,7 +7,7 @@ class Signup extends Component {
 		this.state = {
       first_name: '',
       last_name: '',
-			username: '',
+			handle: '',
 			email: '',
 			password: '',
 			password_confirmation: '',
@@ -34,7 +34,7 @@ class Signup extends Component {
 		});
 	}
 
-	handleUsernameChange = (e) => {
+	handleHandleChange = (e) => {
 		this.setState({
 			username: e.target.value,
 		});
@@ -82,7 +82,7 @@ class Signup extends Component {
 			user: {
 				first_name: this.state.first_name,
 				last_name: this.state.last_name,
-				username: this.state.username,
+				handle: this.state.username,
 				email: this.state.email,
 				password: this.password,
 				password_confirmation: this.password_confirmation,
@@ -125,7 +125,7 @@ render() {
 				<input
           onChange={this.handleUsernameChange}
           type="text"
-          name="username"
+          name="handle"
           placeholder="Username"
           required
           />

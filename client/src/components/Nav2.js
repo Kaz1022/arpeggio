@@ -3,23 +3,22 @@ import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import '../scss/custom.scss';
 import styled from 'styled-components';
 
-const Styles = styled.div`
+const Styles2 = styled.div`
   .navbar {
     background-color: rgba(187, 13, 190, 0.8);
   }
 
-  .navbar-brand {
+  .navbar-brand{
+    font-family: var(--bs-font-sans-serif);
+    font-size: 3em;
     color: #49205E;
-    font-weight: bold;
-    font: roboto;
-    font-size: 3.5em;
   }
 
   .navbar-nav, .nav-item, .nav-link {
+    font-family: var(--bs-font-sans-serif);
     color: #E2EF70;
     font-weight: bold;
     font-size: 20px;
-    text-shadow: 1px 1px 1px #49205E;
     margin-left: 1em;
   }
 
@@ -39,7 +38,7 @@ const Styles = styled.div`
 
 function Nav2(props) {
   return (
-    <Styles>
+    <Styles2>
       <Navbar expand="lg">
         <Container>
         <Navbar.Brand href="/">ARPEGGIO</Navbar.Brand>
@@ -62,7 +61,7 @@ function Nav2(props) {
         </Navbar.Collapse>
         </Container>
       </Navbar>
-    </Styles>
+    </Styles2>
   );
 }
 

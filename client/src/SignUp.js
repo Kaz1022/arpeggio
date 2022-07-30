@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Signup extends Component {
 	constructor(props) {
@@ -6,14 +7,19 @@ class Signup extends Component {
 		this.state = {
       first_name: '',
       last_name: '',
-			username: '',
+			handle: '',
 			email: '',
 			password: '',
-			picture: '',
+			password_confirmation: '',
+			registrationErrors: '',
+			profile_image: '',
       city: '',
       country: '',
       phone: ''
-		};
+		}
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleEmailChange = this.handleEmailChange.bind(this);
 	}
 
   handleFirstNameChange = (e) => {
@@ -28,7 +34,7 @@ class Signup extends Component {
 		});
 	}
 
-	handleUsernameChange = (e) => {
+	handleHandleChange = (e) => {
 		this.setState({
 			username: e.target.value,
 		});
@@ -46,9 +52,15 @@ class Signup extends Component {
 		});
 	}
 
+	handlePasswordConfirmChange = (e) => {
+		this.setState({
+			password_confirmation: e.target.value,
+		});
+	}
+
 	handleAvatarChange = (e) => {
 		this.setState({
-			picture: e.target.files[0],
+			profile_image: e.target.value,
 		});
 	}
 
@@ -70,14 +82,56 @@ class Signup extends Component {
 		});
 	}
 
+	handleSubmit = (e) => {
+
+		axios.post("https://localhost:3000/api/signup", {
+			user: {
+				first_name: this.state.first_name,
+				last_name: this.state.last_name,
+				handle: this.state.username,
+				email: this.state.email,
+				password: this.password,
+				password_confirmation: this.password_confirmation,
+				profile_image: this.profile_image,
+				city: this.city,
+				phone: this.phone,
+				country: this.country
+			}
+		},
+		{ withCredentials: true }
+		).then(response => {
+			console.log("registration res", response);
+		}).catch(error => {
+			console.log("registration error", error);
+		})
+		e.preventDefault();
+	}
+
+
 render() {
   return (
-	  <form onSubmit={this.onSubmitHandler}>
+	  <form onSubmit={this.handleSubmit}>
 		  <h1>Sign up form</h1>
 				<input
-          onChange={this.handleUsernameChange}
+          onChange={this.handleFirstNameChange}
           type="text"
-          name="username"
+          name="first_name"
+          placeholder="First Name"
+          required
+          />
+
+					<input
+          onChange={this.handleLastNameChange}
+          type="text"
+          name="last_name"
+          placeholder="Last Name"
+          required
+          />
+
+				<input
+          onChange={this.handleHandleChange}
+          type="text"
+          name="handle"
           placeholder="Username"
           required
           />
@@ -87,6 +141,7 @@ render() {
           type="email"
           name="email"
           placeholder="Email"
+					value={this.state.email}
           required
         />
           
@@ -95,13 +150,25 @@ render() {
           type="password"
           name="password"
           placeholder="Password"
+					value ={this.state.password}
+          required
+			/>
+
+				<input
+          onChange={this.handlePasswordConfirmChange}
+          type="password"
+          name="password_confirmation"
+          placeholder="Password Conformation"
+					value ={this.state.password_confirmation}
           required
 			/>
 			
         <input
           onChange={this.handleAvatarChange}
-          type="file"
-          accept="/images/*"
+          type="text"
+          name="profile_picture"
+          placeholder="Profile picture"
+          required
         />   
         <input
           onChange={this.handleCityChange}

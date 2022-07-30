@@ -11,6 +11,8 @@ const Img = styled.img.attrs({
  object-fit: cover;
  object-position: top;
  background: linear-gradient(45deg, pink, pink, hotpink);
+ opacity: 0.92;
+}
 `;
 //this linear gradient doesnt work, working on it
 
@@ -45,6 +47,11 @@ const Container = styled.div`
   border-radius: 3px;
   padding: 8px 18px;
   background: none;
+  &:hover {
+      background: #BB0DBE;
+      color: #e2ef70;
+      border: 1px solid #e2ef70;
+  }
  }
 
  .features,

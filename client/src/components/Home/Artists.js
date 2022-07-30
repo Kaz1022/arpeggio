@@ -1,31 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import '../scss/custom.scss';
-//ICONS
-import main from '../assets/images/main.jpeg';
-import connect from '../assets/images/connect.jpg';
-import collaborate from '../assets/images/collaborate.jpg';
-import learn from '../assets/images/learn.jpg';
-import create from '../assets/images/create.jpg';
-//USER IMAGES
-import marina from '../assets/images/marina.jpg';
-import kaz from '../assets/images/kaz.jpg';
-import michaela from '../assets/images/michaela.jpg';
+import '../../scss/custom.scss';
 
-const Img = styled.img.attrs({
- src: `${main}`,
-})`
- width: 100vw;
- height: 100%;
- object-fit: cover;
- object-position: top;
- opacity: 0.92;
-}
-`;
+//USER IMAGES
+import marina from '../../assets/images/marina.jpg';
+import kaz from '../../assets/images/kaz.jpg';
+import michaela from '../../assets/images/michaela.jpg';
+
 
 const Container = styled.div`
  position: relative;
- height: 75vh;
+ height: auto;
  width: 100%;
 
  p,
@@ -131,42 +116,6 @@ const Container = styled.div`
   font-size: 1.3rem;
  }
 `;
-//FEATURE ICONS
-const ConnectIcon = styled.img.attrs({
- src: `${connect}`,
-})`
- width: auto;
- height: 100%;
- object-fit: cover;
-}
-`;
-
-const CollaborateIcon = styled.img.attrs({
- src: `${collaborate}`,
-})`
-  width: auto;
-  height: 100%;
-  object-fit: cover;
- }
- `;
-
-const LearnIcon = styled.img.attrs({
- src: `${learn}`,
-})`
-  width: 14.8%;
-  height: auto;
-  object-fit: cover;
- }
- `;
-
-const CreateIcon = styled.img.attrs({
- src: `${create}`,
-})`
-  width: auto;
-  height: 100%;
-  object-fit: cover;
- }
- `;
 
 //USER ICONS
 const MarinaIcon = styled.img.attrs({
@@ -196,36 +145,10 @@ const MichaelaIcon = styled.img.attrs({
  }
  `;
 
-function Home() {
+function Artists() {
  return (
+  <>
   <Container>
-   <Img src="../assets/images/main.jpeg" />
-   <section className="head">
-    <p>FIND A MUSICIAN IN YOUR AREA</p>
-    <button>BROWSE EVENTS</button>
-   </section>
-   <section className="features">
-    <div className="connect">
-     <ConnectIcon src="../assets/images/connect.jpg" />
-     <div className="feature">CONNECT</div>
-     <div className="description">Grow your network of Artists</div>
-    </div>
-    <div className="collaborate">
-     <CollaborateIcon src="../assets/images/collaborate.jpg" />
-     <div className="feature">COLLABORATE</div>
-     <div className="description">Jam with amazing People</div>
-    </div>
-    <div className="learn">
-     <LearnIcon src="../assets/images/learn.jpg" />
-     <div className="feature">LEARN</div>
-     <div className="description">Pick up a thing or two</div>
-    </div>
-    <div className="create">
-     <CreateIcon src="../assets/images/create.jpg" />
-     <div className="feature">CREATE</div>
-     <div className="description">Make new sounds</div>
-    </div>
-   </section>
    <section className="artists">
     <h4>FEATURED ARTISTS</h4>
     <div className="users-container">
@@ -268,13 +191,9 @@ function Home() {
     </div>
    </section>
   </Container>
+  </>
  );
 }
 
-export default Home;
+export default Artists;
 
-// background-position:fixed;
-// background-size: cover;
-// background-repeat: no-repeat;
-// background-image: url(${main});
-// overflow:hidden;

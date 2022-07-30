@@ -12,7 +12,7 @@ class Signup extends Component {
 			password: '',
 			password_confirmation: '',
 			registrationErrors: '',
-			picture: '',
+			profile_image: '',
       city: '',
       country: '',
       phone: ''
@@ -52,9 +52,15 @@ class Signup extends Component {
 		});
 	}
 
+	handlePasswordConfirmChange = (e) => {
+		this.setState({
+			password_confirmation: e.target.value,
+		});
+	}
+
 	handleAvatarChange = (e) => {
 		this.setState({
-			picture: e.target.files[0],
+			profile_image: e.target.value,
 		});
 	}
 
@@ -86,7 +92,7 @@ class Signup extends Component {
 				email: this.state.email,
 				password: this.password,
 				password_confirmation: this.password_confirmation,
-				picture: this.picture,
+				profile_image: this.profile_image,
 				city: this.city,
 				phone: this.phone,
 				country: this.country
@@ -123,7 +129,7 @@ render() {
           />
 
 				<input
-          onChange={this.handleUsernameChange}
+          onChange={this.handleHandleChange}
           type="text"
           name="handle"
           placeholder="Username"
@@ -147,12 +153,21 @@ render() {
 					value ={this.state.password}
           required
 			/>
+
+				<input
+          onChange={this.handlePasswordConfirmChange}
+          type="password"
+          name="password_confirmation"
+          placeholder="Password Conformation"
+					value ={this.state.password_confirmation}
+          required
+			/>
 			
         <input
           onChange={this.handleAvatarChange}
           type="text"
-          name="handle"
-          placeholder="Username"
+          name="profile_picture"
+          placeholder="Profile picture"
           required
         />   
         <input

@@ -12,7 +12,6 @@ import marina from '../assets/images/marina.jpg';
 import kaz from '../assets/images/kaz.jpg';
 import michaela from '../assets/images/michaela.jpg';
 
-
 const Img = styled.img.attrs({
  src: `${main}`,
 })`
@@ -63,6 +62,10 @@ const Container = styled.div`
  .artists {
   padding: 30px;
   height: min-content;
+ }
+
+ .features,
+ .users-container{
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -76,6 +79,14 @@ const Container = styled.div`
 
  .artists {
   background-color: #ffe7ff;
+ }
+
+ h4{
+  text-align:center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  font-weight:bold;
  }
 
  .connect,
@@ -107,13 +118,13 @@ const Container = styled.div`
   height: auto;
   width: 30rem;
   padding: 3rem;
-  text-align:center;
+  text-align: center;
  }
 
  .feature {
   font-family: 'Oswald', sans-serif;
   margin: 15px 0px 15px 0px;
-  font-size:1.5rem;
+  font-size: 1.5rem;
  }
  .description {
   font-family: 'Roboto', sans-serif;
@@ -131,54 +142,54 @@ const ConnectIcon = styled.img.attrs({
 `;
 
 const CollaborateIcon = styled.img.attrs({
-  src: `${collaborate}`,
- })`
+ src: `${collaborate}`,
+})`
   width: auto;
   height: 100%;
   object-fit: cover;
  }
  `;
 
- const LearnIcon = styled.img.attrs({
-  src: `${learn}`,
- })`
+const LearnIcon = styled.img.attrs({
+ src: `${learn}`,
+})`
   width: 14.8%;
   height: auto;
   object-fit: cover;
  }
  `;
 
- const CreateIcon = styled.img.attrs({
-  src: `${create}`,
- })`
+const CreateIcon = styled.img.attrs({
+ src: `${create}`,
+})`
   width: auto;
   height: 100%;
   object-fit: cover;
  }
  `;
 
- //USER ICONS
- const MarinaIcon = styled.img.attrs({
-  src: `${marina}`,
- })`
+//USER ICONS
+const MarinaIcon = styled.img.attrs({
+ src: `${marina}`,
+})`
   width: auto;
   height: 100%;
   object-fit: cover;
  }
  `;
 
- const KazIcon = styled.img.attrs({
-  src: `${kaz}`,
- })`
+const KazIcon = styled.img.attrs({
+ src: `${kaz}`,
+})`
   width: auto;
   height: 100%;
   object-fit: cover;
  }
  `;
 
- const MichaelaIcon = styled.img.attrs({
-  src: `${michaela}`,
- })`
+const MichaelaIcon = styled.img.attrs({
+ src: `${michaela}`,
+})`
   width: auto;
   height: 100%;
   object-fit: cover;
@@ -216,25 +227,43 @@ function Home() {
     </div>
    </section>
    <section className="artists">
-    <div className="user1">
-    <MarinaIcon src="../assets/images/marina.jpg" />
-     <div className="feature">MARINA BEKKER</div>
-     <div className="description">
-     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis finibus ex, sit amet faucibus ante. Integer vel est sit amet mi pharetra maximus. Integer et augue sagittis, semper dui et, gravida elit. Quisque pellentesque commodo mi, vitae aliquam ante euismod quis. Praesent lobortis dictum urna faucibus ultrices. Vivamus tincidunt mi eget nulla laoreet, a consectetur sapien mollis.
+    <h4>FEATURED ARTISTS</h4>
+    <div className="users-container">
+     <div className="user1">
+      <MarinaIcon src="../assets/images/marina.jpg" />
+      <div className="feature">MARINA BEKKER</div>
+      <div className="description">
+       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis
+       finibus ex, sit amet faucibus ante. Integer vel est sit amet mi pharetra
+       maximus. Integer et augue sagittis, semper dui et, gravida elit. Quisque
+       pellentesque commodo mi, vitae aliquam ante euismod quis. Praesent
+       lobortis dictum urna faucibus ultrices. Vivamus tincidunt mi eget nulla
+       laoreet, a consectetur sapien mollis.
+      </div>
      </div>
-    </div>
-    <div className="user2">
-    <KazIcon src="../assets/images/kaz.jpg" />
-     <div className="feature">KAZ BAYNTON</div>
-     <div className="description">
-     Aenean tempor dui pretium lorem tempor, vitae commodo nulla elementum. Ut semper orci rhoncus odio pellentesque, eu viverra leo tempus. Mauris tempus, mi ac molestie posuere, sem nisl laoreet libero, sit amet viverra orci ipsum at quam. Phasellus quam orci, dignissim sit amet diam eu, rhoncus ornare nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+     <div className="user2">
+      <KazIcon src="../assets/images/kaz.jpg" />
+      <div className="feature">KAZ BAYNTON</div>
+      <div className="description">
+       Aenean tempor dui pretium lorem tempor, vitae commodo nulla elementum. Ut
+       semper orci rhoncus odio pellentesque, eu viverra leo tempus. Mauris
+       tempus, mi ac molestie posuere, sem nisl laoreet libero, sit amet viverra
+       orci ipsum at quam. Phasellus quam orci, dignissim sit amet diam eu,
+       rhoncus ornare nunc. Lorem ipsum dolor sit amet, consectetur adipiscing
+       elit.
+      </div>
      </div>
-    </div>
-    <div className="user3">
-    <MichaelaIcon src="../assets/images/michaela.jpg" />
+     <div className="user3">
+      <MichaelaIcon src="../assets/images/michaela.jpg" />
       <div className="feature">MICHAELA KING</div>
       <div className="description">
-      Morbi dapibus nec libero vitae accumsan. Nunc condimentum mattis quam eu tincidunt. Morbi pellentesque dictum mauris in ultrices. Pellentesque dignissim leo in vestibulum convallis. Vestibulum sollicitudin dolor sit amet lobortis tempus. Maecenas quis pulvinar metus, quis viverra dolor. Ut maximus, sem non dictum vulputate, tortor arcu tempor nulla. Nec consectetur libero vitae accumsantst.
+       Morbi dapibus nec libero vitae accumsan. Nunc condimentum mattis quam eu
+       tincidunt. Morbi pellentesque dictum mauris in ultrices. Pellentesque
+       dignissim leo in vestibulum convallis. Vestibulum sollicitudin dolor sit
+       amet lobortis tempus. Maecenas quis pulvinar metus, quis viverra dolor.
+       Ut maximus, sem non dictum vulputate, tortor arcu tempor nulla. Nec
+       consectetur libero vitae accumsantst.
+      </div>
      </div>
     </div>
    </section>

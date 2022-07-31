@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     resources :users, only: %i[create]
+    resources :events
 
     get "/me", to: "users#show"
     post "/signup", to: "users#create"

@@ -112,12 +112,12 @@ class Signup extends Component {
 render() {
   return (
 		<div className="base-container">
-		<div className="header">Register</div>
+		<div className="header"><h1>Sign up form</h1></div>
 		<div className="content">
 			<div className="form">
     		<div className="form-group">
 	  			<form onSubmit={this.handleSubmit}>
-		  <h1>Sign up form</h1>
+		  
 				<input
           onChange={this.handleFirstNameChange}
           type="text"

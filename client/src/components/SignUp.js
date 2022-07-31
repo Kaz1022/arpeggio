@@ -7,9 +7,7 @@ function Register() {
  return (
   <>
   <NavigationBar></NavigationBar>
-  <SignupForm> 
-
-  </SignupForm>
+  <SignupForm></SignupForm>
   <Footer></Footer>
 
   </>

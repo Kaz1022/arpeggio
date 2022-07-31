@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../scss/signup.scss';
 
 class Signup extends Component {
 	constructor(props) {
@@ -110,6 +111,11 @@ class Signup extends Component {
 
 render() {
   return (
+		<div className="base-container">
+		<div className="header">Register</div>
+		<div className="content">
+		<div className="form">
+    <div className="form-group">
 	  <form onSubmit={this.handleSubmit}>
 		  <h1>Sign up form</h1>
 				<input
@@ -198,6 +204,10 @@ render() {
           Create Account
         </button>
     </form>
+		</div>
+		</div>
+		</div>
+		</div>
 		);
 	}
 }

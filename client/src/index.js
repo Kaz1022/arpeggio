@@ -5,11 +5,13 @@ import App from './App';
 import Signup from './components/SignUp';
 import EventList from './components/Events/EventList';
 import './App.scss'
+import NavigationBar from './components/NavigationBar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
  <React.StrictMode>
   <BrowserRouter>
+  <NavigationBar/>
    <Routes>
     <Route path="/" element={<App />} />
     <Route path="/signup" element={<Signup />} />

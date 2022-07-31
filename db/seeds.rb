@@ -61,5 +61,19 @@ users = User.create!([
     country: "Canada",
     profile_public: true
   }
-
 ])
+
+instruments = Instrument.create!([
+  {name: "Guitar"},
+  {name: "Keyboard"},
+  {name: "Violin"},
+  {name: "Ukulele"},
+  {name: "Piano"},
+  {name: "Flute"},
+  {name: "Drum"},
+  {name: "Banjo"}  
+])
+
+
+
+

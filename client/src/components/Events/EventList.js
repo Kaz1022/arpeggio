@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import EventListItem from './EventListItem';
+import styled from 'styled-components';
+import '../../scss/custom.scss';
+
 
 const api_url = `http://localhost:3000/api/events`;
+
+const Styles = styled.div`
+.event{
+  background:#FCFCFC;
+}
+`;
 
 function EventList() {
  const [state, setState] = useState({ items: [] });
@@ -20,9 +29,8 @@ function EventList() {
 
  console.log(state.items);
  return (
-  // <>
+  <Styles>
    <div className="event">
-    EVENT LIST .JS
     {state.items.map((item) => {
      return (
       // <>
@@ -31,7 +39,7 @@ function EventList() {
      );
     })}
    </div>
-  // </>
+  </Styles>
  );
 }
 

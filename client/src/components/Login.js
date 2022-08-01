@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../scss/signup.scss';
+import Footer from './Footer';
+import NavigationBar from './NavigationBar';
 
 class Login extends Component {
 	constructor(props) {
@@ -25,15 +27,15 @@ class Login extends Component {
 		});
 	}
 
-
 	handleSubmit = (e) => {
     console.log("submitted")
 
 	}
 
-
 render() {
   return (
+    <>
+    <NavigationBar></NavigationBar>
 		<div className="base-container">
 		<div className="header"><h1>Log in</h1></div>
 		<div className="content">
@@ -65,6 +67,8 @@ render() {
 		</div>
 		</div>
 		</div>
+    <Footer></Footer>
+    </>
 		);
 	}
 }

@@ -4,14 +4,6 @@ import '../../scss/custom.scss';
 import Features from './Features';
 //ICONS
 import main from '../../assets/images/main.jpeg';
-import connect from '../../assets/images/connect.jpg';
-import collaborate from '../../assets/images/collaborate.jpg';
-import learn from '../../assets/images/learn.jpg';
-import create from '../../assets/images/create.jpg';
-//USER IMAGES
-import marina from '../../assets/images/marina.jpg';
-import kaz from '../../assets/images/kaz.jpg';
-import michaela from '../../assets/images/michaela.jpg';
 import Artists from './Artists';
 
 const Img = styled.img.attrs({
@@ -141,7 +133,7 @@ function Main() {
    <Img src="../assets/images/main.jpeg" />
    <section className="head">
     <p>FIND A MUSICIAN IN YOUR AREA</p>
-    <button>BROWSE EVENTS</button>
+    <a href="/events"><button className="m-1">BROWSE EVENTS</button></a>
    </section>
   </Container>
   <Features/>
@@ -151,9 +143,3 @@ function Main() {
 }
 
 export default Main;
-
-// background-position:fixed;
-// background-size: cover;
-// background-repeat: no-repeat;
-// background-image: url(${main});
-// overflow:hidden;

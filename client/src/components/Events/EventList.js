@@ -18,9 +18,9 @@ function EventList() {
   getEvents();
  }, []);
 
+ console.log(state.items);
  return (
   <div>
-    console.log(state.items);
    EVENT LIST .JS
    <EventListItem />
   </div>

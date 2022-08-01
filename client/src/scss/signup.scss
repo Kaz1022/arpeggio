@@ -9,6 +9,17 @@
     font-family: "Open Sans", sans-serif;
   }
 
+  button {
+    //transform: translate(-50%, -50%);
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: 8px 18px;
+    background: #bb0dbe;;
+    color: #e2ef70;
+    border: 1px solid #e2ef70;
+
+   }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -24,7 +35,6 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        //width: fit-content;
         label {
           font-size: 20px;
         }

@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import Signup from './components/SignUp';
 import EventList from './components/Events/EventList';
-import './App.scss';
 import NavigationBar from './components/NavigationBar';
 import Footer from './components/Footer';
 import './App.scss'
@@ -18,8 +17,8 @@ root.render(
    <Routes>
     <Route path="/" element={<App />} />
     <Route path="/signup" element={<Signup />} />
-    <Route path="/events" element={<EventList />} />
     <Route path="/login" element={<Login />} />
+    <Route path="/events" element={<EventList />} />
    </Routes>
    <Footer />
   </BrowserRouter>

@@ -7,6 +7,8 @@ import EventList from './components/Events/EventList';
 import './App.scss';
 import NavigationBar from './components/NavigationBar';
 import Footer from './components/Footer';
+import './App.scss'
+import Login from './components/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +19,7 @@ root.render(
     <Route path="/" element={<App />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/events" element={<EventList />} />
+    <Route path="/login" element={<Login />} />
    </Routes>
    <Footer />
   </BrowserRouter>

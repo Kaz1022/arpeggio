@@ -1,21 +1,28 @@
 class Api::UsersController < ApplicationController
 
-    def create
-        user = User.create!(
-          email: params['user']['email']
-          password: params['user']['password']3
-          password_confirmation: params['user']['password_confirmation']
-          city: params['user']['city']
-          country: params['user']['country']
-          phone: params['user']['phone']
-          handle: params['user']['handle']
-          handle: params['user']['handle']
-          profile_image: params['user']['profile_image']
-        )
-        else
-          render json: {status: 500 }
-        end
-      end
+   # GET /users
+   def index
+    @users = User.all
+
+    render json: @users
+  end
+
+    # def create
+    #     user = User.create!(
+    #       email: params['user']['email']
+    #       password: params['user']['password']3
+    #       password_confirmation: params['user']['password_confirmation']
+    #       city: params['user']['city']
+    #       country: params['user']['country']
+    #       phone: params['user']['phone']
+    #       handle: params['user']['handle']
+    #       handle: params['user']['handle']
+    #       profile_image: params['user']['profile_image']
+    #     )
+    #     else
+    #       render json: {status: 500 }
+    #     end
+    #   end
     
   end
   

@@ -37,9 +37,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_205303) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
-    t.date "event_date"
-    t.time "start_time"
-    t.time "end_time"
     t.string "city"
     t.string "country"
     t.string "level"
@@ -51,6 +48,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_205303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.date "event_date"
+    t.time "start_time"
+    t.time "end_time"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 

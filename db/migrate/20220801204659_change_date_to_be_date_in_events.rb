@@ -1,5 +1,6 @@
 class ChangeDateToBeDateInEvents < ActiveRecord::Migration[7.0]
   def change
-    change_column :events, :event_date, :date
+    remove_column :events, :event_date
+    add_column :events, :event_date, :date
   end
 end

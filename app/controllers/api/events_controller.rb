@@ -1,11 +1,11 @@
 class Api::EventsController < ApplicationController
   before_action :set_event, only: %i[show update destroy]
-
+  
   # GET /events
   def index
     @events = Event.all
-    @instruments = Instrument.all
-    render json: @events.to_json(:include => :event_instruments )
+    render json: @events.to_json(:include => [:event_instruments, :instruments] )
+    # render json: @events, each_serializer: EventSerializer
   end
 
   # GET /events/1

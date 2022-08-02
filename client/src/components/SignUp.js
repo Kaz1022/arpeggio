@@ -1,7 +1,7 @@
 import React from 'react';
 import SignupForm from './SignUpForm';
 
-function Register() {
+function Signup() {
  return (
   <>
    <SignupForm></SignupForm>
@@ -9,4 +9,4 @@ function Register() {
  );
 }
 
-export default Register;
+export default Signup;

@@ -1,28 +1,44 @@
 class Api::UsersController < ApplicationController
+  # skip_before_action :authenticate_user
 
    # GET /users
    def index
     @users = User.all
-
     render json: @users
-  end
+   end
 
-    # def create
-    #     user = User.create!(
-    #       email: params['user']['email']
-    #       password: params['user']['password']3
-    #       password_confirmation: params['user']['password_confirmation']
-    #       city: params['user']['city']
-    #       country: params['user']['country']
-    #       phone: params['user']['phone']
-    #       handle: params['user']['handle']
-    #       handle: params['user']['handle']
-    #       profile_image: params['user']['profile_image']
-    #     )
-    #     else
-    #       render json: {status: 500 }
-    #     end
-    #   end
+   def new
+    @user = User.new
+   end
+
+   def create
+    @user = User.new(user_params)
+
+    if @user.save
+      session[:user_id] = @user.id
+      render json: @user, status: :created
+    else
+      render :new
+    end
+
+   end
+
+   private
+
+   def user_params
+    params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :handle,
+      :email,
+      :password,
+      # :password_confirmation,
+      :profile_image,
+      :city,
+      :country,
+      :phone
+    )
+   end
     
   end
   

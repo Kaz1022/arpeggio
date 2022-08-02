@@ -7,6 +7,11 @@ EventInstrument.destroy_all
 
 puts "Seeding Data ..."
 
+# Helper functions
+def open_asset(file_name)
+  File.open(Rails.root.join('db', 'assets', file_name))
+end
+
 users = User.create!([
   {
     first_name: "John",
@@ -15,7 +20,7 @@ users = User.create!([
     email: "johnsmith@test.com",
     password: "password",
     phone: "778-229-5711",
-    profile_image: "user1.jpg",
+    profile_image: open_asset("user1.jpg"),
     city: "Toronto",
     country: "Canada",
     profile_public: true
@@ -27,7 +32,7 @@ users = User.create!([
     email: "emilybrown@test.com",
     password: "password",
     phone: "777-888-9999",
-    profile_image: "test image",
+    profile_image: open_asset("user2.jpg"),
     city: "Toronto",
     country: "Canada",
     profile_public: true
@@ -39,7 +44,7 @@ users = User.create!([
     email: "mikelee@test.com",
     password: "password",
     phone: "999-888-7777",
-    profile_image: "test image",
+    profile_image: open_asset("user3.jpg"),
     city: "Vancouver",
     country: "Canada",
     profile_public: true
@@ -51,7 +56,7 @@ users = User.create!([
     email: "annaclark@test.com",
     password: "password",
     phone: "888-666-7777",
-    profile_image: "test image" ,
+    profile_image: open_asset("user4.jpg") ,
     city: "Vancouver",
     country: "Canada",
     profile_public: true
@@ -63,7 +68,7 @@ users = User.create!([
     email: "davidmiller@test.com",
     password: "password",
     phone: "333-555-7777",
-    profile_image: "test image",
+    profile_image: open_asset("user5.jpg"),
     city: "Duncan",
     country: "Canada",
     profile_public: true
@@ -94,7 +99,7 @@ events= Event.create!([
     level: "Beginner Friendly",
     venue_style: "In my garage",
     genre: "Alternative rock",
-    event_image: "test image",
+    event_image: open_asset("event1.jpg"),
     description: "Hi! I live in downtown Toronto and looking for two guitarists to jam with me! All levels are welcome. My current favourite band is Arkells.",
     post_active: true
   },
@@ -110,7 +115,7 @@ events= Event.create!([
     level: "Intermediate",
     venue_style: "At my studio",
     genre: "Indie Rock",
-    event_image: "test image",
+    event_image: open_asset("event2.jpg"),
     description: "I play the guitar and I am looking for a drummer and a vocalist to make some music together! Nothing serious but just for fun.",
     post_active: true
   },
@@ -126,7 +131,7 @@ events= Event.create!([
     level: "Any level",
     venue_style: "My Garage",
     genre: "Indie Rock",
-    event_image: "test image",
+    event_image: open_asset("event3.jpg"),
     description: "I have drums in my garage and I've been practicing by myself. I would love to exchange some tips and play with others just for fun!",
     post_active: true
   },
@@ -142,7 +147,7 @@ events= Event.create!([
     level: "Intermediate",
     venue_style: "Rooftop",
     genre: "Any",
-    event_image: "test image",
+    event_image: open_asset("event4.jpg"),
     description: "My apartment has a nice rooftop and I like to play music there. It's in Kits. Let's jam together!",
     post_active: true
   },

@@ -4,11 +4,12 @@ Rails.application.routes.draw do
     resources :events
 
     post :signup, to: "users#create"
+    post :login, to: 'sessions#login'
+    delete :logout, to: 'sessions#logout'
+    get :logged_in, to: 'sessions#logged_in?'
   end
 
-    get "/me", to: "users#show"
-    post "/login", to: "sessions#create"
-    delete "/logout", to: "sessions#destroy"
-    get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
+  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end
+
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import '../../scss/custom.scss';
 
 
-const api_url = `http://localhost:3000/api/events`;
+const events_api_url = `http://localhost:3000/api/events`;
 
 const Styles = styled.div`
 .event{
@@ -16,7 +16,7 @@ function EventList() {
  const [state, setState] = useState({ items: [] });
 
  function getEvents() {
-  fetch(api_url)
+  fetch(events_api_url)
    .then((response) => response.json())
    .then((response_items) => {
     setState({ items: response_items });

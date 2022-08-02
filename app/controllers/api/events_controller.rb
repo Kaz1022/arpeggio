@@ -4,8 +4,8 @@ class Api::EventsController < ApplicationController
   # GET /events
   def index
     @events = Event.all
-
-    render json: @events
+    @instruments = Instrument.all
+    render json: @events.to_json(:include => :event_instruments )
   end
 
   # GET /events/1
@@ -47,7 +47,7 @@ class Api::EventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_params
-    params.require(:event).permit(:task)
+    params.require(:event).permit( :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :post_active, :created_at, :updated_at, :user_id, :event_date, :start_time, :end_time)
   end
 
 end

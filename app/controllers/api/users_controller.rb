@@ -16,7 +16,11 @@ class Api::UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      render json: @user, status: :created
+      render json: {
+            status: :created,
+            logged_in: true,  
+            user: @user
+            }
     else
       render :new
     end
@@ -32,7 +36,7 @@ class Api::UsersController < ApplicationController
       :handle,
       :email,
       :password,
-      # :password_confirmation,
+      :password_confirmation,
       :profile_image,
       :city,
       :country,

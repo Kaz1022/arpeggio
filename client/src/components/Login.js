@@ -1,57 +1,72 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../scss/signup.scss';
 
-class Login extends Component {
- constructor(props) {
-  super(props);
-  this.state = {
-   handle: '',
-   password: '',
-  };
+function Login (props) {
 
-  this.handleSubmit = this.handleSubmit.bind(this);
- }
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [success, setSuccess] = useState(false);
 
- handleHandleChange = (e) => {
-  this.setState({
-   handle: e.target.value,
-  });
- };
+  const navigate = useNavigate();
 
- handlePasswordChange = (e) => {
-  this.setState({
-   password: e.target.value,
-  });
- };
+  const handleSubmit = (e) => {
+    axios.post("/api/sessions",
+            {
+                user: {
+                    email: email,
+                    password: password,
+                }
+            },
+            { withCredentials: true }
+        ).then(response => {
+          if (response.data.logged_in) {
+            console.log("response data >>>", response.data);
+            setSuccess(true);
+            props.handleLogin(response.data)
+            navigate('/events');
+          }     
+        }).catch(error => {
+            console.log("registration error", error)
+        })
+    e.preventDefault();
+  }
 
- handleSubmit = (e) => {
-  console.log('submitted');
- };
-
- render() {
   return (
    <>
+    {success ? (
+      <section>
+          <h1>You are logged in!</h1>
+          <br />
+          <p>
+            <a href="/">Go to Home</a>
+          </p>
+      </section>
+    ) : (
     <div className="base-container">
-     <div className="header">
-      <h1>Log in</h1>
+      <div className="header">
+        <h1>Log in</h1>
      </div>
      <div className="content">
       <div className="form">
        <div className="form-group">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
          <input
-          onChange={this.handleHandleChange}
-          type="text"
-          name="handle"
-          placeholder="Username"
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={ e => setEmail(e.target.value)}
+          value={email}
           required
          />
 
          <input
-          onChange={this.handlePasswordChange}
           type="password"
           name="password"
           placeholder="Password"
+          onChange={ e => setPassword(e.target.value)}
+          value={password}
           required
          />
 
@@ -61,8 +76,8 @@ class Login extends Component {
       </div>
      </div>
     </div>
+    )}
    </>
   );
- }
 }
 export default Login;

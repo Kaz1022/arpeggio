@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../scss/signup.scss';
 
-function SignUpFrom () {
+function SignUpFrom (props) {
 
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
@@ -15,6 +16,8 @@ function SignUpFrom () {
   const [country, setCountry] = useState("")
   const [phone, setPhone] = useState("")
 
+	const navigate = useNavigate();
+
 	const handleSubmit = (e) => {
 		console.log("Submitted SignUp Form!")
 		axios.post("/api/signup",
@@ -25,7 +28,7 @@ function SignUpFrom () {
                     email: email,
 										handle: handle,
                     password: password,
-                    // password_confirmation: passwordConfirmation,
+                    password_confirmation: passwordConfirmation,
 										profile_image: profileImage,
 										city: city,
 										country: country,
@@ -34,7 +37,12 @@ function SignUpFrom () {
             },
             { withCredentials: true }
         ).then(response => {
-            console.log("registration res", response)
+					console.log(response);
+					if (response.data.status === 'created') {
+							console.log("signup POST is successful. response data:", response.data);
+							props.handleLogin(response.data);
+							navigate('/dashboard');
+					}
         }).catch(error => {
             console.log("registration error", error)
         })

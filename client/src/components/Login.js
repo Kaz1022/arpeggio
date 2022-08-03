@@ -1,16 +1,14 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from '../context/AuthProvider';
+import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import '../scss/signup.scss';
 
 const LOGIN_URL = "/api/login";
 
 function Login () {
-  const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
@@ -21,22 +19,23 @@ function Login () {
 
   useEffect(() => {
     setErrMsg('');
-  }, [user, password])
+  }, [email, password])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
+    axios.post("/api/login",
+            {
+                user: {
+                    email: email,
+                    password: password,
+                }
+            },
+            { withCredentials: true }
+        ).then(response => {
+            console.log("response >>>", response)
+        }).catch(error => {
+            console.log("registration error", error)
+        })
     e.preventDefault();
-
-    try {
-      const response = await axios.post(LOGIN_URL,
-        JSON.stringify({}))
-
-    } catch (err) {
-
-    }
-
-    setUser('');
-    setPassword('');
-    setSuccess(true);
   }
 
   return (
@@ -60,12 +59,12 @@ function Login () {
        <div className="form-group">
         <form onSubmit={handleSubmit}>
          <input
-          type="text"
-          name="handle"
-          placeholder="Username"
+          type="email"
+          name="email"
+          placeholder="Email"
           ref={userRef}
-          onChange={ e => setUser(e.target.value)}
-          value={user}
+          onChange={ e => setEmail(e.target.value)}
+          value={email}
           required
          />
 

@@ -1,57 +1,71 @@
-import React, { Component } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
+import AuthContext from '../context/AuthProvider';
+import axios from 'axios';
 import '../scss/signup.scss';
 
-class Login extends Component {
- constructor(props) {
-  super(props);
-  this.state = {
-   handle: '',
-   password: '',
-  };
+const LOGIN_URL = "/api/login";
 
-  this.handleSubmit = this.handleSubmit.bind(this);
- }
+function Login () {
+  const { setAuth } = useContext(AuthContext);
+  const userRef = useRef();
+  const errRef = useRef();
 
- handleHandleChange = (e) => {
-  this.setState({
-   handle: e.target.value,
-  });
- };
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
 
- handlePasswordChange = (e) => {
-  this.setState({
-   password: e.target.value,
-  });
- };
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
 
- handleSubmit = (e) => {
-  console.log('submitted');
- };
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, password])
 
- render() {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUser('');
+    setPassword('');
+    setSuccess(true);
+  }
+
   return (
    <>
+    {success ? (
+      <section>
+          <h1>You are logged in!</h1>
+          <br />
+          <p>
+            <a href="#">Go to Home</a>
+          </p>
+      </section>
+    ) : (
     <div className="base-container">
-     <div className="header">
-      <h1>Log in</h1>
+      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+      <div className="header">
+        <h1>Log in</h1>
      </div>
      <div className="content">
       <div className="form">
        <div className="form-group">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
          <input
-          onChange={this.handleHandleChange}
           type="text"
           name="handle"
           placeholder="Username"
+          ref={userRef}
+          onChange={ e => setUser(e.target.value)}
+          value={user}
           required
          />
 
          <input
-          onChange={this.handlePasswordChange}
           type="password"
           name="password"
           placeholder="Password"
+          onChange={ e => setPassword(e.target.value)}
+          value={password}
           required
          />
 
@@ -61,8 +75,8 @@ class Login extends Component {
       </div>
      </div>
     </div>
+    )}
    </>
   );
- }
 }
 export default Login;

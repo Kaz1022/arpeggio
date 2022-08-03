@@ -8,6 +8,11 @@ class Api::EventsController < ApplicationController
     # render json: @events, each_serializer: EventSerializer
   end
 
+  def search_city
+    @events = Event.where("city = ?", params[:city])
+    render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
+  end
+  
   # GET /events/1
   def show
     render json: @event

@@ -25,7 +25,7 @@ function NavigationBar() {
   <Styles>
    <Navbar bg="light" expand="lg">
     <Container fluid>
-     <Navbar.Brand href="#">ARPEGGIO</Navbar.Brand>
+     <Navbar.Brand href="/">ARPEGGIO</Navbar.Brand>
      <Navbar.Toggle aria-controls="navbarScroll" />
      <Navbar.Collapse className="justify-content-end">
       <Nav>

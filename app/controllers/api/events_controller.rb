@@ -1,11 +1,11 @@
 class Api::EventsController < ApplicationController
   before_action :set_event, only: %i[show update destroy]
-
+  
   # GET /events
   def index
     @events = Event.all
-
-    render json: @events
+    render json: @events.to_json(:include => [:event_instruments, :instruments])
+    # render json: @events, each_serializer: EventSerializer
   end
 
   # GET /events/1
@@ -47,7 +47,7 @@ class Api::EventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_params
-    params.require(:event).permit(:task)
+    params.require(:event).permit( :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :post_active, :created_at, :updated_at, :user_id, :event_date, :start_time, :end_time)
   end
 
 end

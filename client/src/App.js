@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Signup from './components/SignUp';
 import EventList from './components/Events/EventList';
@@ -9,37 +9,37 @@ import Home from './components/Home/Main';
 import Dashboard from './components/Dashboard';
 import './App.scss';
 
-class App extends Component {
+function App () {
 
-  constructor() {
-    super();
+  const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
+  const [currentUser, setCurrentUser] = useState({})
 
-    this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
-    }
+  function handleLogin (user) {
+    setLoggedInStatus("LOGGED_IN")
+    setCurrentUser(user)
   }
-  render() {
-    return (
-      <Router>
-        <div className="page-container">
-          <NavigationBar />
-          
-          <Routes>
-            <Route exact path ="/" element={<Home loggedInStatus={this.state.loggedInStatus}/>} />
-            <Route exact path ="/dashboard" element={<Dashboard loggedInStatus={this.state.loggedInStatus} />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/events" element={<EventList />} />
-          </Routes>
-          
-          <div className="content-wrapper">
-            <Footer />
-          </div>
+
+
+  return (
+    <Router>
+      <div className="page-container">
+        <NavigationBar />
+        
+        <Routes>
+          <Route exact path ="/" element={<Home loggedInStatus={loggedInStatus}/>} />
+          <Route exact path ="/dashboard" element={<Dashboard loggedInStatus={loggedInStatus} />} />
+          <Route path="/signup" element={<Signup handleLogin={handleLogin} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/events" element={<EventList />} />
+        </Routes>
+        
+        <div className="content-wrapper">
+          <Footer />
         </div>
-      </Router>
-    );
-  }
+      </div>
+    </Router>
+  );
 }
+
 
 export default App;

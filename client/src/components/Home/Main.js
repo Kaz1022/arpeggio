@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
 import Features from './Features';
@@ -126,27 +126,22 @@ const Container = styled.div`
  }
 `;
 
-class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    return (
-      <>
-      <Container>
-      <h1>Status: {this.props.loggedInStatus}</h1>
-      <Img src="../assets/images/main.jpeg" />
-      <section className="head">
-        <p>FIND A MUSICIAN IN YOUR AREA</p>
-        <a href="/events"><button className="m-1">BROWSE EVENTS</button></a>
-      </section>
-      </Container>
-      <Features/>
-      <Artists/>
-      </>
-    );
-  }
+function Main(props) {
+
+  return (
+    <>
+    <Container>
+    <h1>Status: {props.loggedInStatus}</h1>
+    <Img src="../assets/images/main.jpeg" />
+    <section className="head">
+      <p>FIND A MUSICIAN IN YOUR AREA</p>
+      <a href="/events"><button className="m-1">BROWSE EVENTS</button></a>
+    </section>
+    </Container>
+    <Features/>
+    <Artists/>
+    </>
+  );
 }
 
 export default Main;

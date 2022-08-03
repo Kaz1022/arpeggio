@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Signup from './components/SignUp';
 import EventList from './components/Events/EventList';
 import NavigationBar from './components/NavigationBar';
@@ -14,9 +15,29 @@ function App () {
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [currentUser, setCurrentUser] = useState({})
 
-  function handleLogin (user) {
+  function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
-    setCurrentUser(user)
+    setCurrentUser(data.user)
+  }
+
+  useEffect(() => {
+    checkLoginStatus()
+  }, []);
+
+  const checkLoginStatus = () => {
+    axios.get("/api/logged_in", { withCredentials: true })
+      .then(response => {
+        console.log("logged in status >>>>>", response.data);
+        if (response.data.logged_in && loggedInStatus === "NOT_LOGGED_IN") {
+          setLoggedInStatus("LOGGED_IN")
+          setCurrentUser(response.data.user)
+        } else if (!response.data.logged_in && loggedInStatus === "LOGGED_IN") {
+          setLoggedInStatus("NOT_LOGGED_IN")
+          setCurrentUser({})
+        }
+    }).catch(error => {
+      console.log("Login Error", error);
+    })
   }
 
 
@@ -29,7 +50,7 @@ function App () {
           <Route exact path ="/" element={<Home loggedInStatus={loggedInStatus}/>} />
           <Route exact path ="/dashboard" element={<Dashboard loggedInStatus={loggedInStatus} />} />
           <Route path="/signup" element={<Signup handleLogin={handleLogin} />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
           <Route path="/events" element={<EventList />} />
         </Routes>
         

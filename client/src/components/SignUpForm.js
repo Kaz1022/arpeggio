@@ -24,7 +24,7 @@ function SignUpFrom () {
 										last_name: lastName,
                     email: email,
 										handle: handle,
-                    password_digest: password,
+                    password: password,
                     password_confirmation: passwordConfirmation,
 										profile_image: profileImage,
 										city: city,

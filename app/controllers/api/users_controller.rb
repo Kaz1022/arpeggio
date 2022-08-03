@@ -31,7 +31,7 @@ class Api::UsersController < ApplicationController
       :last_name,
       :handle,
       :email,
-      :password_digest,
+      :password,
       :password_confirmation,
       :profile_image,
       :city,

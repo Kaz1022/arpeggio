@@ -4,7 +4,7 @@ class Api::EventsController < ApplicationController
   # GET /events
   def index
     @events = Event.all
-    render json: @events.to_json(:include => [:event_instruments, :instruments])
+    render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
     # render json: @events, each_serializer: EventSerializer
   end
 

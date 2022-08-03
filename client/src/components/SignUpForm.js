@@ -41,7 +41,7 @@ function SignUpFrom (props) {
 					if (response.data.status === 'created') {
 							console.log("signup POST is successful. response data:", response.data);
 							props.handleLogin(response.data);
-							navigate('/dashboard');
+							navigate('/events');
 					}
         }).catch(error => {
             console.log("registration error", error)

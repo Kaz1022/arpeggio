@@ -7,7 +7,7 @@ function Login (props) {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ function Login (props) {
         ).then(response => {
           if (response.data.logged_in) {
             console.log("response data >>>", response.data);
-            setSuccess(true);
+            // setSuccess(true);
             props.handleLogin(response.data)
             navigate('/events');
           }     

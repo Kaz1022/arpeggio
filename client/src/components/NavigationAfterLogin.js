@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import '../scss/custom.scss';
 import styled from 'styled-components';
@@ -55,17 +55,15 @@ function NavigationAfterLogin(props) {
     <Styles2>
       <Navbar expand="lg">
         <Container>
-        <Navbar.Brand href="/">ARPEGGIO</Navbar.Brand>
+        <Navbar.Brand  as={Link} to="/">ARPEGGIO</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav className="ml-auto">
-            <Nav.Item><Nav.Link href="/favourite">MY FAVOURITES</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link as={Link} to="/favourites">MY FAVOURITES</Nav.Link></Nav.Item>
             <NavDropdown title={<span>Hello, {props.currentUser.first_name}!</span>} id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">MY PROFILE</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                CREATE A SESSION
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">MY SESSIONS</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/myprofile">MY PROFILE</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/session/new">CREATE A SESSION</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/mysessions">MY SESSIONS</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={handleLogoutClick}>
                 LOGOUT

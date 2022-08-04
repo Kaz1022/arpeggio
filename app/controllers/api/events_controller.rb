@@ -9,8 +9,6 @@ class Api::EventsController < ApplicationController
   end
 
   def search
-    # @events = Event.where("city = ? ", params[:city])
-    # @events = Event.where("city = ? AND level = ? AND genre = ? AND instrument = ?", params[:city], params[:level], params[:genre], params[:instrument])
     @events = Event.joins(:instruments)
     .where(instruments: { name: params[:instrument] })
     .where('city = ? AND level = ? AND genre = ?', params[:city], params[:level], params[:genre])  

@@ -21,7 +21,13 @@ const Styles = styled.div`
 function EventFilter() {
  const [events, setEvents] = useState([]);
  const [query, setQuery] = useState([]);
+
+ const [city, setCity] = useState([]);
+ const [level, setLevel] = useState([]);
+ const [genre, setGenre] = useState([]);
+ const [instrument, setInstrument] = useState([]);
  
+
  useEffect(function () {
   axios
    .get(`http://localhost:3000/api/events`)
@@ -31,7 +37,6 @@ function EventFilter() {
 
  const handleSubmit = (e) => {
   e.preventDefault();
-  // console.log(e.target.options[e.target.selectedIndex].text);
   axios
    .get(
     'http://localhost:3000/api/events/search/' + city + "/" + level + "/" + genre + "/" + instrument
@@ -40,28 +45,20 @@ function EventFilter() {
    .then((err) => console.log(err));
  };
 
- let city;
  const onChangeCity = (e) => {
-  city = e.target.options[e.target.selectedIndex].text;
-  console.log(city);
+  setCity(e.target.options[e.target.selectedIndex].text)
  };
 
- let instrument;
  const onChangeInstrument = (e) => {
-  instrument = e.target.options[e.target.selectedIndex].text;
-  console.log(instrument);
+  setInstrument(e.target.options[e.target.selectedIndex].text)
  };
 
- let level;
  const onChangeLevel = (e) => {
-  level = e.target.options[e.target.selectedIndex].text;
-  console.log(level);
+  setLevel(e.target.options[e.target.selectedIndex].text);
  };
 
- let genre;
  const onChangeGenre = (e) => {
-  genre = e.target.options[e.target.selectedIndex].text;
-  console.log(genre);
+  setGenre(e.target.options[e.target.selectedIndex].text);
  };
 
 

@@ -21,6 +21,7 @@ const Styles = styled.div`
 function EventFilter() {
  const [events, setEvents] = useState([]);
  const [query, setQuery] = useState([]);
+ 
  useEffect(function () {
   axios
    .get(`http://localhost:3000/api/events`)

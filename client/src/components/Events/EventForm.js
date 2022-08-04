@@ -20,7 +20,7 @@ function NewEvent (props) {
 
 	const handleSubmit = (e) => {
 		console.log("Submitted new event!")
-		axios.post("/api/signup",
+		axios.post("/api/new_event",
             {
                 events: {
 										title: title,

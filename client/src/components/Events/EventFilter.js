@@ -22,10 +22,10 @@ function EventFilter() {
  const [events, setEvents] = useState([]);
  const [query, setQuery] = useState([]);
 
- const [city, setCity] = useState([]);
- const [level, setLevel] = useState([]);
- const [genre, setGenre] = useState([]);
- const [instrument, setInstrument] = useState([]);
+ const [city, setCity] = useState();
+ const [level, setLevel] = useState();
+ const [genre, setGenre] = useState();
+ const [instrument, setInstrument] = useState();
  
 
  useEffect(function () {

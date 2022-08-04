@@ -8,8 +8,10 @@ class Api::EventsController < ApplicationController
     # render json: @events, each_serializer: EventSerializer
   end
 
-  def search_city
-    @events = Event.where("city = ?", params[:city])
+  def search
+    @events = Event.where("city = ? ", params[:city])
+    # @events = Event.where("city = ? AND level = ? AND genre = ?", params[:city], params[:level], params[:genre])
+
     render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
   end
   

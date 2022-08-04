@@ -3,6 +3,7 @@ import EventListItem from './EventListItem';
 import EventFilter from './EventFilter';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
+import '../../App.scss';
 
 const api_url = `http://localhost:3000/api/events`;
 

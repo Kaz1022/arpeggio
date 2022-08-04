@@ -2,14 +2,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users
     resources :events 
-    # do
-    #     collection do
-    #     get :search_city
-    #   end
-    # end
-
+    
     post :signup, to: "users#create"
-    get "/events/search_city/:city", to: "events#search_city"
+    get "/events/search/:city", to: "events#search"
+    # get "/events/search/:city/:level/:genre", to: "events#search"
   end
   
     get "/me", to: "users#show"

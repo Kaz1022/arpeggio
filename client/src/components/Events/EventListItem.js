@@ -2,6 +2,7 @@ import React from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
+import '../../App.scss';
 
 import main from '../../assets/images/main.jpeg';
 

@@ -3,20 +3,20 @@ import EventListItem from './EventListItem';
 import EventFilter from './EventFilter';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
-
+import '../../App.scss';
 
 const api_url = `http://localhost:3000/api/events`;
 
 const Styles = styled.div`
-.event{
-  background:#FCFCFC;
-}
+ .event {
+  background: #fcfcfc;
+ }
 `;
 
 function EventList() {
  const [state, setState] = useState({ items: [] });
 
- function getEvents() {
+ function getData() {
   fetch(api_url)
    .then((response) => response.json())
    .then((response_items) => {
@@ -25,21 +25,37 @@ function EventList() {
  }
 
  useEffect(() => {
-  getEvents();
+  getData();
  }, []);
 
- console.log(state.items);
+//  console.log(state.items);
  return (
   <Styles>
-    <div className="event">
-    {state.items.map((item) => {
+   <div className="event">
+    <EventFilter api-url={api_url} state={state}/>
+    {/* {state.items.map((item) => {
      return (
       <>
-       <EventFilter prompt="Select"/>
-       <EventListItem key={item.id} title={item.title} date={item.event_date} start={item.start_time} end={item.end_time} city={item.city} country={item.country} level={item.level} venue={item.venue_style} genre={item.genre} image={item.event_image} description={item.description} status={item.post_active} created={item.created_at}/>
+       <EventListItem
+        key={item.id}
+        title={item.title}
+        user={item.user.handle}
+        date={item.event_date}
+        start={item.start_time}
+        end={item.end_time}
+        city={item.city}
+        country={item.country}
+        level={item.level}
+        venue={item.venue_style}
+        genre={item.genre}
+        image={item.event_image}
+        description={item.description}
+        status={item.post_active}
+        created={item.created_at}
+       />
       </>
      );
-    })}
+    })} */}
    </div>
   </Styles>
  );

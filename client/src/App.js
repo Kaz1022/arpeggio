@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import axios from 'axios';
 import Signup from './components/SignUp';
 import EventList from './components/Events/EventList';
 import NavigationBar from './components/NavigationBar';
+import NavigationAfterLogin from './components/NavigationAfterLogin';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
@@ -18,6 +19,11 @@ function App () {
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
     setCurrentUser(data.user)
+  }
+
+  function handleLogout () {
+    setLoggedInStatus("NOT_LOGGED_IN")
+    setCurrentUser({})
   }
 
   useEffect(() => {
@@ -44,8 +50,13 @@ function App () {
   return (
     <Router>
       <div className="page-container">
+
+      {loggedInStatus ===  "LOGGED_IN" ? (
+        <NavigationAfterLogin handleLogout={handleLogout}　loggedInStatus={loggedInStatus} />
+        ): (
         <NavigationBar />
-        
+        )
+      } 
         <Routes>
           <Route exact path ="/" element={<Home loggedInStatus={loggedInStatus}/>} />
           <Route exact path ="/dashboard" element={<Dashboard loggedInStatus={loggedInStatus} />} />

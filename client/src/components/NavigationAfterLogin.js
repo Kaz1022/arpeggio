@@ -1,7 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import '../scss/custom.scss';
 import styled from 'styled-components';
+
 
 const Styles2 = styled.div`
   .navbar {
@@ -36,7 +38,15 @@ const Styles2 = styled.div`
   }
 `;
 
-function Nav2(props) {
+function NavigationAfterLogin(props) {
+
+  const handleLogoutClick = () => {
+    axios.delete("/api/logout", { withCredentials: true })
+        .then(response => {
+            props.handleLogout()
+        }).catch(error => console.log("Logout Error >>> ", error))
+}
+
   return (
     <Styles2>
       <Navbar expand="lg">
@@ -53,7 +63,7 @@ function Nav2(props) {
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">MY SESSIONS</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
+              <NavDropdown.Item onClick={handleLogoutClick}>
                 LOGOUT
               </NavDropdown.Item>
             </NavDropdown>
@@ -65,4 +75,4 @@ function Nav2(props) {
   );
 }
 
-export default Nav2;
+export default NavigationAfterLogin;

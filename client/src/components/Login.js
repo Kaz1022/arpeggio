@@ -35,15 +35,6 @@ function Login (props) {
 
   return (
    <>
-    {success ? (
-      <section>
-          <h1>You are logged in!</h1>
-          <br />
-          <p>
-            <a href="/">Go to Home</a>
-          </p>
-      </section>
-    ) : (
     <div className="base-container">
       <div className="header">
         <h1>Log in</h1>
@@ -76,7 +67,6 @@ function Login (props) {
       </div>
      </div>
     </div>
-    )}
    </>
   );
 }

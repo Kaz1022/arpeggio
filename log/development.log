@@ -841,3 +841,561 @@ puma (5.6.4) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
   [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "38afa28f1810889a67b03821365d1109a2b88dad"], ["created_at", "2022-07-29 00:24:40.872195"], ["updated_at", "2022-07-29 00:24:40.872195"]]
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
   [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:13:29 -0700
+Started GET "/api/events" for ::1 at 2022-08-03 19:13:29 -0700
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::EventsController#index as */*
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 33ms (Views: 0.2ms | ActiveRecord: 3.4ms | Allocations: 28685)
+
+
+  [1m[36mEvent Load (1.4ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.9ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.7ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.3ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.3ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.1ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 148ms (Views: 0.1ms | ActiveRecord: 30.8ms | Allocations: 67465)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:14:49 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 7ms (Views: 0.5ms | ActiveRecord: 1.2ms | Allocations: 801)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:15:02 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 796)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:17:20 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 0.4ms | Allocations: 798)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:35:41 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 33ms (Views: 0.6ms | ActiveRecord: 13.1ms | Allocations: 3785)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:35:58 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.5ms | Allocations: 771)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:04 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 791)
+
+
+Started POST "/api/sessions" for 127.0.0.1 at 2022-08-03 19:36:12 -0700
+Processing by Api::SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"johnsmith@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"johnsmith@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "johnsmith@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:7:in `create'
+Completed 200 OK in 744ms (Views: 0.7ms | ActiveRecord: 4.7ms | Allocations: 6602)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:36:13 -0700
+Processing by Api::EventsController#index as */*
+  [1m[36mEvent Load (1.5ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.5ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.6ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.4ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.4ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.4ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.4ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 26ms (Views: 0.1ms | ActiveRecord: 4.7ms | Allocations: 8747)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:21 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.4ms | Allocations: 960)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:23 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 11ms (Views: 0.5ms | ActiveRecord: 0.5ms | Allocations: 958)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:36:25 -0700
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:25 -0700
+Processing by Api::EventsController#index as */*
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mEventInstrument Load (1.4ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.5ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (1.0ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (1.1ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.2ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.2ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 32ms (Views: 0.1ms | ActiveRecord: 5.4ms | Allocations: 11252)
+
+
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 31ms (Views: 0.5ms | ActiveRecord: 15.4ms | Allocations: 12133)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:29 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 5ms (Views: 0.5ms | ActiveRecord: 0.5ms | Allocations: 954)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:30 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.3ms | Allocations: 958)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:32 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.4ms | Allocations: 964)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:36 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.2ms | Allocations: 952)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:37 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 5ms (Views: 0.6ms | ActiveRecord: 0.5ms | Allocations: 962)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:36:40 -0700
+Processing by Api::EventsController#index as */*
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:40 -0700
+  [1m[36mEvent Load (1.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mEventInstrument Load (0.9ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.2ms | Allocations: 1858)
+
+
+  [1m[36mInstrument Load (1.7ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.9ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.7ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.3ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.9ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 36ms (Views: 0.2ms | ActiveRecord: 7.1ms | Allocations: 10962)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:36:48 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.3ms | Allocations: 964)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:37:01 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.3ms | Allocations: 964)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:37:09 -0700
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:37:09 -0700
+Processing by Api::EventsController#index as */*
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mEvent Load (1.3ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 5ms (Views: 0.5ms | ActiveRecord: 1.9ms | Allocations: 1781)
+
+
+  [1m[36mEventInstrument Load (1.8ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.4ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (3.5ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.5ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.2ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.4ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 42ms (Views: 0.1ms | ActiveRecord: 8.5ms | Allocations: 10440)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:37:11 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.2ms | Allocations: 952)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:37:14 -0700
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:37:14 -0700
+Processing by Api::EventsController#index as */*
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.5ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mInstrument Load (2.6ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEventInstrument Load (0.2ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 5ms (Views: 0.5ms | ActiveRecord: 2.0ms | Allocations: 2239)
+
+
+  [1m[36mInstrument Load (1.1ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.3ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 30ms (Views: 0.2ms | ActiveRecord: 5.8ms | Allocations: 10642)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:38:53 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.3ms | Allocations: 952)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:39:10 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 0.9ms | ActiveRecord: 0.3ms | Allocations: 950)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:39:54 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.2ms | Allocations: 960)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:39:56 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.2ms | Allocations: 962)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:39:59 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 5ms (Views: 0.6ms | ActiveRecord: 0.5ms | Allocations: 952)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:40:23 -0700
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 44ms (Views: 0.6ms | ActiveRecord: 6.2ms | Allocations: 30117)
+
+
+Started GET "/" for ::1 at 2022-08-03 19:40:33 -0700
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/kazukobaynton/.rbenv/versions/2.7.4/lib/ruby/gems/2.7.0/gems/railties-7.0.3.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/kazukobaynton/.rbenv/versions/2.7.4/lib/ruby/gems/2.7.0/gems/railties-7.0.3.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 3.7ms | Allocations: 626)
+Completed 200 OK in 18ms (Views: 11.1ms | ActiveRecord: 0.0ms | Allocations: 3337)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:40:38 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.3ms | Allocations: 975)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:41:34 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.5ms | Allocations: 957)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:41:35 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 1.2ms | ActiveRecord: 0.3ms | Allocations: 974)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:41:37 -0700
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:41:37 -0700
+Processing by Api::EventsController#index as */*
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.9ms | Allocations: 1555)
+
+
+  [1m[36mEvent Load (1.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.6ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.7ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.5ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.3ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.2ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.4ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.2ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 93ms (Views: 0.1ms | ActiveRecord: 16.0ms | Allocations: 40752)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:46:03 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 19ms (Views: 3.3ms | ActiveRecord: 1.0ms | Allocations: 948)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:47:11 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 8ms (Views: 2.4ms | ActiveRecord: 0.3ms | Allocations: 970)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:47:57 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 2.1ms | ActiveRecord: 0.3ms | Allocations: 956)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:47:59 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.1ms | Allocations: 962)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:51:00 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 15ms (Views: 1.9ms | ActiveRecord: 1.0ms | Allocations: 960)
+
+
+Started DELETE "/api/logout" for 127.0.0.1 at 2022-08-03 19:51:01 -0700
+Processing by Api::SessionsController#logout as HTML
+Completed 200 OK in 4ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 326)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:51:47 -0700
+Processing by Api::SessionsController#logged_in as HTML
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 323)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:51:49 -0700
+Processing by Api::SessionsController#logged_in as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 317)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:51:51 -0700
+Processing by Api::SessionsController#logged_in as HTML
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 319)
+
+
+Started POST "/api/sessions" for 127.0.0.1 at 2022-08-03 19:51:58 -0700
+Processing by Api::SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"johnsmith@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"johnsmith@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "johnsmith@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:7:in `create'
+Completed 200 OK in 725ms (Views: 0.6ms | ActiveRecord: 0.5ms | Allocations: 1356)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:51:59 -0700
+Processing by Api::EventsController#index as */*
+  [1m[36mEvent Load (0.6ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.4ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.1ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.1ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.1ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.1ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.2ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 22ms (Views: 0.1ms | ActiveRecord: 2.3ms | Allocations: 8677)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:52:08 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.3ms | Allocations: 957)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:52:09 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.2ms | Allocations: 960)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:52:10 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 6ms (Views: 0.6ms | ActiveRecord: 0.3ms | Allocations: 962)
+
+
+Started GET "/api/events" for ::1 at 2022-08-03 19:52:13 -0700
+Processing by Api::EventsController#index as */*
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:52:13 -0700
+  [1m[36mEvent Load (0.6ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.2ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.1ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 1]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.1ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mInstrument Load (3.0ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 2]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.5ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 3]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mEventInstrument Load (0.3ms)[0m  [1m[34mSELECT "event_instruments".* FROM "event_instruments" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+  [1m[36mInstrument Load (0.3ms)[0m  [1m[34mSELECT "instruments".* FROM "instruments" INNER JOIN "event_instruments" ON "instruments"."id" = "event_instruments"."instrument_id" WHERE "event_instruments"."event_id" = $1[0m  [["event_id", 4]]
+  ↳ app/controllers/api/events_controller.rb:7:in `index'
+Completed 200 OK in 29ms (Views: 0.1ms | ActiveRecord: 5.5ms | Allocations: 10933)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 29ms (Views: 0.6ms | ActiveRecord: 12.1ms | Allocations: 9504)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:52:16 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 5ms (Views: 0.7ms | ActiveRecord: 1.1ms | Allocations: 954)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:52:17 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.4ms | Allocations: 948)
+
+
+Started GET "/api/logged_in" for 127.0.0.1 at 2022-08-03 19:52:19 -0700
+Processing by Api::SessionsController#logged_in as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/sessions_controller.rb:21:in `logged_in'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.3ms | Allocations: 953)
+
+
+Started DELETE "/api/logout" for 127.0.0.1 at 2022-08-03 19:52:25 -0700
+Processing by Api::SessionsController#logout as HTML
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 326)
+
+

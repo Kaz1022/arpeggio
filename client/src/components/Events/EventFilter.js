@@ -21,6 +21,7 @@ const Styles = styled.div`
 function EventFilter({}) {
  const [events, setEvents] = useState([]);
  const [query, setQuery] = useState([]);
+ console.log(query)
 
  useEffect(function () {
   axios
@@ -29,25 +30,62 @@ function EventFilter({}) {
    .then((err) => console.log(err));
  }, []);
 
- const onChangeCity = (e) => {
-  console.log(e.target.options[e.target.selectedIndex].text);
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  // console.log(e.target.options[e.target.selectedIndex].text);
   axios
    .get(
-    'http://localhost:3000/api/events/search/' + e.target.options[e.target.selectedIndex].text
+    'http://localhost:3000/api/events/search/' + city + "/" + level + "/" + genre
    )
    .then((res) => setQuery(res.data))
    .then((err) => console.log(err));
  };
 
- const onChangeInstrument = (e) => {};
-
- const onChangeLevel = (e) => {};
-
- const onChangeGenre = (e) => {};
-
- const handleSubmit = (e) => {
-  e.preventDefault();
+ let city;
+ const onChangeCity = (e) => {
+  city = e.target.options[e.target.selectedIndex].text;
+  console.log(city);
  };
+
+//  let instrument;
+ const onChangeInstrument = (e) => {
+//   instrument = e.target.options[e.target.selectedIndex].text;
+  // console.log(instrument);
+ };
+
+ let level;
+ const onChangeLevel = (e) => {
+  level = e.target.options[e.target.selectedIndex].text;
+  console.log(level);
+ };
+
+ let genre;
+ const onChangeGenre = (e) => {
+  genre = e.target.options[e.target.selectedIndex].text;
+  console.log(genre);
+ };
+
+//  const handleSubmit = (e) => {
+//   e.preventDefault();
+//  };
+
+ let uniqueVals = [];
+ function unique(event) {
+  event.filter((item, i) => {
+   if (uniqueVals.includes(item.city)) {
+    return false;
+   }
+   uniqueVals.push(item.city);
+  });
+  return uniqueVals.map((city) => city);
+ }
+ //  console.log(unique(events))
+ //  console.log(uniqueVals)
+
+ // const uniq = [ ...new Map( events.map((events) => [events.city, events]) ).values(events.city) ];
+ // console.log(uniq.map(item => item.city))
+
+ // const filteredCity = events.filter(({ city }, index) => !city.includes(city , index + 1))
 
  return (
   <Styles>
@@ -56,15 +94,16 @@ function EventFilter({}) {
      <option value="0"> Select City....</option>
      {events.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.city}{' '}
+       {eventItem.city}
       </option>
      ))}
     </select>
+
     <select className="form-select" onChange={onChangeInstrument}>
      <option value="0"> Select Instrument....</option>
      {events.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.instruments[0].name}{' '}
+       {eventItem.instruments[0].name}
       </option>
      ))}
     </select>

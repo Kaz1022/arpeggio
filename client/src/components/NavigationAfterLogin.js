@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import '../scss/custom.scss';
 import styled from 'styled-components';
@@ -40,10 +41,13 @@ const Styles2 = styled.div`
 
 function NavigationAfterLogin(props) {
 
+  const navigate = useNavigate();
+
   const handleLogoutClick = () => {
     axios.delete("/api/logout", { withCredentials: true })
         .then(response => {
-            props.handleLogout()
+            props.handleLogout();
+            navigate('/');
         }).catch(error => console.log("Logout Error >>> ", error))
 }
 

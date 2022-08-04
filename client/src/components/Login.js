@@ -35,6 +35,16 @@ function Login (props) {
 
   return (
    <>
+    {props.loggedInStatus === "LOGGED_IN" ? (
+      <div className="base-container">
+        <div className="header">
+          <h1>You're logged in!</h1>
+          <p>
+            <a href="/">Go to Home</a>
+          </p>
+        </div>
+      </div>
+    ) : (
     <div className="base-container">
       <div className="header">
         <h1>Log in</h1>
@@ -67,6 +77,7 @@ function Login (props) {
       </div>
      </div>
     </div>
+    )}
    </>
   );
 }

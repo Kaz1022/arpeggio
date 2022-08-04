@@ -4,10 +4,17 @@ class Api::EventsController < ApplicationController
   # GET /events
   def index
     @events = Event.all
-    render json: @events.to_json(:include => [:event_instruments, :instruments])
+    render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
     # render json: @events, each_serializer: EventSerializer
   end
 
+  def search
+    @events = Event.where("city = ? ", params[:city])
+    # @events = Event.where("city = ? AND level = ? AND genre = ?", params[:city], params[:level], params[:genre])
+
+    render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
+  end
+  
   # GET /events/1
   def show
     render json: @event

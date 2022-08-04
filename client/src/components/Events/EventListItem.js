@@ -2,6 +2,7 @@ import React from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
+import '../../App.scss';
 
 import main from '../../assets/images/main.jpeg';
 
@@ -21,10 +22,10 @@ const EventStyles = styled.div`
   display:flex;
   flex-direction: column;
   align-items:center;
-  // jusitify-content: center;
+  border: none;
 
 }
-.event-card{
+.eventCard{
   height: 50vh;
   // max-height: 90vh;
   width: 70%;
@@ -41,6 +42,7 @@ const EventStyles = styled.div`
   box-shadow: 1px 3px 8px 0px rgba(148, 148, 148, 1);
 }
 .event-name{
+  text-transform: uppercase;
   font-family: 'Oswald', sans-serif;
   font-size: 1.74rem;
 }
@@ -100,7 +102,8 @@ const EventStyles = styled.div`
 `;
 
 function EventListItem({
- title,
+ title, 
+ user,
  date,
  start,
  end,
@@ -117,13 +120,11 @@ function EventListItem({
  return (
   <EventStyles>
    <div className="card">
-    <div className="event-card">
+    <div className="eventCard">
       <div className="left">
       <div className="top">
-        <div className="event-name">
-        JAM SESSION THIS FRIDAY! NEED GUITARISTS!
-        </div>
-        <div className="event-organiser"><strong>By:&nbsp;&nbsp;</strong>  Mari </div>
+        <div className="event-name">{title}</div>
+        <div className="event-organiser"><strong>By:&nbsp;&nbsp;</strong>{user}</div>
         <div className="heart-icon">
         <BsHeartFill 
           style={{ color: 'whitesmoke', fontSize: "1.6rem"}}
@@ -134,24 +135,20 @@ function EventListItem({
       </div>
 
       <div className="event-details">
-        <div className="event-date"><strong>Date:&nbsp;&nbsp;</strong> Friday August 26, 2022</div>
+        <div className="event-date"><strong>Date:&nbsp;&nbsp;</strong>{date}</div>
         <div className="details">
         <div className="details1">
-          <div className="event-location"><strong>Location:&nbsp;&nbsp;</strong> Downtown Toronto </div>
-          <div className="event-level"><strong>Level:&nbsp;&nbsp;</strong> All Levels</div>
+          <div className="event-location"><strong>Location:&nbsp;&nbsp;</strong>{city}, {country}</div>
+          <div className="event-level"><strong>Level:&nbsp;&nbsp;</strong> {level}</div>
         </div>
         <div className="details2">
-          <div className="event-venue"><strong>Venue:&nbsp;&nbsp;</strong> My Home </div>
-          <div className="genre"><strong>Genre:&nbsp;&nbsp;</strong> Rock</div>
+          <div className="event-venue"><strong>Venue:&nbsp;&nbsp;</strong>{venue}</div>
+          <div className="genre"><strong>Genre:&nbsp;&nbsp;</strong>{genre}</div>
         </div>
         </div>
       </div>
 
-      <div className="event-description">
-        I am having a Jam session this Friday Night at my place. Im Looking for
-        some guitarists! Feel free to save a spot below and I will reply to you
-        ASAP!
-      </div>
+      <div className="event-description">{description}</div>
 
       <div className="spots">
         <div className="spots-heading">AVAILABLE SPOTS</div>

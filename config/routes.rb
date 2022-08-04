@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     delete :logout, to: 'sessions#logout'
     post :signup, to: "users#create"
     post :new_event, to "events#create"
+    get "/events/search/:city", to: "events#search"
+    # get "/events/search/:city/:level/:genre", to: "events#search"
   end
 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

@@ -60,7 +60,7 @@ function NavigationAfterLogin(props) {
         <Navbar.Collapse className="justify-content-end">
           <Nav className="ml-auto">
             <Nav.Item><Nav.Link href="/favourite">MY FAVOURITES</Nav.Link></Nav.Item>
-            <NavDropdown title="Hello, Mari!" id="basic-nav-dropdown">
+            <NavDropdown title={<span>Hello, {props.currentUser.first_name}!</span>} id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">MY PROFILE</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 CREATE A SESSION

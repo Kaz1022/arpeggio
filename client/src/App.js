@@ -51,7 +51,7 @@ function App () {
       <div className="page-container">
 
       {loggedInStatus ===  "LOGGED_IN" ? (
-        <NavigationAfterLogin handleLogout={handleLogout}　loggedInStatus={loggedInStatus} />
+        <NavigationAfterLogin handleLogout={handleLogout}　loggedInStatus={loggedInStatus} currentUser={currentUser} />
         ): (
         <NavigationBar />
         )

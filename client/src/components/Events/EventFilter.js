@@ -20,7 +20,7 @@ const Styles = styled.div`
 
 function EventFilter() {
  const [events, setEvents] = useState([]);
-
+ const [query, setQuery] = useState([]);
  useEffect(function () {
   axios
    .get(`http://localhost:3000/api/events`)
@@ -33,9 +33,9 @@ function EventFilter() {
   // console.log(e.target.options[e.target.selectedIndex].text);
   axios
    .get(
-    'http://localhost:3000/api/events/search/' + city + "/" + level + "/" + genre
+    'http://localhost:3000/api/events/search/' + city + "/" + level + "/" + genre + "/" + instrument
    )
-   .then((res) => setEvents(res.data))
+   .then((res) => setQuery(res.data))
    .then((err) => console.log(err));
  };
 
@@ -45,10 +45,10 @@ function EventFilter() {
   console.log(city);
  };
 
-//  let instrument;
+ let instrument;
  const onChangeInstrument = (e) => {
-//   instrument = e.target.options[e.target.selectedIndex].text;
-  // console.log(instrument);
+  instrument = e.target.options[e.target.selectedIndex].text;
+  console.log(instrument);
  };
 
  let level;
@@ -113,7 +113,7 @@ function EventFilter() {
      <option value="0"> Select Genre....</option>
      {events.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.genre}
+       {eventItem.genre}{' '}
       </option>
      ))}
     </select>
@@ -121,7 +121,36 @@ function EventFilter() {
    </div>
    <br />
    <br />
-   {events.map((item) => {
+   {query.length === 0 ? 
+
+    (events.map((item) => {
+      return (
+      <>
+        <EventListItem
+        key={item.id}
+        title={item.title}
+        user={item.user.handle}
+        date={item.event_date}
+        start={item.start_time}
+        end={item.end_time}
+        city={item.city}
+        country={item.country}
+        level={item.level}
+        venue={item.venue_style}
+        genre={item.genre}
+        image={item.event_image}
+        description={item.description}
+        status={item.post_active}
+        created={item.created_at}
+        instruments={item.instruments}
+        />
+      </>
+      );
+    }))
+    
+    :
+   
+   (query.map((item) => {
     return (
      <>
       <EventListItem
@@ -140,10 +169,13 @@ function EventFilter() {
        description={item.description}
        status={item.post_active}
        created={item.created_at}
+       instruments={item.instruments}
       />
      </>
     );
-   })}
+   }))
+   
+   }
   </Styles>
  );
 }

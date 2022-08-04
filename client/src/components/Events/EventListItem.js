@@ -116,6 +116,7 @@ function EventListItem({
  description,
  status,
  created,
+ instruments
 }) {
  return (
   <EventStyles>
@@ -172,9 +173,11 @@ function EventListItem({
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-        <div className="instrument1 instrument">1</div>
-        <div className="instrument2 instrument">2</div>
-        <div className="instrument3 instrument">3</div>
+        {instruments.map((instrument) =>{
+          return (
+        <div className="instrument1 instrument">{instrument.name}</div>
+        )
+      })}
        </div>
       </div>
      </div>

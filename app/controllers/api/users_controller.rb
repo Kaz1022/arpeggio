@@ -7,27 +7,33 @@ class Api::UsersController < ApplicationController
     render json: @users
    end
 
+   
    def new
     @user = User.new
-   end
-
-   def create
+  end
+  
+  def create
     @user = User.new(user_params)
-
+    
     if @user.save
       session[:user_id] = @user.id
       render json: {
-            status: :created,
-            logged_in: true,  
-            user: @user
-            }
+        status: :created,
+        logged_in: true,  
+        user: @user
+      }
     else
       render :new
     end
+    
+  end
 
-   end
+  def show
+    render json: @user.to_json(:include => [:event_instruments, :instruments]) = User.find(params[:id])
+  end
+  
 
-   private
+  private
 
    def user_params
     params.require(:user).permit(

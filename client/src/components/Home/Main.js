@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import '../../scss/custom.scss';
 import Features from './Features';
 //ICONS
@@ -134,7 +135,7 @@ function Main() {
     <Img src="../assets/images/main.jpeg" />
     <section className="head">
       <p>FIND A MUSICIAN IN YOUR AREA</p>
-      <a href="/events"><button className="m-1">BROWSE EVENTS</button></a>
+      <Link to="/events"><button className="m-1">BROWSE EVENTS</button></Link>
     </section>
     </Container>
     <Features/>

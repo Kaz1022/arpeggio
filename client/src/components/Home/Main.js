@@ -126,20 +126,22 @@ const Container = styled.div`
  }
 `;
 
-function Main() {
- return (
-  <>
-  <Container>
-   <Img src="../assets/images/main.jpeg" />
-   <section className="head">
-    <p>FIND A MUSICIAN IN YOUR AREA</p>
-    <a href="/events"><button className="m-1">BROWSE EVENTS</button></a>
-   </section>
-  </Container>
-  <Features/>
-  <Artists/>
-  </>
- );
+function Main(props) {
+
+  return (
+    <>
+    <Container>
+    <h1>Status: {props.loggedInStatus}</h1>
+    <Img src="../assets/images/main.jpeg" />
+    <section className="head">
+      <p>FIND A MUSICIAN IN YOUR AREA</p>
+      <a href="/events"><button className="m-1">BROWSE EVENTS</button></a>
+    </section>
+    </Container>
+    <Features/>
+    <Artists/>
+    </>
+  );
 }
 
 export default Main;

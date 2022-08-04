@@ -20,6 +20,11 @@ class Api::EventsController < ApplicationController
     render json: @event
   end
 
+  def new
+    @event = Event.new
+  end
+
+
   # POST /events
   def create
     @event = Event.new(event_params)
@@ -27,7 +32,8 @@ class Api::EventsController < ApplicationController
     if @event.save
       render json: @event, status: :created, location: @event
     else
-      render json: @event.errors, status: :unprocessable_entity
+      #render json: @event.errors, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -44,6 +50,7 @@ class Api::EventsController < ApplicationController
   def destroy
     @event.destroy
   end
+
 
   private
 

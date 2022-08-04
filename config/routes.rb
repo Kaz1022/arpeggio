@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :notes, only: [:index]
+    resources :users
+    resources :events
+    resources :sessions, only: [:create]
 
-    get "/me", to: "users#show"
-    post "/signup", to: "users#create"
-    post "/login", to: "sessions#create"
-    delete "/logout", to: "sessions#destroy"
-    get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
+    get :logged_in, to: 'sessions#logged_in'
+    delete :logout, to: 'sessions#logout'
+    post :signup, to: "users#create"
   end
+
+  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end
+
+

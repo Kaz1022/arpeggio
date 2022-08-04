@@ -7,8 +7,8 @@ import '../../App.scss';
 import main from '../../assets/images/main.jpeg';
 
 const Img = styled.img.attrs({
-  src: `${main}`,
- })`
+ src: `${main}`,
+})`
   max-width: 100%;
   height: 100%;
   flex-shrink: 0;
@@ -102,7 +102,7 @@ const EventStyles = styled.div`
 `;
 
 function EventListItem({
- title, 
+ title,
  user,
  date,
  start,
@@ -121,49 +121,69 @@ function EventListItem({
   <EventStyles>
    <div className="card">
     <div className="eventCard">
-      <div className="left">
+     <div className="left">
       <div className="top">
-        <div className="event-name">{title}</div>
-        <div className="event-organiser"><strong>By:&nbsp;&nbsp;</strong>{user}</div>
-        <div className="heart-icon">
-        <BsHeartFill 
-          style={{ color: 'whitesmoke', fontSize: "1.6rem"}}
-          onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')} //FIX ON CLICK
-          onMouseOut={({ target }) => (target.style.color = 'rgba(244, 56, 56,0.2)')}
+       <div className="event-name">{title}</div>
+       <div className="event-organiser">
+        <strong>By:&nbsp;&nbsp;</strong>
+        {user}
+       </div>
+       <div className="heart-icon">
+        <BsHeartFill
+         style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
+         onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')}
+         onMouseOut={({ target }) =>
+          (target.style.color = 'rgba(244, 56, 56,0.2)')
+         }
         />
-        </div>
+       </div>
       </div>
 
       <div className="event-details">
-        <div className="event-date"><strong>Date:&nbsp;&nbsp;</strong>{date}</div>
-        <div className="details">
+       <div className="event-date">
+        <strong>Date:&nbsp;&nbsp;</strong>
+        {date}
+       </div>
+       <div className="details">
         <div className="details1">
-          <div className="event-location"><strong>Location:&nbsp;&nbsp;</strong>{city}, {country}</div>
-          <div className="event-level"><strong>Level:&nbsp;&nbsp;</strong> {level}</div>
+         <div className="event-location">
+          <strong>Location:&nbsp;&nbsp;</strong>
+          {city}, {country}
+         </div>
+         <div className="event-level">
+          <strong>Level:&nbsp;&nbsp;</strong> {level}
+         </div>
         </div>
         <div className="details2">
-          <div className="event-venue"><strong>Venue:&nbsp;&nbsp;</strong>{venue}</div>
-          <div className="genre"><strong>Genre:&nbsp;&nbsp;</strong>{genre}</div>
+         <div className="event-venue">
+          <strong>Venue:&nbsp;&nbsp;</strong>
+          {venue}
+         </div>
+         <div className="genre">
+          <strong>Genre:&nbsp;&nbsp;</strong>
+          {genre}
+         </div>
         </div>
-        </div>
+       </div>
       </div>
 
       <div className="event-description">{description}</div>
 
       <div className="spots">
-        <div className="spots-heading">AVAILABLE SPOTS</div>
-        <div className="instrument-icons">
-          <div className="instrument1 instrument">1</div>
-          <div className="instrument2 instrument">2</div>
-          <div className="instrument3 instrument">3</div>
-        </div>
+       <div className="spots-heading">AVAILABLE SPOTS</div>
+       <div className="instrument-icons">
+        <div className="instrument1 instrument">1</div>
+        <div className="instrument2 instrument">2</div>
+        <div className="instrument3 instrument">3</div>
+       </div>
       </div>
-      </div>
+     </div>
 
-      <div className="right">
+     <div className="right">
+      <img src={image} alt=''/>
       <Img src="../assets/images/main.jpeg" />
       {/* <div>Post created ? day/s ago</div> */}
-      </div>
+     </div>
     </div>
    </div>
   </EventStyles>

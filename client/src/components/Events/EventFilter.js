@@ -18,10 +18,8 @@ const Styles = styled.div`
  }
 `;
 
-function EventFilter({}) {
+function EventFilter() {
  const [events, setEvents] = useState([]);
- const [query, setQuery] = useState([]);
- console.log(query)
 
  useEffect(function () {
   axios
@@ -37,7 +35,7 @@ function EventFilter({}) {
    .get(
     'http://localhost:3000/api/events/search/' + city + "/" + level + "/" + genre
    )
-   .then((res) => setQuery(res.data))
+   .then((res) => setEvents(res.data))
    .then((err) => console.log(err));
  };
 
@@ -65,9 +63,6 @@ function EventFilter({}) {
   console.log(genre);
  };
 
-//  const handleSubmit = (e) => {
-//   e.preventDefault();
-//  };
 
  let uniqueVals = [];
  function unique(event) {
@@ -98,7 +93,6 @@ function EventFilter({}) {
       </option>
      ))}
     </select>
-
     <select className="form-select" onChange={onChangeInstrument}>
      <option value="0"> Select Instrument....</option>
      {events.map((eventItem) => (
@@ -119,7 +113,7 @@ function EventFilter({}) {
      <option value="0"> Select Genre....</option>
      {events.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.genre}{' '}
+       {eventItem.genre}
       </option>
      ))}
     </select>
@@ -127,7 +121,7 @@ function EventFilter({}) {
    </div>
    <br />
    <br />
-   {query.map((item) => {
+   {events.map((item) => {
     return (
      <>
       <EventListItem

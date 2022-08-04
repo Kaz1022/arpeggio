@@ -126,12 +126,11 @@ const Container = styled.div`
  }
 `;
 
-function Main(props) {
+function Main() {
 
   return (
     <>
     <Container>
-    <h1>Status: {props.loggedInStatus}</h1>
     <Img src="../assets/images/main.jpeg" />
     <section className="head">
       <p>FIND A MUSICIAN IN YOUR AREA</p>

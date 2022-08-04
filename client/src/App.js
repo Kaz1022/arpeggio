@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import axios from 'axios';
 import Signup from './components/SignUp';
 import EventList from './components/Events/EventList';
 import NavigationBar from './components/NavigationBar';
+import NavigationAfterLogin from './components/NavigationAfterLogin';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
-import Dashboard from './components/Dashboard';
+import UserListItem from './components/Users/UserListItem';
 import './App.scss';
 
 function App () {
 
+  const [loading, setLoading] = useState(true);
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [currentUser, setCurrentUser] = useState({})
+
+  console.log("current user >>>", currentUser);
 
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
     setCurrentUser(data.user)
   }
 
+  function handleLogout () {
+    setLoggedInStatus("NOT_LOGGED_IN")
+    setCurrentUser({})
+  }
+
   useEffect(() => {
-    checkLoginStatus()
+    checkLoginStatus();
+    setLoading(false);
   }, []);
 
   const checkLoginStatus = () => {
@@ -42,23 +52,37 @@ function App () {
 
 
   return (
+    <>
+      {loading ? 
+      (
+        <div className="loading">
+          <h3>LOADING</h3>
+        </div>
+      )
+      : 
+      (
     <Router>
       <div className="page-container">
-        <NavigationBar />
-        
+        {loggedInStatus ===  "LOGGED_IN" ? 
+          (<NavigationAfterLogin handleLogout={handleLogout}　loggedInStatus={loggedInStatus} currentUser={currentUser} />) 
+          : (<NavigationBar />)
+        } 
         <Routes>
-          <Route exact path ="/" element={<Home loggedInStatus={loggedInStatus}/>} />
-          <Route exact path ="/dashboard" element={<Dashboard loggedInStatus={loggedInStatus} />} />
-          <Route path="/signup" element={<Signup handleLogin={handleLogin} />} />
-          <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
+          <Route exact path ="/" element={<Home />} />
+          <Route path="/signup" element={<Signup handleLogin={handleLogin} loggedInStatus={loggedInStatus} />} />
+          <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
+          <Route path="/myprofile" element={<UserListItem loggedInStatus={loggedInStatus} currentUser={currentUser} />} />
         </Routes>
-        
+
         <div className="content-wrapper">
           <Footer />
         </div>
+
       </div>
     </Router>
+      )}
+    </>    
   );
 }
 

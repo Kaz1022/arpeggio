@@ -50,6 +50,17 @@ function SignUpFrom (props) {
 	}
 	
 	return (
+		<>
+		{props.loggedInStatus === "LOGGED_IN" ? (
+      <div className="base-container">
+        <div className="header">
+          <h1>You're logged in!</h1>
+          <p>
+            <a href="/">Go to Home</a>
+          </p>
+        </div>
+      </div>
+    ) : (
 		<div className="base-container">
 			<div className="header"><h1>Sign up form</h1></div>
 				<div className="content">
@@ -154,7 +165,8 @@ function SignUpFrom (props) {
 				</div>
 			</div>
 		</div>
-
+		)}
+	</>
 	);
 }
 

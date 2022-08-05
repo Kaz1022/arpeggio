@@ -18,9 +18,15 @@ const Styles = styled.div`
  }
 `;
 
-function EventFilter({}) {
+function EventFilter() {
  const [events, setEvents] = useState([]);
  const [query, setQuery] = useState([]);
+
+ const [city, setCity] = useState();
+ const [level, setLevel] = useState();
+ const [genre, setGenre] = useState();
+ const [instrument, setInstrument] = useState();
+ 
 
  useEffect(function () {
   axios
@@ -29,25 +35,50 @@ function EventFilter({}) {
    .then((err) => console.log(err));
  }, []);
 
- const onChangeCity = (e) => {
-  console.log(e.target.options[e.target.selectedIndex].text);
+ const handleSubmit = (e) => {
+  e.preventDefault();
   axios
    .get(
-    'http://localhost:3000/api/events/search/' + e.target.options[e.target.selectedIndex].text
+    'http://localhost:3000/api/events/search/' + city + "/" + level + "/" + genre + "/" + instrument
    )
    .then((res) => setQuery(res.data))
    .then((err) => console.log(err));
  };
 
- const onChangeInstrument = (e) => {};
-
- const onChangeLevel = (e) => {};
-
- const onChangeGenre = (e) => {};
-
- const handleSubmit = (e) => {
-  e.preventDefault();
+ const onChangeCity = (e) => {
+  setCity(e.target.options[e.target.selectedIndex].text)
  };
+
+ const onChangeInstrument = (e) => {
+  setInstrument(e.target.options[e.target.selectedIndex].text)
+ };
+
+ const onChangeLevel = (e) => {
+  setLevel(e.target.options[e.target.selectedIndex].text);
+ };
+
+ const onChangeGenre = (e) => {
+  setGenre(e.target.options[e.target.selectedIndex].text);
+ };
+
+
+ let uniqueVals = [];
+ function unique(event) {
+  event.filter((item, i) => {
+   if (uniqueVals.includes(item.city)) {
+    return false;
+   }
+   uniqueVals.push(item.city);
+  });
+  return uniqueVals.map((city) => city);
+ }
+ //  console.log(unique(events))
+ //  console.log(uniqueVals)
+
+ // const uniq = [ ...new Map( events.map((events) => [events.city, events]) ).values(events.city) ];
+ // console.log(uniq.map(item => item.city))
+
+ // const filteredCity = events.filter(({ city }, index) => !city.includes(city , index + 1))
 
  return (
   <Styles>
@@ -56,7 +87,7 @@ function EventFilter({}) {
      <option value="0"> Select City....</option>
      {events.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.city}{' '}
+       {eventItem.city}
       </option>
      ))}
     </select>
@@ -64,7 +95,7 @@ function EventFilter({}) {
      <option value="0"> Select Instrument....</option>
      {events.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.instruments[0].name}{' '}
+       {eventItem.instruments[0].name}
       </option>
      ))}
     </select>
@@ -88,7 +119,36 @@ function EventFilter({}) {
    </div>
    <br />
    <br />
-   {query.map((item) => {
+   {query.length === 0 ? 
+
+    (events.map((item) => {
+      return (
+      <>
+        <EventListItem
+        key={item.id}
+        title={item.title}
+        user={item.user.handle}
+        date={item.event_date}
+        start={item.start_time}
+        end={item.end_time}
+        city={item.city}
+        country={item.country}
+        level={item.level}
+        venue={item.venue_style}
+        genre={item.genre}
+        image={item.event_image}
+        description={item.description}
+        status={item.post_active}
+        created={item.created_at}
+        instruments={item.instruments}
+        />
+      </>
+      );
+    }))
+    
+    :
+   
+   (query.map((item) => {
     return (
      <>
       <EventListItem
@@ -107,10 +167,13 @@ function EventFilter({}) {
        description={item.description}
        status={item.post_active}
        created={item.created_at}
+       instruments={item.instruments}
       />
      </>
     );
-   })}
+   }))
+   
+   }
   </Styles>
  );
 }

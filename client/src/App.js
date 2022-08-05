@@ -18,9 +18,6 @@ function App () {
   const [currentUser, setCurrentUser] = useState({})
   const [currentUserImage, setCurrentUserImage] = useState({})
 
-  console.log("current user >>>", currentUser);
-  console.log("current user image >>>", currentUserImage);
-
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
     setCurrentUser(data.user)

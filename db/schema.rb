@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_02_214729) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_05_031600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -113,7 +113,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_214729) do
     t.string "handle"
     t.string "email"
     t.string "phone"
-    t.string "profile_image"
     t.string "city"
     t.string "country"
     t.boolean "profile_public"

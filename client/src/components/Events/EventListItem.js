@@ -1,6 +1,8 @@
 import React from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
+import TimeAgo from 'react-timeago'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import '../../scss/custom.scss';
 import '../../App.scss';
 
@@ -95,9 +97,18 @@ const EventStyles = styled.div`
 
 //RIGHT
 .right{
+  position: relative;
   height: 100%;
   // width:100%;
   flex:1;
+
+  .timeago{
+    color:white;
+    font-weight: bold;
+    position: absolute;
+    top:94%;
+    left: 40%;
+  }
 }
 `;
 
@@ -118,6 +129,7 @@ function EventListItem({
  created,
  instruments
 }) {
+
  return (
   <EventStyles>
    <div className="card">
@@ -185,7 +197,7 @@ function EventListItem({
      <div className="right">
       <img src={image} alt=''/>
       <Img src="../assets/images/main.jpeg" />
-      {/* <div>Post created ? day/s ago</div> */}
+      <TimeAgo className='timeago' date={created}></TimeAgo>
      </div>
     </div>
    </div>

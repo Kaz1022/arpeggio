@@ -29,7 +29,13 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    render json: @user.to_json(:include => [:event_instruments, :instruments]) = User.find(params[:id])
+    @user = User.find(params[:id])
+    @image = rails_blob_path(@user.image)
+
+    render json: {
+      user: @user,
+      image: @image
+    }
   end
   
 
@@ -43,7 +49,7 @@ class Api::UsersController < ApplicationController
       :email,
       :password,
       :password_confirmation,
-      :profile_image,
+      :image,
       :city,
       :country,
       :phone

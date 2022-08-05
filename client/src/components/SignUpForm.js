@@ -20,24 +20,23 @@ function SignUpFrom (props) {
 
 	const handleSubmit = (e) => {
 		console.log("Submitted SignUp Form!")
-		e.preventDefault()
-		const data = new FormData();
-		data.append("post[first_name]", e.target.first_name.value);
-		data.append("post[last_name]", e.target.last_name.value);
-		data.append("post[handle]", e.target.handle.value);
-		data.append("post[email]", e.target.email.value);
-		data.append("post[password]", e.target.password.value);
-		data.append("post[password_confirmation]", e.target.password_confirmation.value);
-		data.append("post[city]", e.target.city.value);
-		data.append("post[country]", e.target.country.value);
-		data.append("post[phone]", e.target.phone.value);
-		data.append("post[profile_image]", e.target.profile_image.files[0]);
-		submitToAPI(data);
-	}
-
-	const submitToAPI = (data) => {
-		axios.post("/api/signup", {data},{ withCredentials: true })
-		.then(response => {
+		axios.post("/api/signup",
+            {
+                user: {
+										first_name: firstName,
+										last_name: lastName,
+                    email: email,
+										handle: handle,
+                    password: password,
+                    password_confirmation: passwordConfirmation,
+										profile_image: profileImage,
+										city: city,
+										country: country,
+										phone: phone
+                }
+            },
+            { withCredentials: true }
+        ).then(response => {
 					console.log(response);
 					if (response.data.status === 'created') {
 							console.log("signup POST is successful. response data:", response.data);
@@ -47,7 +46,12 @@ function SignUpFrom (props) {
         }).catch(error => {
             console.log("registration error", error)
         })
-	}	
+    e.preventDefault()
+	}
+
+	// const submitToAPI(data) {
+
+	// }
 	
 	return (
 		<>
@@ -66,7 +70,8 @@ function SignUpFrom (props) {
 				<div className="content">
 					<div className="form">
 						<div className="form-group">
-							<form onSubmit={(e) => handleSubmit(e)}>
+							<form onSubmit={handleSubmit}>
+
 								<input
 									type="text"
 									name="first_name"
@@ -76,6 +81,7 @@ function SignUpFrom (props) {
 									required
 									/>
 
+									
 									<input
 									type="text"
 									name="last_name"

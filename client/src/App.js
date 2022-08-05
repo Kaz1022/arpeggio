@@ -19,6 +19,7 @@ function App () {
   const [currentUserImage, setCurrentUserImage] = useState({})
 
   console.log("current user >>>", currentUser);
+  console.log("current user image >>>", currentUserImage);
 
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
@@ -43,6 +44,7 @@ function App () {
         if (response.data.logged_in && loggedInStatus === "NOT_LOGGED_IN") {
           setLoggedInStatus("LOGGED_IN")
           setCurrentUser(response.data.user)
+          setCurrentUserImage(response.data.image)
         } else if (!response.data.logged_in && loggedInStatus === "LOGGED_IN") {
           setLoggedInStatus("NOT_LOGGED_IN")
           setCurrentUser({})

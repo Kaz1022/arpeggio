@@ -6,11 +6,13 @@ class Api::SessionsController < ApplicationController
     def create
         user = User.find_by_email(user_params[:email])
         if user && user.authenticate(user_params[:password])
+            @image = rails_blob_path(user.image)
             session[:user_id] = user.id
             render json: {
                 status: :created,
                 logged_in: true,  
-                user: user
+                user: user,
+                image: @image
         }
         else
             render json: { status: 401, errors: ['Please try again!'] }
@@ -20,9 +22,11 @@ class Api::SessionsController < ApplicationController
     def logged_in
         @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
         if @current_user
+            @image = rails_blob_path(@current_user.image)
             render json: {
                 logged_in: true,
-                user: @current_user
+                user: @current_user,
+                image: @image
             }
         else
             render json: {

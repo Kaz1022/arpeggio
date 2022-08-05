@@ -2,7 +2,6 @@ import React from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import TimeAgo from 'react-timeago'
-import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import '../../scss/custom.scss';
 import '../../App.scss';
 
@@ -31,7 +30,7 @@ const EventStyles = styled.div`
   height: 50vh;
   // max-height: 90vh;
   width: 70%;
-  margin: 50px;
+  margin: 30px;
   padding:0;
   display:flex;
   flex-wrap:wrap;

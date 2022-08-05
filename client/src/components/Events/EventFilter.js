@@ -6,15 +6,23 @@ import EventListItem from './EventListItem';
 import '../../App.scss';
 
 const Styles = styled.div`
- width: 100%;
  display: flex;
  flex-direction: column;
  justify-content: center;
 
- .dropdowns {
+ .form {
   margin: 2rem 13rem;
   display: flex;
   justify-content: center;
+
+  .btn {
+   font-weight: 600;
+   margin-left: 0.5rem;
+   padding: 8px 18px;
+   background: #bb0dbe;
+   color: #e2ef70;
+   border: 1px solid #e2ef70;
+  }
  }
 `;
 
@@ -26,7 +34,6 @@ function EventFilter() {
  const [level, setLevel] = useState();
  const [genre, setGenre] = useState();
  const [instrument, setInstrument] = useState();
- 
 
  useEffect(function () {
   axios
@@ -39,18 +46,25 @@ function EventFilter() {
   e.preventDefault();
   axios
    .get(
-    'http://localhost:3000/api/events/search/' + city + "/" + level + "/" + genre + "/" + instrument
+    'http://localhost:3000/api/events/search/' +
+     city +
+     '/' +
+     level +
+     '/' +
+     genre +
+     '/' +
+     instrument
    )
    .then((res) => setQuery(res.data))
    .then((err) => console.log(err));
  };
 
  const onChangeCity = (e) => {
-  setCity(e.target.options[e.target.selectedIndex].text)
+  setCity(e.target.options[e.target.selectedIndex].text);
  };
 
  const onChangeInstrument = (e) => {
-  setInstrument(e.target.options[e.target.selectedIndex].text)
+  setInstrument(e.target.options[e.target.selectedIndex].text);
  };
 
  const onChangeLevel = (e) => {
@@ -60,7 +74,6 @@ function EventFilter() {
  const onChangeGenre = (e) => {
   setGenre(e.target.options[e.target.selectedIndex].text);
  };
-
 
  let uniqueVals = [];
  function unique(event) {
@@ -115,65 +128,61 @@ function EventFilter() {
       </option>
      ))}
     </select>
-    <button onClick={handleSubmit}>Submit</button>
+    <button className="btn" onClick={handleSubmit}>
+     Submit
+    </button>
    </div>
    <br />
    <br />
-   {query.length === 0 ? 
-
-    (events.map((item) => {
-      return (
-      <>
-        <EventListItem
-        key={item.id}
-        title={item.title}
-        user={item.user.handle}
-        date={item.event_date}
-        start={item.start_time}
-        end={item.end_time}
-        city={item.city}
-        country={item.country}
-        level={item.level}
-        venue={item.venue_style}
-        genre={item.genre}
-        image={item.event_image}
-        description={item.description}
-        status={item.post_active}
-        created={item.created_at}
-        instruments={item.instruments}
-        />
-      </>
-      );
-    }))
-    
-    :
-   
-   (query.map((item) => {
-    return (
-     <>
-      <EventListItem
-       key={item.id}
-       title={item.title}
-       user={item.user.handle}
-       date={item.event_date}
-       start={item.start_time}
-       end={item.end_time}
-       city={item.city}
-       country={item.country}
-       level={item.level}
-       venue={item.venue_style}
-       genre={item.genre}
-       image={item.event_image}
-       description={item.description}
-       status={item.post_active}
-       created={item.created_at}
-       instruments={item.instruments}
-      />
-     </>
-    );
-   }))
-   
-   }
+   {query.length === 0
+    ? events.map((item) => {
+       return (
+        <>
+         <EventListItem
+          key={item.id}
+          title={item.title}
+          user={item.user.handle}
+          date={item.event_date}
+          start={item.start_time}
+          end={item.end_time}
+          city={item.city}
+          country={item.country}
+          level={item.level}
+          venue={item.venue_style}
+          genre={item.genre}
+          image={item.event_image}
+          description={item.description}
+          status={item.post_active}
+          created={item.created_at}
+          instruments={item.instruments}
+         />
+        </>
+       );
+      })
+    : query.map((item) => {
+       return (
+        <>
+         <EventListItem
+          key={item.id}
+          title={item.title}
+          user={item.user.handle}
+          date={item.event_date}
+          start={item.start_time}
+          end={item.end_time}
+          city={item.city}
+          country={item.country}
+          level={item.level}
+          venue={item.venue_style}
+          genre={item.genre}
+          image={item.event_image}
+          description={item.description}
+          status={item.post_active}
+          created={item.created_at}
+          instruments={item.instruments}
+         />
+        </>
+       );
+      })}
   </Styles>
  );
 }

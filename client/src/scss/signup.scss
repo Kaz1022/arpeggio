@@ -1,61 +1,79 @@
 .base-container {
-  width: 50%;
+  width: 100vw;
+  height: 80vh;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .header {
-    font-size: 24px;
-    font-family: "Open Sans", sans-serif;
+  .header h1 {
+    font-size: 3rem;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 2.5rem;
   }
 
   button {
-    //transform: translate(-50%, -50%);
+    margin-top: 1rem;
     border: 1px solid white;
     border-radius: 3px;
     padding: 8px 18px;
-    background: #bb0dbe;;
+    background: #bb0dbe;
     color: #e2ef70;
     border: 1px solid #e2ef70;
-
    }
 
   .content {
+    width: 100vw;
+    height: 80vh;
     display: flex;
     flex-direction: column;
-
-    .form {
-      margin-top: 2em;
+    justify-content: center;
+    align-items: center;
+    
+    form {
+      height:80vh;
+      margin-top: 1em;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      
+      
+      input {
+        display:flex;
+        margin: 1rem 0rem;
+        min-width: 30vw;
+        height: 2.5rem;
+        padding: 0px 10px;
+        font-size: 16px;
+        font-family: "Roboto", sans-serif;
+        background-color: #f3f3f3;
+        border: 0;
+        border-radius: 4px;
+        transition: all 250ms ease-in-out;
 
-      .form-group {
+        &:focus {
+          outline: none;
+          box-shadow: 0px 0px 4px 0.1px #b819a2b2;
+        }
+      }
+
+    }
+    .form-group {
+      
+      label {
+        font-size: 20px;
+      }
+      .container{
+        display: flex;
+        width: 100vw;
+       
+      }
+      .box{
+        width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        label {
-          font-size: 20px;
-        }
-        input {
-          margin-top: 6px;
-          min-width: 18em;
-          height: 37px;
-          padding: 0px 10px;
-          font-size: 16px;
-          font-family: "Open Sans", sans-serif;
-          background-color: #f3f3f3;
-          border: 0;
-          border-radius: 4px;
-          margin-bottom: 31px;
-          transition: all 250ms ease-in-out;
-
-          &:focus {
-            outline: none;
-            box-shadow: 0px 0px 12px 0.8px #b819a2b2;
-          }
-        }
+        margin-right: 3rem;
+        
       }
     }
   }

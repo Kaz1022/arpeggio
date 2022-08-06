@@ -41,10 +41,10 @@ class Api::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(image: params[:image])
-    image_url = rails_blob_path(@user.image)
+    @image = rails_blob_path(@user.image)
     render json: {
       user: @user,
-      image: image_url
+      image: @image
     }
 end
   

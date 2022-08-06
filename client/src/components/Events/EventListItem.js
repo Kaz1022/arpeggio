@@ -205,14 +205,14 @@ function EventListItem({
          return (
           <>
            <div className="instrument1 instrument">
-            {/* {instruments.map((instrument) => { */}
-             <ImgDrums src="../assets/images/drums_a.png" />
-            {/* })
-            } */}
+            {[...Array(instrument_num.quantity)].map((item, i) => {  //item is the number of instruments
+              return <ImgDrums src="../assets/images/drums_a.png" />
+            })}
            </div>
           </>
          );
         })}
+      
        </div>
       </div>
      </div>

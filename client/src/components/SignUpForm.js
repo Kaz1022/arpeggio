@@ -74,7 +74,7 @@ function SignUpFrom(props) {
         <form onSubmit={handleSubmit}>
          <div className="container">
           <div className="box">
-           <label for="first_name">First Name</label>
+           <label htmlFor="first_name">First Name</label>
            <input
             type="text"
             name="first_name"
@@ -83,7 +83,7 @@ function SignUpFrom(props) {
             onChange={(e) => setFirstName(e.target.value)}
             required
            />
-           <label for="email">Email</label>
+           <label htmlFor="email">Email</label>
            <input
             type="email"
             name="email"
@@ -92,7 +92,7 @@ function SignUpFrom(props) {
             onChange={(e) => setEmail(e.target.value)}
             required
            />
-           <label for="password">Password</label>
+           <label htmlFor="password">Password</label>
            <input
             type="password"
             name="password"
@@ -101,7 +101,7 @@ function SignUpFrom(props) {
             onChange={(e) => setPassword(e.target.value)}
             required
            />
-           <label for="city">City</label>
+           <label htmlFor="city">City</label>
            <input
             type="text"
             name="city"
@@ -110,7 +110,7 @@ function SignUpFrom(props) {
             onChange={(e) => setCity(e.target.value)}
             required
            />
-           <label for="phone">Phone</label>
+           <label htmlFor="phone">Phone</label>
            <input
             type="text"
             name="phone"
@@ -122,7 +122,7 @@ function SignUpFrom(props) {
           </div>
 
           <div className="box">
-           <label for="last_name">Last Name</label>
+           <label htmlFor="last_name">Last Name</label>
            <input
             type="text"
             name="last_name"
@@ -131,7 +131,7 @@ function SignUpFrom(props) {
             onChange={(e) => setLastName(e.target.value)}
             required
            />
-           <label for="handle">Username</label>
+           <label htmlFor="handle">Username</label>
            <input
             type="text"
             name="handle"
@@ -141,7 +141,7 @@ function SignUpFrom(props) {
             required
            />
 
-           <label for="password_confirmation">Password Confirmation</label>
+           <label htmlFor="password_confirmation">Password Confirmation</label>
            <input
             type="password"
             name="password_confirmation"
@@ -150,7 +150,7 @@ function SignUpFrom(props) {
             onChange={(e) => setPasswordConfirmation(e.target.value)}
             required
            />
-           <label for="country">Country</label>
+           <label htmlFor="country">Country</label>
            <input
             type="text"
             name="country"
@@ -159,7 +159,7 @@ function SignUpFrom(props) {
             onChange={(e) => setCountry(e.target.value)}
             required
            />
-           <label for="profile_image">Profile Image</label>
+           <label htmlFor="profile_image">Profile Image</label>
            <input
             type="file"
             name="profile_image"

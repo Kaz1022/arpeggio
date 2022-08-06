@@ -82,13 +82,32 @@ function EventFilter() {
   setGenre(e.target.options[e.target.selectedIndex].text);
  };
 
+const makeUniqueArray = (key, arr) => {
+  // Since I will be returning an array of unique objects, that is why it is an array
+  const result = [
+    ...new Map(arr.map(item => [item[key], item])).values() // -> LINE 1
+  ]
+  // BEFORE RUNNING THE values() FUNCTION, THE OUTPUT LOOKS LIKE THIS
+  // [
+  //   [ 'toronto', { id: 2, city: 'toronto' } ],
+  //   [ 'vancouver', { id: 4, city: 'vancouver' } ]
+  // ]
+  // RUNNING THE values() FUNCTION RETURNS THE 2ND ITEM OF EACH ARRAY INSIDE THE FIRST ARRAY
+  // i.e- { id: 2, city: 'toronto' } OR THE ITEM ITSELF
+  // RESULT LOOKS LIKE: [ { id: 2, city: 'toronto' }, { id: 4, city: 'vancouver' } ]
+  return result
+}
+
+const cityResult = makeUniqueArray('city', events)
+const levelResult = makeUniqueArray('level', events)
+const genreResult = makeUniqueArray('genre', events)
 
  return (
   <Styles>
    <div className="form dropdowns">
     <select className="form-select" onChange={onChangeCity}>
      <option value="0"> Select City....</option>
-     {events.map((eventItem) => (
+     {cityResult.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.city}
       </option>
@@ -104,7 +123,7 @@ function EventFilter() {
     </select>
     <select className="form-select" onChange={onChangeLevel}>
      <option value="0"> Select Level....</option>
-     {events.map((eventItem) => (
+     {levelResult.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.level}
       </option>
@@ -112,9 +131,9 @@ function EventFilter() {
     </select>
     <select className="form-select" onChange={onChangeGenre}>
      <option value="0"> Select Genre....</option>
-     {events.map((eventItem) => (
+     {genreResult.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.genre}{' '}
+       {eventItem.genre}
       </option>
      ))}
     </select>

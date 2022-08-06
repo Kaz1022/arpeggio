@@ -6,7 +6,7 @@ import '../../scss/custom.scss';
 import '../../App.scss';
 
 import main from '../../assets/images/main.jpeg';
-import drums1 from '../../assets/images/drums1.png';
+// import drums1 from '../../assets/images/drums1.png';
 
 const Img = styled.img.attrs({
  src: `${main}`,
@@ -20,7 +20,7 @@ const Img = styled.img.attrs({
  `;
 
 const ImgDrums = styled.img.attrs({
- src: `${drums1}`,
+//  src: `${drums1}`,
 })`
   height: 120px;
   max-width: 100%;
@@ -204,7 +204,7 @@ function EventListItem({
          return (
           <>
            {/* <div className="instrument1 instrument">{instrument.name}</div> */}
-           <ImgDrums src="../assets/images/drums1.png" />
+           {/* <ImgDrums src="../assets/images/drums1.png" /> */}
           </>
          );
         })}

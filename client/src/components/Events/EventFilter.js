@@ -15,6 +15,13 @@ const Styles = styled.div`
   display: flex;
   justify-content: center;
 
+  .form-select{
+    &:focus {
+      outline: none;
+      box-shadow: 0px 0px 4px 0.01px #b819a2b2;
+    }
+  }
+
   .btn {
    font-weight: 600;
    margin-left: 0.5rem;

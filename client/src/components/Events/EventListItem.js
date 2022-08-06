@@ -1,11 +1,12 @@
 import React from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
-import TimeAgo from 'react-timeago'
+import TimeAgo from 'react-timeago';
 import '../../scss/custom.scss';
 import '../../App.scss';
 
 import main from '../../assets/images/main.jpeg';
+import drums1 from '../../assets/images/drums1.png';
 
 const Img = styled.img.attrs({
  src: `${main}`,
@@ -18,13 +19,28 @@ const Img = styled.img.attrs({
  }
  `;
 
+const ImgDrums = styled.img.attrs({
+ src: `${drums1}`,
+})`
+   max-width: 100%;
+   height: 100%;
+  border-radius: 50%;
+  margin-right: 30px;
+  margin-top: 20px;
+  -webkit-box-shadow: 1px 0 5px 0 #A9A9A9;
+  -moz-box-shadow: 1px 0 5px 0 #A9A9A9;
+  box-shadow: 1px 0 5px 0 #A9A9A9;
+   border: 1px solid #FFFFFF;
+  }
+  `;
+
 const EventStyles = styled.div`
 .card{
   display:flex;
   flex-direction: column;
   align-items:center;
   border: none;
-
+  
 }
 .eventCard{
   height: 50vh;
@@ -126,9 +142,8 @@ function EventListItem({
  description,
  status,
  created,
- instruments
+ instruments,
 }) {
-
  return (
   <EventStyles>
    <div className="card">
@@ -184,19 +199,22 @@ function EventListItem({
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-        {instruments.map((instrument) =>{
-          return (
-        <div className="instrument1 instrument">{instrument.name}</div>
-        )
-      })}
+        {instruments.map((instrument) => {
+         return (
+          <>
+           {/* <div className="instrument1 instrument">{instrument.name}</div> */}
+           <ImgDrums src="../assets/images/drums1.png" />
+          </>
+         );
+        })}
        </div>
       </div>
      </div>
 
      <div className="right">
-      <img src={image} alt=''/>
+      <img src={image} alt="" />
       <Img src="../assets/images/main.jpeg" />
-      <TimeAgo className='timeago' date={created}></TimeAgo>
+      <TimeAgo className="timeago" date={created}></TimeAgo>
      </div>
     </div>
    </div>

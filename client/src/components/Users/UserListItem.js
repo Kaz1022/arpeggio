@@ -1,4 +1,5 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
+import axios from "axios";
 import styled from 'styled-components';
 import '../../scss/custom.scss';
 import '../../App.scss';
@@ -96,6 +97,8 @@ const UserStyles = styled.div`
 
 function UserListItem(props) {
 
+  const [userInstruments, setUserInstruments] = useState();
+
  return (
   <UserStyles>
   <div>
@@ -113,7 +116,7 @@ function UserListItem(props) {
           <div className="details">
             <div className="details1">
               <div className="event-location"><strong>Location:&nbsp;&nbsp;</strong>{props.currentUser.city}, {props.currentUser.country}</div>
-              <div className="event-level"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong> {props.currentUser.instruments}.</div>
+              <div className="event-level"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong> {userInstruments}.</div>
             </div>
             <div className="details2">
                 <div className="about-me"><strong>About Me...:&nbsp;&nbsp;</strong></div>
@@ -122,9 +125,10 @@ function UserListItem(props) {
           </div>
         </div>
       </div>
+      {console.log('image .>>', props.currentUserImage)}
 
       <div className="right">
-      <Img src={`http://localhost:3000/${props.currentUserImage}`} />
+      {props.currentUserImage.length > 0 && <Img src={`http://localhost:3000/${props.currentUserImage}`} /> }
       {/* <div>Post created ? day/s ago</div> */}
       </div>
     </div>

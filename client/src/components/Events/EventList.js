@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import EventListItem from './EventListItem';
+import React from 'react';
 import EventFilter from './EventFilter';
 import styled from 'styled-components';
 import '../../scss/custom.scss';

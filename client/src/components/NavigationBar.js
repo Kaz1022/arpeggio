@@ -8,6 +8,7 @@ import '../scss/custom.scss';
 const Styles = styled.div`
 .navbar{
   background-color: #49205E;
+  padding: 0.4em 2em;
 }
 .navbar-brand{
   font-family: var(--bs-font-sans-serif);

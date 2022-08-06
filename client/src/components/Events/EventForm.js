@@ -22,7 +22,7 @@ function NewEvent (props) {
 		console.log("Submitted new event!")
 		axios.post("/api/new_event",
             {
-                events: {
+                event: {
 										title: title,
 										city: city,
                     country: country,
@@ -99,7 +99,16 @@ function NewEvent (props) {
 									name="Genre"
 									placeholder="Genre"
 									value ={genre}
-									onChange={e => countrysetGenre.target.value)}
+									onChange={e => setGenre(e.target.value)}
+									required
+							/>
+
+								<input
+									type="text"
+									name="Venue"
+									placeholder="Venue"
+									value ={venue}
+									onChange={e => setVenue(e.target.value)}
 									required
 							/>
 

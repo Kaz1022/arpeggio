@@ -9,6 +9,7 @@ import styled from 'styled-components';
 const Styles2 = styled.div`
   .navbar {
     background-color: rgba(187, 13, 190, 0.8);
+    padding: 0.4em 2em;
   }
 
   .navbar-brand{
@@ -22,7 +23,7 @@ const Styles2 = styled.div`
     color: #E2EF70;
     font-weight: bold;
     font-size: 20px;
-    margin-left: 1em;
+    margin: 0em ;
   }
 
   .dropdown-menu {
@@ -54,7 +55,7 @@ function NavigationAfterLogin(props) {
   return (
     <Styles2>
       <Navbar expand="lg">
-        <Container>
+        <Container fluid>
         <Navbar.Brand  as={Link} to="/">ARPEGGIO</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">

@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
 import UserListItem from './components/Users/UserListItem';
+import EventForm from './components/Events/EventForm';
 import './App.scss';
 
 function App () {

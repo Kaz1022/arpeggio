@@ -33,7 +33,7 @@ class Api::UsersController < ApplicationController
     @image = rails_blob_path(@user.image)
 
     render json: {
-      user: @user,
+      user: @user.to_json(include: [:instruments]),
       image: @image
     }
   end

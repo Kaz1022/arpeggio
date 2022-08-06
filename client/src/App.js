@@ -17,7 +17,7 @@ function App () {
   const [loading, setLoading] = useState(true);
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [currentUser, setCurrentUser] = useState({})
-  const [currentUserImage, setCurrentUserImage] = useState({})
+  const [currentUserImage, setCurrentUserImage] = useState("")
 
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
@@ -28,7 +28,7 @@ function App () {
   function handleLogout () {
     setLoggedInStatus("NOT_LOGGED_IN")
     setCurrentUser({})
-    setCurrentUserImage({})
+    setCurrentUserImage("")
   }
 
   useEffect(() => {

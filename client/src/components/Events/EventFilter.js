@@ -82,23 +82,6 @@ function EventFilter() {
   setGenre(e.target.options[e.target.selectedIndex].text);
  };
 
- let uniqueVals = [];
- function unique(event) {
-  event.filter((item, i) => {
-   if (uniqueVals.includes(item.city)) {
-    return false;
-   }
-   uniqueVals.push(item.city);
-  });
-  return uniqueVals.map((city) => city);
- }
- //  console.log(unique(events))
- //  console.log(uniqueVals)
-
- // const uniq = [ ...new Map( events.map((events) => [events.city, events]) ).values(events.city) ];
- // console.log(uniq.map(item => item.city))
-
- // const filteredCity = events.filter(({ city }, index) => !city.includes(city , index + 1))
 
  return (
   <Styles>

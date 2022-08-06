@@ -22,15 +22,16 @@ const Img = styled.img.attrs({
 const ImgDrums = styled.img.attrs({
  src: `${drums1}`,
 })`
-   max-width: 100%;
-   height: 100%;
-  border-radius: 50%;
+  height: 120px;
+  max-width: 100%;
+  border-radius: 60%;
   margin-right: 30px;
   margin-top: 20px;
-  -webkit-box-shadow: 1px 0 5px 0 #A9A9A9;
-  -moz-box-shadow: 1px 0 5px 0 #A9A9A9;
-  box-shadow: 1px 0 5px 0 #A9A9A9;
-   border: 1px solid #FFFFFF;
+  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+  &:hover{
+   box-shadow: 1px 1px 5px 1px pink;
+   outline: none;
+    }
   }
   `;
 

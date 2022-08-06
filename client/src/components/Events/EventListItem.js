@@ -1,10 +1,12 @@
 import React from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
+import TimeAgo from 'react-timeago';
 import '../../scss/custom.scss';
 import '../../App.scss';
 
 import main from '../../assets/images/main.jpeg';
+import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 
 const Img = styled.img.attrs({
  src: `${main}`,
@@ -17,19 +19,35 @@ const Img = styled.img.attrs({
  }
  `;
 
+const ImgDrums = styled.img.attrs({
+ src: `${drumsA}`,
+})`
+  height: 120px;
+  max-width: 100%;
+  border-radius: 60%;
+  margin-right: 30px;
+  margin-top: 20px;
+  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+  &:hover{
+   box-shadow: 1px 1px 5px 1px pink;
+   outline: none;
+    }
+  }
+  `;
+
 const EventStyles = styled.div`
 .card{
   display:flex;
   flex-direction: column;
   align-items:center;
   border: none;
-
+  
 }
 .eventCard{
   height: 50vh;
   // max-height: 90vh;
   width: 70%;
-  margin: 50px;
+  margin: 30px;
   padding:0;
   display:flex;
   flex-wrap:wrap;
@@ -95,9 +113,18 @@ const EventStyles = styled.div`
 
 //RIGHT
 .right{
+  position: relative;
   height: 100%;
   // width:100%;
   flex:1;
+
+  .timeago{
+    color:white;
+    font-weight: bold;
+    position: absolute;
+    top:94%;
+    left: 40%;
+  }
 }
 `;
 
@@ -116,7 +143,8 @@ function EventListItem({
  description,
  status,
  created,
- instruments
+ instruments,
+ instrument_quantity
 }) {
  return (
   <EventStyles>
@@ -173,19 +201,26 @@ function EventListItem({
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-        {instruments.map((instrument) =>{
-          return (
-        <div className="instrument1 instrument">{instrument.name}</div>
-        )
-      })}
+        {instrument_quantity.map((instrument_num) => {  //map over instruments(name) and event_instruments(quantity) to pull
+         return (
+          <>
+           <div className="instrument1 instrument">
+            {/* {instruments.map((instrument) => { */}
+             <ImgDrums src="../assets/images/drums_a.png" />
+            {/* })
+            } */}
+           </div>
+          </>
+         );
+        })}
        </div>
       </div>
      </div>
 
      <div className="right">
-      <img src={image} alt=''/>
+      <img src={image} alt="" />
       <Img src="../assets/images/main.jpeg" />
-      {/* <div>Post created ? day/s ago</div> */}
+      <TimeAgo className="timeago" date={created}></TimeAgo>
      </div>
     </div>
    </div>

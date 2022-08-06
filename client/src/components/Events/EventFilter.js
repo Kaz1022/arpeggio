@@ -6,15 +6,30 @@ import EventListItem from './EventListItem';
 import '../../App.scss';
 
 const Styles = styled.div`
- width: 100%;
  display: flex;
  flex-direction: column;
  justify-content: center;
 
- .dropdowns {
+ .form {
   margin: 2rem 13rem;
   display: flex;
   justify-content: center;
+
+  .form-select{
+    &:focus {
+      outline: none;
+      box-shadow: 0px 0px 4px 0.01px #b819a2b2;
+    }
+  }
+
+  .btn {
+   font-weight: 600;
+   margin-left: 0.5rem;
+   padding: 8px 18px;
+   background: #bb0dbe;
+   color: #e2ef70;
+   border: 1px solid #e2ef70;
+  }
  }
 `;
 
@@ -26,7 +41,6 @@ function EventFilter() {
  const [level, setLevel] = useState();
  const [genre, setGenre] = useState();
  const [instrument, setInstrument] = useState();
- 
 
  useEffect(function () {
   axios
@@ -46,11 +60,11 @@ function EventFilter() {
  };
 
  const onChangeCity = (e) => {
-  setCity(e.target.options[e.target.selectedIndex].text)
+  setCity(e.target.options[e.target.selectedIndex].text);
  };
 
  const onChangeInstrument = (e) => {
-  setInstrument(e.target.options[e.target.selectedIndex].text)
+  setInstrument(e.target.options[e.target.selectedIndex].text);
  };
 
  const onChangeLevel = (e) => {
@@ -61,31 +75,32 @@ function EventFilter() {
   setGenre(e.target.options[e.target.selectedIndex].text);
  };
 
+const makeUniqueArray = (key, arr) => {
+  // Since I will be returning an array of unique objects, that is why it is an array
+  const result = [
+    ...new Map(arr.map(item => [item[key], item])).values() // -> LINE 1
+  ]
+  // BEFORE RUNNING THE values() FUNCTION, THE OUTPUT LOOKS LIKE THIS
+  // [
+  //   [ 'toronto', { id: 2, city: 'toronto' } ],
+  //   [ 'vancouver', { id: 4, city: 'vancouver' } ]
+  // ]
+  // RUNNING THE values() FUNCTION RETURNS THE 2ND ITEM OF EACH ARRAY INSIDE THE FIRST ARRAY
+  // i.e- { id: 2, city: 'toronto' } OR THE ITEM ITSELF
+  // RESULT LOOKS LIKE: [ { id: 2, city: 'toronto' }, { id: 4, city: 'vancouver' } ]
+  return result
+}
 
- let uniqueVals = [];
- function unique(event) {
-  event.filter((item, i) => {
-   if (uniqueVals.includes(item.city)) {
-    return false;
-   }
-   uniqueVals.push(item.city);
-  });
-  return uniqueVals.map((city) => city);
- }
- //  console.log(unique(events))
- //  console.log(uniqueVals)
-
- // const uniq = [ ...new Map( events.map((events) => [events.city, events]) ).values(events.city) ];
- // console.log(uniq.map(item => item.city))
-
- // const filteredCity = events.filter(({ city }, index) => !city.includes(city , index + 1))
+const cityResult = makeUniqueArray('city', events)
+const levelResult = makeUniqueArray('level', events)
+const genreResult = makeUniqueArray('genre', events)
 
  return (
   <Styles>
    <div className="form dropdowns">
     <select className="form-select" onChange={onChangeCity}>
      <option value="0"> Select City....</option>
-     {events.map((eventItem) => (
+     {cityResult.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.city}
       </option>
@@ -101,7 +116,7 @@ function EventFilter() {
     </select>
     <select className="form-select" onChange={onChangeLevel}>
      <option value="0"> Select Level....</option>
-     {events.map((eventItem) => (
+     {levelResult.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.level}
       </option>
@@ -109,71 +124,69 @@ function EventFilter() {
     </select>
     <select className="form-select" onChange={onChangeGenre}>
      <option value="0"> Select Genre....</option>
-     {events.map((eventItem) => (
+     {genreResult.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.genre}{' '}
+       {eventItem.genre}
       </option>
      ))}
     </select>
-    <button onClick={handleSubmit}>Submit</button>
+    <button className="btn" onClick={handleSubmit}>
+     Submit
+    </button>
    </div>
    <br />
    <br />
-   {query.length === 0 ? 
-
-    (events.map((item) => {
-      return (
-      <>
-        <EventListItem
-        key={item.id}
-        title={item.title}
-        user={item.user.handle}
-        date={item.event_date}
-        start={item.start_time}
-        end={item.end_time}
-        city={item.city}
-        country={item.country}
-        level={item.level}
-        venue={item.venue_style}
-        genre={item.genre}
-        image={item.event_image}
-        description={item.description}
-        status={item.post_active}
-        created={item.created_at}
-        instruments={item.instruments}
-        />
-      </>
-      );
-    }))
-    
-    :
-   
-   (query.map((item) => {
-    return (
-     <>
-      <EventListItem
-       key={item.id}
-       title={item.title}
-       user={item.user.handle}
-       date={item.event_date}
-       start={item.start_time}
-       end={item.end_time}
-       city={item.city}
-       country={item.country}
-       level={item.level}
-       venue={item.venue_style}
-       genre={item.genre}
-       image={item.event_image}
-       description={item.description}
-       status={item.post_active}
-       created={item.created_at}
-       instruments={item.instruments}
-      />
-     </>
-    );
-   }))
-   
-   }
+   {query.length === 0
+    ? events.map((item) => {
+       return (
+        <>
+         <EventListItem
+          key={item.id}
+          title={item.title}
+          user={item.user.handle}
+          date={item.event_date}
+          start={item.start_time}
+          end={item.end_time}
+          city={item.city}
+          country={item.country}
+          level={item.level}
+          venue={item.venue_style}
+          genre={item.genre}
+          image={item.event_image}
+          description={item.description}
+          status={item.post_active}
+          created={item.created_at}
+          instruments={item.instruments}
+          instrument_quantity={item.event_instruments}
+         />
+        </>
+       );
+      })
+    : query.map((item) => {
+       return (
+        <>
+         <EventListItem
+          key={item.id}
+          title={item.title}
+          user={item.user.handle}
+          date={item.event_date}
+          start={item.start_time}
+          end={item.end_time}
+          city={item.city}
+          country={item.country}
+          level={item.level}
+          venue={item.venue_style}
+          genre={item.genre}
+          image={item.event_image}
+          description={item.description}
+          status={item.post_active}
+          created={item.created_at}
+          instruments={item.instruments}
+          instrument_quantity={item.event_instruments}
+         />
+        </>
+       );
+      })}
   </Styles>
  );
 }

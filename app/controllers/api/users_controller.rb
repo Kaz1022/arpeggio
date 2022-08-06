@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    render json: @user.to_json(:include => [:event_instruments, :instruments]) = User.find(params[:id])
+    render json: User.find(params[:id])
   end
   
 

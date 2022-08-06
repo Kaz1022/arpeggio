@@ -99,7 +99,7 @@ function NewEvent (props) {
 									name="Genre"
 									placeholder="Genre"
 									value ={genre}
-									onChange={e => countrysetGenre.target.value)}
+									onChange={e => setGenre(e.target.value)}
 									required
 							/>
 

@@ -105,6 +105,15 @@ function NewEvent (props) {
 
 								<input
 									type="text"
+									name="Venue"
+									placeholder="Venue"
+									value ={venue}
+									onChange={e => setVenue(e.target.value)}
+									required
+							/>
+
+								<input
+									type="text"
 									name="description"
 									placeholder="Event Description"
 									value ={description}

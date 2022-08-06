@@ -94,12 +94,15 @@ function SignUpFrom(props) {
       ) : (
         <div className="base-container">
           <div className="header">
-            <h1>Sign up form</h1>
+            <h1>SIGN UP</h1>
           </div>
           <div className="content">
             <div className="form">
               <div className="form-group">
                 <form onSubmit={handleSubmit}>
+                <div className="container">
+                  <div className="box">
+                  <label htmlFor="first_name">First Name</label>
                   <input
                     type="text"
                     name="first_name"
@@ -108,7 +111,46 @@ function SignUpFrom(props) {
                     onChange={(e) => setFirstName(e.target.value)}
                     required
                   />
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="city">City</label>
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="city"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="phone">Phone</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                  </div>
 
+                  <div className="box">
+                  <label htmlFor="last_name">Last Name</label>
                   <input
                     type="text"
                     name="last_name"
@@ -117,7 +159,7 @@ function SignUpFrom(props) {
                     onChange={(e) => setLastName(e.target.value)}
                     required
                   />
-
+                  <label htmlFor="handle">Username</label>
                   <input
                     type="text"
                     name="handle"
@@ -127,24 +169,7 @@ function SignUpFrom(props) {
                     required
                   />
 
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-
+                  <label htmlFor="password_confirmation">Password Confirmation</label>
                   <input
                     type="password"
                     name="password_confirmation"
@@ -153,23 +178,7 @@ function SignUpFrom(props) {
                     onChange={(e) => setPasswordConfirmation(e.target.value)}
                     required
                   />
-
-                  <input
-                    type="file"
-                    name="image"
-                    placeholder="Profile Picture"
-                    onChange={(e) => setImage(e.target.files[0])}
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="city"
-                    placeholder="city"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    required
-                  />
-
+                  <label htmlFor="country">Country</label>
                   <input
                     type="text"
                     name="country"
@@ -178,21 +187,21 @@ function SignUpFrom(props) {
                     onChange={(e) => setCountry(e.target.value)}
                     required
                   />
-
+                  <label htmlFor="profile_image">Profile Image</label>
                   <input
-                    type="text"
-                    name="phone"
-                    placeholder="phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    type="file"
+                    name="image"
+                    placeholder="Profile Picture"
+                                  onChange={(e) => setImage(e.target.files[0])}
                     required
                   />
-
-                  <button type="submit">Create Account</button>
+                  </div>
+                </div>
+                <button type="submit">Create Account</button>
                 </form>
               </div>
+              </div>
             </div>
-          </div>
         </div>
       )}
     </>

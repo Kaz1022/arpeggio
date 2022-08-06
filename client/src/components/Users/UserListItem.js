@@ -129,7 +129,7 @@ function UserListItem(props) {
 
       <div className="right">
       {props.currentUserImage.length > 0 && <Img src={`http://localhost:3000/${props.currentUserImage}`} /> }
-      {/* <div>Post created ? day/s ago</div> */}
+
       </div>
     </div>
    </div>

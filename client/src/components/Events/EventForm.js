@@ -22,7 +22,7 @@ function NewEvent (props) {
 		console.log("Submitted new event!")
 		axios.post("/api/new_event",
             {
-                events: {
+                event: {
 										title: title,
 										city: city,
                     country: country,

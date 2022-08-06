@@ -214,13 +214,13 @@ attendee1 = Attendee.create!(
   }
 )
 
-users[0].image.attach(io: open_asset("user1.jpg"), filename: "user1.jpg", content_type: "image/jpeg")
-users[1].image.attach(io: open_asset("user2.jpg"), filename: "user2.jpg", content_type: "image/jpeg")
-users[2].image.attach(io: open_asset("user3.jpg"), filename: "user3.jpg", content_type: "image/jpeg")
-users[3].image.attach(io: open_asset("user4.jpg"), filename: "user4.jpg", content_type: "image/jpeg")
-users[4].image.attach(io: open_asset("user5.jpg"), filename: "user5.jpg", content_type: "image/jpeg")
+users[0].image.attach(io: open_asset("user1.jpg"), filename: "user1.jpg", content_type: "application/jpeg")
+users[1].image.attach(io: open_asset("user2.jpg"), filename: "user2.jpg", content_type: "application/jpeg")
+users[2].image.attach(io: open_asset("user3.jpg"), filename: "user3.jpg", content_type: "application/jpeg")
+users[3].image.attach(io: open_asset("user4.jpg"), filename: "user4.jpg", content_type: "application/jpeg")
+users[4].image.attach(io: open_asset("user5.jpg"), filename: "user5.jpg", content_type: "application/jpeg")
 
-events[0].image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg", content_type: "image/jpeg")
-events[1].image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "image/jpeg")
-events[2].image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "image/jpeg")
-events[3].image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "image/jpeg")
+events[0].image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg", content_type: "application/jpeg")
+events[1].image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
+events[2].image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
+events[3].image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")

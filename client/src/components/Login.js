@@ -11,30 +11,26 @@ function Login(props) {
  const navigate = useNavigate();
 
  const handleSubmit = (e) => {
-  axios
-   .post(
-    '/api/sessions',
-    {
-     user: {
-      email: email,
-      password: password,
-     },
-    },
-    { withCredentials: true }
-   )
-   .then((response) => {
-    if (response.data.logged_in) {
-     console.log('response data >>>', response.data);
-     // setSuccess(true);
-     props.handleLogin(response.data);
-     navigate('/events');
-    }
-   })
-   .catch((error) => {
-    console.log('registration error', error);
-   });
+  axios.post("/api/sessions",
+          {
+              user: {
+                  email: email,
+                  password: password,
+              }
+          },
+          { withCredentials: true }
+      ).then(response => {
+        if (response.data.logged_in) {
+          console.log("response data >>>", response.data);
+          // setSuccess(true);
+          props.handleLogin(response.data)
+          navigate('/events');
+        }     
+      }).catch(error => {
+          console.log("registration error", error)
+      })
   e.preventDefault();
- };
+}
 
  return (
   <>

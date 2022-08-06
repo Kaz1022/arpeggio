@@ -28,6 +28,7 @@ function App () {
   function handleLogout () {
     setLoggedInStatus("NOT_LOGGED_IN")
     setCurrentUser({})
+    setCurrentUserImage({})
   }
 
   useEffect(() => {

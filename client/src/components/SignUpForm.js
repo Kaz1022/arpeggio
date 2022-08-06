@@ -192,7 +192,7 @@ function SignUpFrom(props) {
                     type="file"
                     name="image"
                     placeholder="Profile Picture"
-                                  onChange={(e) => setImage(e.target.files[0])}
+                    onChange={(e) => setImage({image: e.target.files[0]})}     
                     required
                   />
                   </div>

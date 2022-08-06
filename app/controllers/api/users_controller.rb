@@ -37,6 +37,16 @@ class Api::UsersController < ApplicationController
       image: @image
     }
   end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(image: params[:image])
+    @image = rails_blob_path(@user.image)
+    render json: {
+      user: @user,
+      image: @image
+    }
+end
   
 
   private

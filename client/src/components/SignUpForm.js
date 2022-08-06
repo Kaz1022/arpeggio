@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DirectUpload } from 'activestorage';
 import axios from 'axios';
 import '../scss/signup.scss';
 
@@ -11,7 +12,7 @@ function SignUpFrom (props) {
 	const [handle, setHandle] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
-  const [profileImage, setProfileImage] = useState("")
+  const [image, setImage] = useState({})
   const [city, setCity] = useState("")
   const [country, setCountry] = useState("")
   const [phone, setPhone] = useState("")
@@ -29,7 +30,6 @@ function SignUpFrom (props) {
 										handle: handle,
                     password: password,
                     password_confirmation: passwordConfirmation,
-										profile_image: profileImage,
 										city: city,
 										country: country,
 										phone: phone
@@ -40,6 +40,7 @@ function SignUpFrom (props) {
 					console.log(response);
 					if (response.data.status === 'created') {
 							console.log("signup POST is successful. response data:", response.data);
+							uploadFile(image, response.data.user.id)
 							props.handleLogin(response.data);
 							navigate('/events');
 					}
@@ -48,10 +49,27 @@ function SignUpFrom (props) {
         })
     e.preventDefault()
 	}
-
-	// const submitToAPI(data) {
-
-	// }
+  
+	const uploadFile = (file, userId) => {
+		const upload = new DirectUpload(file, '/api/rails/active_storage/direct_uploads')
+		upload.create((error, blob) => {
+			if (error) {
+				console.log(error)
+			} else {
+				fetch(`/api/users/${userId}`, {
+					method: 'PUT',
+					headers: {
+							'Content-Type': 'application/json' 
+					},
+					body: JSON.stringify({image: blob.signed_id})
+			})
+			.then(resp => resp.json())
+			.then(data => {
+					console.log('updated user', data)
+			})
+			}
+		})
+	}
 	
 	return (
 		<>
@@ -130,11 +148,11 @@ function SignUpFrom (props) {
 							
 								<input
 									type="file"
-									name="profile_image"
+									name="image"
 									placeholder="Profile Picture"
-									value ={profileImage}
-									onChange={e => setProfileImage(e.target.value)}
+									onChange={e => setImage(e.target.files[0])}
 									required
+									direct_upload='true'
 								/>   
 								<input
 									type="text"

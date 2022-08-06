@@ -20,7 +20,6 @@ users = User.create!([
     email: "johnsmith@test.com",
     password: "password",
     phone: "778-229-5711",
-    profile_image: open_asset("user1.jpg"),
     city: "Toronto",
     country: "Canada",
     profile_public: true
@@ -32,7 +31,6 @@ users = User.create!([
     email: "emilybrown@test.com",
     password: "password",
     phone: "777-888-9999",
-    profile_image: open_asset("user2.jpg"),
     city: "Toronto",
     country: "Canada",
     profile_public: true
@@ -44,7 +42,6 @@ users = User.create!([
     email: "mikelee@test.com",
     password: "password",
     phone: "999-888-7777",
-    profile_image: open_asset("user3.jpg"),
     city: "Vancouver",
     country: "Canada",
     profile_public: true
@@ -56,7 +53,6 @@ users = User.create!([
     email: "annaclark@test.com",
     password: "password",
     phone: "888-666-7777",
-    profile_image: open_asset("user4.jpg") ,
     city: "Vancouver",
     country: "Canada",
     profile_public: true
@@ -68,7 +64,6 @@ users = User.create!([
     email: "davidmiller@test.com",
     password: "password",
     phone: "333-555-7777",
-    profile_image: open_asset("user5.jpg"),
     city: "Duncan",
     country: "Canada",
     profile_public: true
@@ -99,7 +94,6 @@ events= Event.create!([
     level: "Beginner Friendly",
     venue_style: "In my garage",
     genre: "Alternative rock",
-    event_image: open_asset("event1.jpg"),
     description: "Hi! I live in downtown Toronto and looking for two guitarists to jam with me! All levels are welcome. My current favourite band is Arkells.",
     post_active: true
   },
@@ -115,7 +109,6 @@ events= Event.create!([
     level: "Intermediate",
     venue_style: "At my studio",
     genre: "Indie Rock",
-    event_image: open_asset("event2.jpg"),
     description: "I play the guitar and I am looking for a drummer and a vocalist to make some music together! Nothing serious but just for fun.",
     post_active: true
   },
@@ -131,7 +124,6 @@ events= Event.create!([
     level: "Any level",
     venue_style: "My Garage",
     genre: "Indie Rock",
-    event_image: open_asset("event3.jpg"),
     description: "I have drums in my garage and I've been practicing by myself. I would love to exchange some tips and play with others just for fun!",
     post_active: true
   },
@@ -147,7 +139,6 @@ events= Event.create!([
     level: "Intermediate",
     venue_style: "Rooftop",
     genre: "Any",
-    event_image: open_asset("event4.jpg"),
     description: "My apartment has a nice rooftop and I like to play music there. It's in Kits. Let's jam together!",
     post_active: true
   },
@@ -222,3 +213,14 @@ attendee1 = Attendee.create!(
     accepted: false
   }
 )
+
+users[0].image.attach(io: open_asset("user1.jpg"), filename: "user1.jpg", content_type: "application/jpeg")
+users[1].image.attach(io: open_asset("user2.jpg"), filename: "user2.jpg", content_type: "application/jpeg")
+users[2].image.attach(io: open_asset("user3.jpg"), filename: "user3.jpg", content_type: "application/jpeg")
+users[3].image.attach(io: open_asset("user4.jpg"), filename: "user4.jpg", content_type: "application/jpeg")
+users[4].image.attach(io: open_asset("user5.jpg"), filename: "user5.jpg", content_type: "application/jpeg")
+
+events[0].image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg", content_type: "application/jpeg")
+events[1].image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
+events[2].image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
+events[3].image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")

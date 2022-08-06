@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
@@ -44,6 +44,8 @@ function NavigationAfterLogin(props) {
 
   const navigate = useNavigate();
 
+  const [testData, setTestData] = useState({});
+
   const handleLogoutClick = () => {
     axios.delete("/api/logout", { withCredentials: true })
         .then(response => {
@@ -51,6 +53,16 @@ function NavigationAfterLogin(props) {
             navigate('/');
         }).catch(error => console.log("Logout Error >>> ", error))
 }
+
+  const handleMyProfileClick = () => {
+    axios.get(`/api/users/${props.currentUser.id}`, { withCredentials: true })
+        .then(response => {
+          // console.log(response.data)
+          setTestData(response.data.user);
+          console.log("testData >>>>>>", testData);
+          navigate('/myprofile');
+        }).catch(error => console.log("Logout Error >>> ", error))
+  }
 
   return (
     <Styles2>
@@ -62,7 +74,7 @@ function NavigationAfterLogin(props) {
           <Nav className="ml-auto">
             <Nav.Item><Nav.Link as={Link} to="/favourites">MY FAVOURITES</Nav.Link></Nav.Item>
             <NavDropdown title={<span>Hello, {props.currentUser.first_name}!</span>} id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/myprofile">MY PROFILE</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleMyProfileClick}>MY PROFILE</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/session/new">CREATE A SESSION</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/mysessions">MY SESSIONS</NavDropdown.Item>
               <NavDropdown.Divider />

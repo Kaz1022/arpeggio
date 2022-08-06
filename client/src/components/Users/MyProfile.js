@@ -85,13 +85,13 @@ const UserStyles = styled.div`
 }
 `;
 
-function UserListItem(props) {
+function MyProfile(props) {
 
   const [userInstruments, setUserInstruments] = useState();
 
  return (
   <UserStyles>
-  <div>
+  <div className="title">
     <h1>USER PROFILE</h1>
   </div>
    <div className="card">
@@ -126,4 +126,4 @@ function UserListItem(props) {
  );
 }
 
-export default UserListItem;
+export default MyProfile;

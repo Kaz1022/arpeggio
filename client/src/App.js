@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
 import UserListItem from './components/Users/UserListItem';
+import EventForm from './components/Events/EventForm';
 import './App.scss';
 
 function App () {
@@ -73,6 +74,7 @@ function App () {
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
           <Route path="/myprofile" element={<UserListItem loggedInStatus={loggedInStatus} currentUser={currentUser} />} />
+          <Route path="/session/new" element={<EventForm loggedInStatus={loggedInStatus} currentUser={currentUser} />} />
         </Routes>
 
         <div className="content-wrapper">

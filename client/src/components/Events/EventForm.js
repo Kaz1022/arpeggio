@@ -99,7 +99,16 @@ function NewEvent (props) {
 									name="Genre"
 									placeholder="Genre"
 									value ={genre}
-									onChange={e => countrysetGenre.target.value)}
+									onChange={e => setGenre(e.target.value)}
+									required
+							/>
+
+								<input
+									type="text"
+									name="Venue"
+									placeholder="Venue"
+									value ={venue}
+									onChange={e => setVenue(e.target.value)}
 									required
 							/>
 

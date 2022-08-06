@@ -11,30 +11,26 @@ function Login(props) {
  const navigate = useNavigate();
 
  const handleSubmit = (e) => {
-  axios
-   .post(
-    '/api/sessions',
-    {
-     user: {
-      email: email,
-      password: password,
-     },
-    },
-    { withCredentials: true }
-   )
-   .then((response) => {
-    if (response.data.logged_in) {
-     console.log('response data >>>', response.data);
-     // setSuccess(true);
-     props.handleLogin(response.data);
-     navigate('/events');
-    }
-   })
-   .catch((error) => {
-    console.log('registration error', error);
-   });
+  axios.post("/api/sessions",
+          {
+              user: {
+                  email: email,
+                  password: password,
+              }
+          },
+          { withCredentials: true }
+      ).then(response => {
+        if (response.data.logged_in) {
+          console.log("response data >>>", response.data);
+          // setSuccess(true);
+          props.handleLogin(response.data)
+          navigate('/events');
+        }     
+      }).catch(error => {
+          console.log("registration error", error)
+      })
   e.preventDefault();
- };
+}
 
  return (
   <>
@@ -56,7 +52,7 @@ function Login(props) {
       <div className="form">
        <div className="form-group">
         <form onSubmit={handleSubmit}>
-         <label for="email">Email</label>
+         <label htmlFor="email">Email</label>
          <input
           type="email"
           name="email"
@@ -66,7 +62,7 @@ function Login(props) {
           required
          />
 
-         <label for="password">Password</label>
+         <label htmlFor="password">Password</label>
          <input
           type="password"
           name="password"

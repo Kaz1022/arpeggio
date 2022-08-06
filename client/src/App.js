@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
 import UserListItem from './components/Users/UserListItem';
+import EventForm from './components/Events/EventForm';
 import './App.scss';
 
 function App () {
@@ -16,17 +17,18 @@ function App () {
   const [loading, setLoading] = useState(true);
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [currentUser, setCurrentUser] = useState({})
-
-  console.log("current user >>>", currentUser);
+  const [currentUserImage, setCurrentUserImage] = useState({})
 
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
     setCurrentUser(data.user)
+    setCurrentUserImage(data.image)
   }
 
   function handleLogout () {
     setLoggedInStatus("NOT_LOGGED_IN")
     setCurrentUser({})
+    setCurrentUserImage({})
   }
 
   useEffect(() => {
@@ -41,6 +43,7 @@ function App () {
         if (response.data.logged_in && loggedInStatus === "NOT_LOGGED_IN") {
           setLoggedInStatus("LOGGED_IN")
           setCurrentUser(response.data.user)
+          setCurrentUserImage(response.data.image)
         } else if (!response.data.logged_in && loggedInStatus === "LOGGED_IN") {
           setLoggedInStatus("NOT_LOGGED_IN")
           setCurrentUser({})
@@ -72,7 +75,7 @@ function App () {
           <Route path="/signup" element={<Signup handleLogin={handleLogin} loggedInStatus={loggedInStatus} />} />
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
-          <Route path="/myprofile" element={<UserListItem loggedInStatus={loggedInStatus} currentUser={currentUser} />} />
+          <Route path="/myprofile" element={<UserListItem loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} />} />
         </Routes>
 
         <div className="content-wrapper">

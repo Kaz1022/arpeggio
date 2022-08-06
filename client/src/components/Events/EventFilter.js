@@ -44,7 +44,7 @@ function EventFilter() {
 
  useEffect(function () {
   axios
-   .get(`http://localhost:3000/api/events`)
+   .get(`/api/events`)
    .then((res) => setEvents(res.data))
    .then((err) => console.log(err));
  }, []);
@@ -53,14 +53,7 @@ function EventFilter() {
   e.preventDefault();
   axios
    .get(
-    'http://localhost:3000/api/events/search/' +
-     city +
-     '/' +
-     level +
-     '/' +
-     genre +
-     '/' +
-     instrument
+    '/api/events/search/' + city + "/" + level + "/" + genre + "/" + instrument
    )
    .then((res) => setQuery(res.data))
    .then((err) => console.log(err));

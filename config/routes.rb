@@ -4,8 +4,9 @@ Rails.application.routes.draw do
     resources :events
     resources :sessions, only: [:create]
 
-    get :logged_in, to: 'sessions#logged_in'
-    delete :logout, to: 'sessions#logout'
+    get :myprofile, to: "users#show"
+    get :logged_in, to: "sessions#logged_in"
+    delete :logout, to: "sessions#logout"
     post :signup, to: "users#create"
     post :new_event, to: "events#create"
     get "/events/search/:city/:level/:genre/:instrument", to: "events#search"

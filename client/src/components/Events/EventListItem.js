@@ -6,7 +6,7 @@ import '../../scss/custom.scss';
 import '../../App.scss';
 
 import main from '../../assets/images/main.jpeg';
-// import drums1 from '../../assets/images/drums1.png';
+import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 
 const Img = styled.img.attrs({
  src: `${main}`,
@@ -20,7 +20,7 @@ const Img = styled.img.attrs({
  `;
 
 const ImgDrums = styled.img.attrs({
-//  src: `${drums1}`,
+ src: `${drumsA}`,
 })`
   height: 120px;
   max-width: 100%;
@@ -144,6 +144,7 @@ function EventListItem({
  status,
  created,
  instruments,
+ instrument_quantity
 }) {
  return (
   <EventStyles>
@@ -200,11 +201,15 @@ function EventListItem({
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-        {instruments.map((instrument) => {
+        {instrument_quantity.map((instrument_num) => {  //map over instruments(name) and event_instruments(quantity) to pull
          return (
           <>
-           {/* <div className="instrument1 instrument">{instrument.name}</div> */}
-           {/* <ImgDrums src="../assets/images/drums1.png" /> */}
+           <div className="instrument1 instrument">
+            {/* {instruments.map((instrument) => { */}
+             <ImgDrums src="../assets/images/drums_a.png" />
+            {/* })
+            } */}
+           </div>
           </>
          );
         })}

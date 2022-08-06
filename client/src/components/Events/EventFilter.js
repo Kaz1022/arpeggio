@@ -157,6 +157,7 @@ const genreResult = makeUniqueArray('genre', events)
           status={item.post_active}
           created={item.created_at}
           instruments={item.instruments}
+          instrument_quantity={item.event_instruments}
          />
         </>
        );
@@ -181,6 +182,7 @@ const genreResult = makeUniqueArray('genre', events)
           status={item.post_active}
           created={item.created_at}
           instruments={item.instruments}
+          instrument_quantity={item.event_instruments}
          />
         </>
        );

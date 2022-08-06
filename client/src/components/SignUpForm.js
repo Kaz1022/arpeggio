@@ -39,12 +39,8 @@ function SignUpFrom(props) {
         { withCredentials: true }
       )
       .then((response) => {
-        console.log(response);
         if (response.data.status === "created") {
-          console.log(
-            "signup POST is successful. response data:",
-            response.data
-          );
+          console.log("signup POST is successful. response data:", response.data);
           uploadFile(image, response.data.user.id);
           props.handleLogin(response.data);
           navigate("/events");
@@ -57,10 +53,7 @@ function SignUpFrom(props) {
   };
 
   const uploadFile = (file, userId) => {
-    const upload = new DirectUpload(
-      file,
-      "/api/rails/active_storage/direct_uploads"
-    );
+    const upload = new DirectUpload(file, "http://localhost:3000/api/rails/active_storage/direct_uploads");
     upload.create((error, blob) => {
       if (error) {
         console.log(error);

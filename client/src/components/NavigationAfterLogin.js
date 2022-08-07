@@ -1,4 +1,4 @@
-import React from 'react';
+import { React } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
@@ -50,7 +50,17 @@ function NavigationAfterLogin(props) {
             props.handleLogout();
             navigate('/');
         }).catch(error => console.log("Logout Error >>> ", error))
-}
+  }
+
+  // const handleMyProfileClick = () => {
+  //   axios.get(`/api/users/${props.currentUser.id}/instruments`)
+  //     .then(response => {
+  //       console.log("My Profile Clicked:response>>>", response.data)
+  //       props.getInstruments(response.data);
+  //       navigate('/myprofile');
+  //     }).catch(error => console.log("Connecting API Error >>> ", error))
+  // }
+
 
   return (
     <Styles2>

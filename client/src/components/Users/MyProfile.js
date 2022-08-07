@@ -1,5 +1,5 @@
-import { React, useState, useEffect } from 'react';
-import axios from "axios";
+import { React } from 'react';
+import {Button} from 'react-bootstrap';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
 import '../../App.scss';
@@ -83,15 +83,35 @@ const UserStyles = styled.div`
 .bio{
   font-size: 1rem;
 }
+
+.m-1{
+  flex-direction: row-reverse;
+  align-items:center;
+  border: none;
+
+}
 `;
 
-function UserListItem(props) {
+function MyProfile(props) {
 
-  const [userInstruments, setUserInstruments] = useState();
+  const handleOnClick = () => {
+
+  }
 
  return (
+  <>
+   {props.loggedInStatus === 'NOT_LOGGED_IN' ? (
+    <div className="base-container">
+     <div className="header">
+      <h1>YOU NEED TO LOGIN FIRST!</h1>
+      <p>
+       <a href="/login">Go to LOGIN</a>
+      </p>
+     </div>
+    </div>
+   ) : (
   <UserStyles>
-  <div>
+  <div className="title">
     <h1>USER PROFILE</h1>
   </div>
    <div className="card">
@@ -106,7 +126,7 @@ function UserListItem(props) {
           <div className="details">
             <div className="details1">
               <div className="user-location"><strong>Location:&nbsp;&nbsp;</strong>{props.currentUser.city}, {props.currentUser.country}</div>
-              <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong> {userInstruments}.</div>
+              {props.currentUserInstruments && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{props.currentUserInstruments.name}.</div> }
             </div>
             <div className="details2">
                 <div className="about-me"><strong>About Me...:&nbsp;&nbsp;</strong></div>
@@ -121,9 +141,14 @@ function UserListItem(props) {
 
       </div>
     </div>
+    <div  className="justify-content-end">
+    <Button variant="dark"  className="m-1" onClick={handleOnClick}>EDIT</Button>
+    </div>
    </div>
   </UserStyles>
+   )}
+  </>
  );
 }
 
-export default UserListItem;
+export default MyProfile;

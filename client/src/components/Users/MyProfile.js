@@ -1,4 +1,5 @@
 import { React } from 'react';
+import {Button} from 'react-bootstrap';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
 import '../../App.scss';
@@ -82,9 +83,20 @@ const UserStyles = styled.div`
 .bio{
   font-size: 1rem;
 }
+
+.m-1{
+  flex-direction: row-reverse;
+  align-items:center;
+  border: none;
+
+}
 `;
 
 function MyProfile(props) {
+
+  const handleOnClick = () => {
+
+  }
 
  return (
   <>
@@ -128,6 +140,9 @@ function MyProfile(props) {
       {props.currentUserImage.length > 0 && <Img src={`http://localhost:3000/${props.currentUserImage}`} /> }
 
       </div>
+    </div>
+    <div  className="justify-content-end">
+    <Button variant="dark"  className="m-1" onClick={handleOnClick}>EDIT</Button>
     </div>
    </div>
   </UserStyles>

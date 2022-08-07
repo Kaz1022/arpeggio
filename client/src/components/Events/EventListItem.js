@@ -129,6 +129,7 @@ const EventStyles = styled.div`
 `;
 
 function EventListItem({
+ key,
  title,
  user,
  date,
@@ -147,7 +148,7 @@ function EventListItem({
  instrument_quantity
 }) {
  return (
-  <EventStyles>
+  <EventStyles >
    <div className="card">
     <div className="eventCard">
      <div className="left">

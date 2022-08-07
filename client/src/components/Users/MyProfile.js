@@ -86,8 +86,20 @@ const UserStyles = styled.div`
 `;
 
 function MyProfile(props) {
+
+  const [currentUserInstruments, setCurrentUserInstruments] = useState();
   
-  console.log("current user instruments>>>>", props.currentUserInstruments);
+  console.log("current user data>>>>", props.currentUser);
+
+  useEffect(() => {
+    if(props.currentUser) {
+    axios.get(`/api/users/${props.currentUser.id}/instruments`)
+      .then(response => {
+        console.log("My Profile Component Rendered:response>>>", response.data)
+        setCurrentUserInstruments(response.data);
+        console.log("currentUserInstruments were set >>>>>", currentUserInstruments)
+      }).catch(error => console.log("Connecting API Error >>> ", error))
+  }}, [props]);
 
  return (
   <UserStyles>
@@ -106,7 +118,7 @@ function MyProfile(props) {
           <div className="details">
             <div className="details1">
               <div className="user-location"><strong>Location:&nbsp;&nbsp;</strong>{props.currentUser.city}, {props.currentUser.country}</div>
-              <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong> {props.currentUserInstruments.name}.</div>
+              {props.currentUser.lengh > 0 && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{currentUserInstruments.name}.</div> }
             </div>
             <div className="details2">
                 <div className="about-me"><strong>About Me...:&nbsp;&nbsp;</strong></div>

@@ -40,7 +40,7 @@ function EventFilter() {
  const [city, setCity] = useState();
  const [level, setLevel] = useState();
  const [genre, setGenre] = useState();
- const [instruments, setInstruments] = useState();
+ const [instruments, setInstruments] = useState([]);
  const [instrument, setInstrument] = useState();
 
  useEffect(function () {
@@ -51,7 +51,7 @@ function EventFilter() {
  }, []);
 
  useEffect(function () {
- axios.get('/api/events/instruments/' + instrument)
+ axios.get('/api/events/instruments/Guitar')
  .then((res) => setInstruments(res.data))
  .then((err) => console.log(err.message));
 }, []);

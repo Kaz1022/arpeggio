@@ -89,6 +89,16 @@ function MyProfile(props) {
 
   const [userInstruments, setUserInstruments] = useState();
 
+  useEffect(() => {
+    axios.get(`/api/users/${props.currentUser.id}/instruments`)
+      .then(response => {
+        console.log("My Profile Component Mounted:response>>>", response)
+        setUserInstruments(response.data);
+        console.log("User Instruments Data >>>>>", userInstruments)
+      }).catch(error => console.log("Connecting API Error >>> ", error))
+}, [])
+
+
  return (
   <UserStyles>
   <div className="title">

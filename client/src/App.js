@@ -18,12 +18,13 @@ function App () {
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [currentUser, setCurrentUser] = useState({})
   const [currentUserImage, setCurrentUserImage] = useState("")
-  // const [currentUserInstruments, setCurrentUserInstruments] = useState();
+  const [currentUserInstruments, setCurrentUserInstruments] = useState({});
 
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
     setCurrentUser(data.user)
     setCurrentUserImage(data.image)
+    setCurrentUserInstruments(data.instruments)
   }
 
   function handleLogout () {
@@ -45,6 +46,7 @@ function App () {
           setLoggedInStatus("LOGGED_IN")
           setCurrentUser(response.data.user)
           setCurrentUserImage(response.data.image)
+          setCurrentUserInstruments(response.data.instruments)
         } else if (!response.data.logged_in && loggedInStatus === "LOGGED_IN") {
           setLoggedInStatus("NOT_LOGGED_IN")
           setCurrentUser({})
@@ -76,7 +78,7 @@ function App () {
           <Route path="/signup" element={<Signup handleLogin={handleLogin} loggedInStatus={loggedInStatus} />} />
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
-          <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} />} />
+          <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} currentUserInstruments={currentUserInstruments} />} />
         </Routes>
 
         <div className="content-wrapper">

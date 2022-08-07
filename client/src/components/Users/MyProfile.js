@@ -1,5 +1,4 @@
-import { React, useState, useEffect } from 'react';
-import axios from "axios";
+import { React } from 'react';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
 import '../../App.scss';
@@ -87,21 +86,18 @@ const UserStyles = styled.div`
 
 function MyProfile(props) {
 
-  const [currentUserInstruments, setCurrentUserInstruments] = useState();
-  
-  console.log("current user data>>>>", props.currentUser);
-
-  useEffect(() => {
-    if(props.currentUser) {
-    axios.get(`/api/users/${props.currentUser.id}/instruments`)
-      .then(response => {
-        console.log("My Profile Component Rendered:response>>>", response.data)
-        setCurrentUserInstruments(response.data);
-        console.log("currentUserInstruments were set >>>>>", currentUserInstruments)
-      }).catch(error => console.log("Connecting API Error >>> ", error))
-  }}, [props]);
-
  return (
+  <>
+   {props.loggedInStatus === 'NOT_LOGGED_IN' ? (
+    <div className="base-container">
+     <div className="header">
+      <h1>YOU NEED TO LOGIN FIRST!</h1>
+      <p>
+       <a href="/login">Go to LOGIN</a>
+      </p>
+     </div>
+    </div>
+   ) : (
   <UserStyles>
   <div className="title">
     <h1>USER PROFILE</h1>
@@ -118,7 +114,7 @@ function MyProfile(props) {
           <div className="details">
             <div className="details1">
               <div className="user-location"><strong>Location:&nbsp;&nbsp;</strong>{props.currentUser.city}, {props.currentUser.country}</div>
-              {props.currentUser.lengh > 0 && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{currentUserInstruments.name}.</div> }
+              {props.currentUserInstruments && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{props.currentUserInstruments.name}.</div> }
             </div>
             <div className="details2">
                 <div className="about-me"><strong>About Me...:&nbsp;&nbsp;</strong></div>
@@ -135,6 +131,8 @@ function MyProfile(props) {
     </div>
    </div>
   </UserStyles>
+   )}
+  </>
  );
 }
 

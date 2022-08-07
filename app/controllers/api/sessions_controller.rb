@@ -8,10 +8,13 @@ class Api::SessionsController < ApplicationController
         if user && user.authenticate(user_params[:password])
             @image = rails_blob_path(user.image)
             session[:user_id] = user.id
+            @instruments = Instrument.includes(:user_instruments)
+            .find_by(user_instruments: { user_id: session[:user_id] })
             render json: {
                 status: :created,
                 logged_in: true,  
                 user: user,
+                instruments: @instruments,
                 image: @image
         }
         else
@@ -22,10 +25,13 @@ class Api::SessionsController < ApplicationController
     def logged_in
         @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
         if @current_user
+            @instruments = Instrument.includes(:user_instruments)
+            .find_by(user_instruments: { user_id: session[:user_id] })
             @image = rails_blob_path(@current_user.image)
             render json: {
                 logged_in: true,
                 user: @current_user,
+                instruments:@instruments,
                 image: @image
             }
         else

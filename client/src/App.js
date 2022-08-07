@@ -18,6 +18,7 @@ function App () {
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [currentUser, setCurrentUser] = useState({})
   const [currentUserImage, setCurrentUserImage] = useState("")
+  const [currentUserInstruments, setCurrentUserInstruments] = useState();
 
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
@@ -29,6 +30,10 @@ function App () {
     setLoggedInStatus("NOT_LOGGED_IN")
     setCurrentUser({})
     setCurrentUserImage("")
+  }
+
+  function getInstruments (data) {
+    setCurrentUserInstruments(data)
   }
 
   useEffect(() => {
@@ -67,7 +72,7 @@ function App () {
     <Router>
       <div className="page-container">
         {loggedInStatus ===  "LOGGED_IN" ? 
-          (<NavigationAfterLogin handleLogout={handleLogout}　loggedInStatus={loggedInStatus} currentUser={currentUser} />) 
+          (<NavigationAfterLogin handleLogout={handleLogout}　loggedInStatus={loggedInStatus} currentUser={currentUser} getInstruments={getInstruments} />) 
           : (<NavigationBar />)
         } 
         <Routes>
@@ -75,7 +80,7 @@ function App () {
           <Route path="/signup" element={<Signup handleLogin={handleLogin} loggedInStatus={loggedInStatus} />} />
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
-          <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} />} />
+          <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} currentUserInstruments={currentUserInstruments} />} />
         </Routes>
 
         <div className="content-wrapper">

@@ -50,7 +50,17 @@ function NavigationAfterLogin(props) {
             props.handleLogout();
             navigate('/');
         }).catch(error => console.log("Logout Error >>> ", error))
-}
+  }
+
+  const handleMyProfileClick = () => {
+    axios.get(`/api/users/${props.currentUser.id}/instruments`)
+      .then(response => {
+        console.log("My Profile Clicked:response>>>", response.data)
+        props.getInstruments(response.data);
+        navigate('/myprofile');
+      }).catch(error => console.log("Connecting API Error >>> ", error))
+  }
+
 
   return (
     <Styles2>
@@ -62,7 +72,7 @@ function NavigationAfterLogin(props) {
           <Nav className="ml-auto">
             <Nav.Item><Nav.Link as={Link} to="/favourites">MY FAVOURITES</Nav.Link></Nav.Item>
             <NavDropdown title={<span>Hello, {props.currentUser.first_name}!</span>} id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/myprofile">MY PROFILE</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleMyProfileClick}>MY PROFILE</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/session/new">CREATE A SESSION</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/mysessions">MY SESSIONS</NavDropdown.Item>
               <NavDropdown.Divider />

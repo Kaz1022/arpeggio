@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     post :signup, to: "users#create"
     post :new_event, to: "events#create"
     get "/events/search/:city/:level/:genre/:instrument", to: "events#search"
+    get "/events/instruments/:instrument", to: "events#instruments"
     post "/rails/active_storage/direct_uploads", to: "direct_uploads#create"
   end
 

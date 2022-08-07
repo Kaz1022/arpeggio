@@ -40,6 +40,7 @@ function EventFilter() {
  const [city, setCity] = useState();
  const [level, setLevel] = useState();
  const [genre, setGenre] = useState();
+ const [instruments, setInstruments] = useState();
  const [instrument, setInstrument] = useState();
 
  useEffect(function () {
@@ -48,6 +49,12 @@ function EventFilter() {
    .then((res) => setEvents(res.data))
    .then((err) => console.log(err));
  }, []);
+
+ useEffect(function () {
+ axios.get('/api/events/instruments/' + instrument)
+ .then((res) => setInstruments(res.data))
+ .then((err) => console.log(err.message));
+}, []);
 
  const handleSubmit = (e) => {
   e.preventDefault();
@@ -78,7 +85,7 @@ function EventFilter() {
 const makeUniqueArray = (key, arr) => {
   // Since I will be returning an array of unique objects, that is why it is an array
   const result = [
-    ...new Map(arr.map(item => [item[key], item])).values() // -> LINE 1
+    ...new Map(arr?.map(item => [item[key], item])).values() // -> LINE 1
   ]
   // BEFORE RUNNING THE values() FUNCTION, THE OUTPUT LOOKS LIKE THIS
   // [
@@ -108,9 +115,9 @@ const genreResult = makeUniqueArray('genre', events)
     </select>
     <select className="form-select" onChange={onChangeInstrument}>
      <option value="0"> Select Instrument....</option>
-     {events.map((eventItem) => (
+     {instruments.map((eventItem) => (
       <option key={eventItem.id} value={eventItem.id}>
-       {eventItem.instruments[0].name}
+       {eventItem.name}
       </option>
      ))}
     </select>

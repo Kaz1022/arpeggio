@@ -15,6 +15,12 @@ class Api::EventsController < ApplicationController
     # Instrument.joins(:events).where(events: {event_id: event})
     render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
   end
+
+  def instruments
+    @instruments = Instrument.all
+    render json: @instruments.to_json(:include => [:event_instruments])
+  end
+
   
   # GET /events/1
   def show

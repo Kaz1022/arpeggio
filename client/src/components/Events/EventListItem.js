@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
@@ -7,6 +7,8 @@ import '../../App.scss';
 
 import main from '../../assets/images/main.jpeg';
 import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
+import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
+import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
 
 const Img = styled.img.attrs({
  src: `${main}`,
@@ -18,22 +20,6 @@ const Img = styled.img.attrs({
   // opacity: 0.92;
  }
  `;
-
-const ImgDrums = styled.img.attrs({
- src: `${drumsA}`,
-})`
-  height: 120px;
-  max-width: 100%;
-  border-radius: 60%;
-  margin-right: 30px;
-  margin-top: 20px;
-  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
-  &:hover{
-   box-shadow: 1px 1px 5px 1px pink;
-   outline: none;
-    }
-  }
-  `;
 
 const EventStyles = styled.div`
 .card{
@@ -129,7 +115,7 @@ const EventStyles = styled.div`
 `;
 
 function EventListItem({
- key,
+ id,
  title,
  user,
  date,
@@ -145,8 +131,39 @@ function EventListItem({
  status,
  created,
  instruments,
- instrument_quantity
+ instrument_quantity,
+ events,
 }) {
+const [iconData, setIconData] = useState([]);
+
+const instrumentsArr=[];
+const instrumentSummary = events.map((event) => {
+  event.event_instruments.map((event_i) => {
+    const instrument_name = event.instruments.find(( inst ) => inst.id === event_i.instrument_id).name;
+    // console.log("instrument name",  instrument_name)
+    const instrument ={
+      name: instrument_name,
+      event_id: event_i.event_id,
+      quantity: event_i.quantity,
+      status: event_i.status,
+    }
+    instrumentsArr.push(instrument)
+    // console.log({instrumentsArr})
+  })
+ 
+});
+// console.log(events)
+
+useEffect(function () {
+  // setIconData(newObjArr)
+}, []);
+
+// let eventArr = events.map((event) => {return event})
+const iconBreakdown = iconData.map((icon) => {return icon})
+const icondeep  = iconBreakdown.map((num) => {return num})
+// console.log(iconData[9])
+
+
  return (
   <EventStyles >
    <div className="card">
@@ -202,17 +219,54 @@ function EventListItem({
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-        {instrument_quantity.map((instrument_num) => {  //map over instruments(name) and event_instruments(quantity) to pull
-         return (
-          <>
-           <div className="instrument1 instrument">
-            {/* {instruments.map((instrument) => { */}
-             <ImgDrums src="../assets/images/drums_a.png" />
-            {/* })
-            } */}
-           </div>
-          </>
-         );
+         {
+         instrumentsArr.map((instrument) => {
+         if(instrument.status === "Available"){
+            if (instrument.event_id === id && instrument.name === "Drum") {
+              return(
+                [...Array(instrument.quantity)].map((v, i) => <DrumImg key={`selector-${i}`} /> )
+              )
+            }else if(instrument.event_id === id && instrument.name === "Guitar"){
+              return(
+                [...Array(instrument.quantity)].map((v, i) => <GuitarImg key={`selector-${i}`} /> )
+              )
+            }else if(instrument.event_id === id && instrument.name === "Vocal"){
+              return(
+                [...Array(instrument.quantity)].map((v, i) => <VocalImg key={`selector-${i}`} /> )
+              )
+            }
+
+         }else if(instrument.status === "Pending"){
+          if (instrument.event_id === id && instrument.name === "Drum") {
+            return(
+              [...Array(instrument.quantity)].map((v, i) => <DrumImg key={`selector-${i}`} /> )
+            )
+          }else if(instrument.event_id === id && instrument.name === "Guitar"){
+            return(
+              [...Array(instrument.quantity)].map((v, i) => <GuitarImg key={`selector-${i}`} /> )
+            )
+          }else if(instrument.event_id === id && instrument.name === "Vocal"){
+            return(
+              [...Array(instrument.quantity)].map((v, i) => <VocalImg key={`selector-${i}`} /> )
+            )
+          }
+
+        }else if(instrument.status === "Filled"){
+          if (instrument.event_id === id && instrument.name === "Drum") {
+            return(
+              [...Array(instrument.quantity)].map((v, i) => <DrumImg key={`selector-${i}`} /> )
+            )
+          }else if(instrument.event_id === id && instrument.name === "Guitar"){
+            return(
+              [...Array(instrument.quantity)].map((v, i) => <GuitarImg key={`selector-${i}`} /> )
+            )
+          }else if(instrument.event_id === id && instrument.name === "Vocal"){
+            return(
+              [...Array(instrument.quantity)].map((v, i) => <VocalImg key={`selector-${i}`} /> )
+            )
+          }
+        }
+
         })}
        </div>
       </div>
@@ -230,3 +284,48 @@ function EventListItem({
 }
 
 export default EventListItem;
+
+
+const DrumImg = styled.img.attrs({
+  src: `${drumsA}`,
+ })`
+   height: 120px;
+   max-width: 100%;
+   border-radius: 60%;
+   margin-right: 30px;
+   margin-top: 20px;
+   box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+   &:hover{
+    box-shadow: 1px 1px 5px 1px pink;
+    outline: none;
+     }
+   }
+   `;
+
+const GuitarImg = styled.img.attrs({
+  src: `${guitarA}`,
+})`
+  height: 120px;
+  max-width: 100%;
+  border-radius: 60%;
+  margin-right: 30px;
+  margin-top: 20px;
+  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+  &:hover{
+  box-shadow: 1px 1px 5px 1px pink;
+  outline: none;
+   }}`;
+
+   const VocalImg = styled.img.attrs({
+    src: `${vocalA}`,
+  })`
+    height: 120px;
+    max-width: 100%;
+    border-radius: 60%;
+    margin-right: 30px;
+    margin-top: 20px;
+    box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+    &:hover{
+    box-shadow: 1px 1px 5px 1px pink;
+    outline: none;
+     }}`;

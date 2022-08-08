@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     post :new_event, to: "events#create"
     get "/myprofile", to: "users#show"
     get "/events/search/:city/:level/:genre/:instrument", to: "events#search"
+    get "/events/instruments/:instrument", to: "events#instruments"
     post "/rails/active_storage/direct_uploads", to: "direct_uploads#create"
     get "/users/:id/instruments", to: "users#instruments"
   end

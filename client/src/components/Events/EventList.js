@@ -12,7 +12,6 @@ const Styles = styled.div`
 
 function EventList() {
 
-//  console.log(state.items);
  return (
   <Styles>
    <div className="event">

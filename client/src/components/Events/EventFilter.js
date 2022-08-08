@@ -53,7 +53,7 @@ function EventFilter() {
  useEffect(function () {
  axios.get('/api/events/instruments/Guitar')
  .then((res) => setInstruments(res.data))
- .then((err) => console.log(err.message));
+ .then((err) => console.log(err));
 }, []);
 
  const handleSubmit = (e) => {
@@ -163,8 +163,9 @@ const genreResult = makeUniqueArray('genre', events)
           description={item.description}
           status={item.post_active}
           created={item.created_at}
-          instruments={item.instruments}
+          instruments={instruments.map((item) => {return item})}
           instrument_quantity={item.event_instruments}
+          events={events}
          />
         </>
        );
@@ -188,8 +189,9 @@ const genreResult = makeUniqueArray('genre', events)
           description={item.description}
           status={item.post_active}
           created={item.created_at}
-          instruments={item.instruments}
+          instruments={instruments.map((item) => {return item})}
           instrument_quantity={item.event_instruments}
+          events={events}
          />
         </>
        );

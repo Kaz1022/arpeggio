@@ -18,7 +18,7 @@ class Api::EventsController < ApplicationController
 
   def instruments
     @instruments = Instrument.all
-    render json: @instruments
+    render json: @instruments.to_json(:include => [:event_instruments])
   end
 
   

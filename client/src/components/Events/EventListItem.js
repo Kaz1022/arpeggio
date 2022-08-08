@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
@@ -19,7 +19,7 @@ const Img = styled.img.attrs({
  }
  `;
 
-const ImgDrums = styled.img.attrs({
+const InstrumentImg = styled.img.attrs({
  src: `${drumsA}`,
 })`
   height: 120px;
@@ -145,19 +145,34 @@ function EventListItem({
  created,
  instruments,
  instrument_quantity,
+ events,
 }) {
- const [instrumentType, setInstrumentType] = useState();
+const [iconData, setIconData] = useState([]);
 
- function getType(){
-  instruments.map((instrumentObj) => {
-    setInstrumentType(instrumentObj.name)
+let newObject = {};
+let instrumentSummary = events.map((items) => {
+  items.event_instruments.map((item) => {
+  // for (let item of items.event_instruments) {
+    items.instruments.map((ite) => {
+  //  for (let ite of items.instruments) {
+    newObject = {
+     ...newObject,
+     [ite.name]: {
+      event_id: item.id,
+      quantity: item.quantity,
+      status: item.status,
+     },
+    };
+    return newObject
   })
- }
- useEffect(() => {
-   getType()
- }, [])
- 
-//  console.log(instrumentType)
+})
+});
+
+useEffect(function () {
+  setIconData(newObject)
+}, []);
+console.log(iconData)
+
 
  return (
   <EventStyles>
@@ -214,29 +229,14 @@ function EventListItem({
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-        {instrument_quantity.map((instrument_num) => {
-         //returns each obj within event_instruments
-         let num = [...Array(instrument_num.quantity)]; // let status = instrument_quantity.map((instrument_num) => {return instrument_num.status})
-         let status = instrument_num.status;
-         //  let instrumentArr = instruments.map((instrumentObj) => {
-         //   console.log(instrumentObj.name)
-         //  });
-         //  let instrument_name = instrumentArr.forEach((item) => {
-         //   setInstrumentsState(item);
-         //  });
-         return (
-          <>
-           {/* {instruments.map((instrumentObjs) => {console.log(instrumentObjs.name)} */}
-           <div className="instrument1 instrument">
-            {num.map((item, i) => {
-              // console.log(status)
-             if (status === 'Available') {
-              return <ImgDrums src="../assets/images/drums_a.png" />
-             }
-            })}
-           </div>
-          </>
-         );
+        {events.map((item) => {
+          // console.log(item)
+        //  if (item) {
+        //   return (
+        //     "item"
+        //   )
+        //  }
+        
         })}
        </div>
       </div>
@@ -254,13 +254,3 @@ function EventListItem({
 }
 
 export default EventListItem;
-
-//const iconOptions = [
-//   {
-// name:Guitar
-// status: Available
-// icon: '../../assets/images/music_icons/Guitars/guitar_a.png'
-// }
-// ]
-// {instruments.map((item) => item.name)}
-//if drummer then make drummer display

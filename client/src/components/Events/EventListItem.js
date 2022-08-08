@@ -152,7 +152,7 @@ const instrumentSummary = events.map((event) => {
   })
  
 });
-console.log(events)
+// console.log(events)
 
 useEffect(function () {
   // setIconData(newObjArr)

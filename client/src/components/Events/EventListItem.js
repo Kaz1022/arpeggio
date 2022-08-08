@@ -129,6 +129,7 @@ const EventStyles = styled.div`
 `;
 
 function EventListItem({
+ key,
  title,
  user,
  date,
@@ -179,7 +180,7 @@ let iconBreakdown = iconData.map((icon) => {return icon})
 
 
  return (
-  <EventStyles>
+  <EventStyles >
    <div className="card">
     <div className="eventCard">
      <div className="left">

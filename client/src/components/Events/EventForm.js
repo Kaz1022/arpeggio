@@ -57,6 +57,10 @@ function NewEvent (props) {
 					<div className="form">
 						<div className="form-group">
 							<form onSubmit={handleSubmit}>
+							<div className="container">
+                  <div className="box">
+
+							  <label htmlFor="title">Title</label>
 								<input
 									type="text"
 									name="title"
@@ -66,6 +70,7 @@ function NewEvent (props) {
 									required
 									/>
 
+									<label htmlFor="city">city</label>
 									<input
 									type="text"
 									name="city"
@@ -76,6 +81,7 @@ function NewEvent (props) {
 									required
 									/>
 
+								<label htmlFor="country">Country</label>
 								<input
 									type="text"
 									name="country"
@@ -85,6 +91,7 @@ function NewEvent (props) {
 									required
 									/>
 
+								<label htmlFor="level">Proficiency</label>
 								<input
 									type="text"
 									name="level"
@@ -94,6 +101,7 @@ function NewEvent (props) {
 									required
 								/>
 									
+								<label htmlFor="genre">Genre</label>
 								<input
 									type="text"
 									name="Genre"
@@ -103,6 +111,7 @@ function NewEvent (props) {
 									required
 							/>
 
+								<label htmlFor="venue">Venue</label>
 								<input
 									type="text"
 									name="Venue"
@@ -111,7 +120,10 @@ function NewEvent (props) {
 									onChange={e => setVenue(e.target.value)}
 									required
 							/>
+								</div>
+								<div className="box">
 
+								<label htmlFor="description">Event Description</label>
 								<input
 									type="text"
 									name="description"
@@ -120,7 +132,9 @@ function NewEvent (props) {
 									onChange={e => setDescription(e.target.value)}
 									required
 							/>
+
 							
+								<label htmlFor="evet_image">Image</label>
 								<input
 									type="file"
 									name="event_image"
@@ -129,6 +143,8 @@ function NewEvent (props) {
 									onChange={e => setEventImage(e.target.value)}
 									required
 								/>   
+
+								<label htmlFor="date">Event date</label>
 								<input
 									type="date"
 									name="event_date"
@@ -138,6 +154,7 @@ function NewEvent (props) {
 									required
 							/>
 
+								<label htmlFor="start_time">Start Time</label>
 								<input
 									type="time"
 									name="start_time"
@@ -147,6 +164,7 @@ function NewEvent (props) {
 									required
 							/>
 
+								<label htmlFor="end_time">End Time</label>
 								<input
 									type="time"
 									name="end_time"
@@ -159,6 +177,10 @@ function NewEvent (props) {
 								<button type="submit">
 									Create a new event
 								</button>
+		</div>
+		</div>
+		
+
 						</form>
 					</div>
 				</div>

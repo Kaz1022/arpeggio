@@ -164,7 +164,7 @@ user_instruments = UserInstrument.create!([
   },
   {
     user_id: 4,
-    instrument_id: 4
+    instrument_id: 7
   },
   {
     user_id: 5,
@@ -199,13 +199,13 @@ event_instruments = EventInstrument.create!([
   },
   {
     event_id: 4,
-    instrument_id: 3,
+    instrument_id: 1,
     quantity: 1,
     status: "Available"
   },
   {
     event_id: 4,
-    instrument_id: 8,
+    instrument_id: 9,
     quantity: 1,
     status: "Available"
   }

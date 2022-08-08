@@ -149,6 +149,7 @@ const genreResult = makeUniqueArray('genre', events)
         <>
          <EventListItem
           key={item.id}
+          id={item.id}
           title={item.title}
           user={item.user.handle}
           date={item.event_date}
@@ -175,6 +176,7 @@ const genreResult = makeUniqueArray('genre', events)
         <>
          <EventListItem
           key={item.id}
+          id={item.id}
           title={item.title}
           user={item.user.handle}
           date={item.event_date}

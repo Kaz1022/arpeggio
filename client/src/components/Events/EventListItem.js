@@ -26,13 +26,13 @@ const EventStyles = styled.div`
   display:flex;
   flex-direction: column;
   align-items:center;
-  border: none;
-  
+  border: none;  
+  padding: 0rem 5rem;
 }
 .eventCard{
-  height: 50vh;
+  height: fit-content
   // max-height: 90vh;
-  width: 70%;
+  width: 100%;
   margin: 30px;
   padding:0;
   display:flex;
@@ -41,7 +41,7 @@ const EventStyles = styled.div`
   align-items:center;
   border-radius: 3px;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   background-color: #FFFFFF;
   box-shadow: 1px 3px 8px 0px rgba(148, 148, 148, 1);
 }
@@ -57,8 +57,7 @@ const EventStyles = styled.div`
 //LEFT
 .left{
   position: relative;
-  padding: 10px 25px;
-  line-height: 38px;
+  padding: 1em 2em;
   height: 100%;
   flex:1.5;
 }
@@ -100,8 +99,10 @@ const EventStyles = styled.div`
 //RIGHT
 .right{
   position: relative;
-  height: 100%;
-  // width:100%;
+  height: auto;
+  width:auto;
+  padding: 0;
+  margin: 0;
   flex:1;
 
   .timeago{

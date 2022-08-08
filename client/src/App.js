@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import Signup from './components/SignUp';
 import EventList from './components/Events/EventList';
@@ -8,7 +8,7 @@ import NavigationAfterLogin from './components/NavigationAfterLogin';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
-import UserListItem from './components/Users/UserListItem';
+import MyProfile from './components/Users/MyProfile';
 import EventForm from './components/Events/EventForm';
 import './App.scss';
 
@@ -17,18 +17,20 @@ function App () {
   const [loading, setLoading] = useState(true);
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [currentUser, setCurrentUser] = useState({})
-  const [currentUserImage, setCurrentUserImage] = useState({})
+  const [currentUserImage, setCurrentUserImage] = useState("")
+  const [currentUserInstruments, setCurrentUserInstruments] = useState({});
 
   function handleLogin (data) {
     setLoggedInStatus("LOGGED_IN")
     setCurrentUser(data.user)
     setCurrentUserImage(data.image)
+    setCurrentUserInstruments(data.instruments)
   }
 
   function handleLogout () {
     setLoggedInStatus("NOT_LOGGED_IN")
     setCurrentUser({})
-    setCurrentUserImage({})
+    setCurrentUserImage("")
   }
 
   useEffect(() => {
@@ -44,6 +46,7 @@ function App () {
           setLoggedInStatus("LOGGED_IN")
           setCurrentUser(response.data.user)
           setCurrentUserImage(response.data.image)
+          setCurrentUserInstruments(response.data.instruments)
         } else if (!response.data.logged_in && loggedInStatus === "LOGGED_IN") {
           setLoggedInStatus("NOT_LOGGED_IN")
           setCurrentUser({})
@@ -75,8 +78,9 @@ function App () {
           <Route path="/signup" element={<Signup handleLogin={handleLogin} loggedInStatus={loggedInStatus} />} />
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
+          <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} currentUserInstruments={currentUserInstruments} />} />
           <Route path="/session/new" element={<EventForm />} />
-          <Route path="/myprofile" element={<UserListItem loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} />} />
+
         </Routes>
 
         <div className="content-wrapper">

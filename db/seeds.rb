@@ -22,7 +22,8 @@ users = User.create!([
     phone: "778-229-5711",
     city: "Toronto",
     country: "Canada",
-    profile_public: true
+    profile_public: true,
+    bio: "Hey I live in Toronto, I like hanging out with poeple!"
   },
   {
     first_name: "Emily",
@@ -33,7 +34,8 @@ users = User.create!([
     phone: "777-888-9999",
     city: "Toronto",
     country: "Canada",
-    profile_public: true
+    profile_public: true,
+    bio: "Hey I love singing, playing instruments and beer!"
   },
   {
     first_name: "Mike",
@@ -44,7 +46,8 @@ users = User.create!([
     phone: "999-888-7777",
     city: "Vancouver",
     country: "Canada",
-    profile_public: true
+    profile_public: true,
+    bio: "I love going to gigs in Van!"
   },
   {
     first_name: "Anna",
@@ -55,7 +58,8 @@ users = User.create!([
     phone: "888-666-7777",
     city: "Vancouver",
     country: "Canada",
-    profile_public: true
+    profile_public: true,
+    bio: "I live in East Van, let's hang!!"
   },
   {
     first_name: "David",
@@ -66,7 +70,8 @@ users = User.create!([
     phone: "333-555-7777",
     city: "Duncan",
     country: "Canada",
-    profile_public: true
+    profile_public: true,
+    bio: "Hey!I live in Duncan! Looking forward to meeting you!"
   }
 ])
 instruments = Instrument.create!([

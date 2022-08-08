@@ -79,6 +79,8 @@ function App () {
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
           <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} currentUserInstruments={currentUserInstruments} />} />
+          <Route path="/session/new" element={<EventForm />} />
+
         </Routes>
 
         <div className="content-wrapper">

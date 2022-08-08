@@ -189,7 +189,7 @@ const icondeep  = iconBreakdown.map((num) => {return num})
       <div className="event-details">
        <div className="event-date">
         <strong>Date:&nbsp;&nbsp;</strong>
-        {date},{id}
+        {date}
        </div>
        <div className="details">
         <div className="details1">

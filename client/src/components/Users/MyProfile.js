@@ -7,21 +7,27 @@ import '../../App.scss';
 const Img = styled.img`
   max-width: 100%;
   height: 100%;
-  flex-shrink: 0;
   object-fit: cover;
  `;
 
 const UserStyles = styled.div`
-.card{
-  display:flex;
-  flex-direction: column;
-  align-items:center;
-  border: none;
 
-}
+.base-container {
+  width: 100vw;
+  height: 80vh;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .header h1 {
+    font-size: 3rem;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 2.5rem;
+  }
+
 .userCard{
   height: 50vh;
-  // max-height: 90vh;
   width: 70%;
   margin: 50px;
   padding:0;
@@ -57,20 +63,17 @@ const UserStyles = styled.div`
   flex-wrap:wrap;
   justify-content: space-between;
 }
-.heart-icon{
-  position: absolute;
-  left: 92%;
-  bottom: 5%;
-}
+
 .user-details{
   display: flex;
   flex-direction:column;
   flex-wrap:wrap;
+  overflow: hidden;
 }
-.details{
-  display:flex;
-  justify-content:space-between;
-  padding-right: 10rem;
+
+.bio{
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 //RIGHT
@@ -81,14 +84,16 @@ const UserStyles = styled.div`
 }
 
 .bio{
-  font-size: 1rem;
+  font-size: 1.2rem;
+}
+
+.edit-button{
+  justify-content:flex-end;
 }
 
 .m-1{
   flex-direction: row-reverse;
-  align-items:center;
   border: none;
-
 }
 `;
 
@@ -101,7 +106,7 @@ function MyProfile(props) {
  return (
   <>
    {props.loggedInStatus === 'NOT_LOGGED_IN' ? (
-    <div className="base-container">
+    <div className="header">
      <div className="header">
       <h1>YOU NEED TO LOGIN FIRST!</h1>
       <p>
@@ -111,40 +116,41 @@ function MyProfile(props) {
     </div>
    ) : (
   <UserStyles>
-  <div className="title">
-    <h1>USER PROFILE</h1>
-  </div>
-   <div className="card">
-    <div className="userCard">
-      
-      <div className="left">
-        <div className="top">
-          <div className="user-name"><strong>@&nbsp;&nbsp;</strong>{props.currentUser.handle}</div>
-        </div>
-
-        <div className="user-details">
-          <div className="details">
-            <div className="details1">
-              <div className="user-location"><strong>Location:&nbsp;&nbsp;</strong>{props.currentUser.city}, {props.currentUser.country}</div>
-              {props.currentUserInstruments && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{props.currentUserInstruments.name}.</div> }
-            </div>
-            <div className="details2">
-                <div className="about-me"><strong>About Me...:&nbsp;&nbsp;</strong></div>
-                <div className="bio">{props.currentUser.bio}</div>
+    <div className="base-container">
+      <div className="title">
+        <h1>USER PROFILE</h1>
+      </div>
+      <div className="userCard">
+        <div className="left">
+          <div className="top">
+            <div className="user-name">
+              <strong>@&nbsp;&nbsp;</strong>{props.currentUser.handle}
             </div>
           </div>
+          <div className="user-details">
+            <div className="details">
+              <div className="user-location">
+                <strong>Location:&nbsp;&nbsp;</strong>{props.currentUser.city}, {props.currentUser.country}
+              </div>
+              {props.currentUserInstruments && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{props.currentUserInstruments.name}</div>
+              }
+              <div className="about-me">
+                <strong>About Me&nbsp;&nbsp;</strong>
+              </div>
+              <div className="bio">
+                {props.currentUser.bio}
+              </div>
+              </div>
+            </div>
+          </div>
+          <div className="right">
+            {props.currentUserImage.length > 0 && <Img src={`http://localhost:3000/${props.currentUserImage}`} /> }
+          </div>
         </div>
-      </div>
-
-      <div className="right">
-      {props.currentUserImage.length > 0 && <Img src={`http://localhost:3000/${props.currentUserImage}`} /> }
-
+      <div  className="edit-button">
+        <Button variant="dark"  className="m-1" onClick={handleOnClick}>EDIT</Button>
       </div>
     </div>
-    <div  className="justify-content-end">
-    <Button variant="dark"  className="m-1" onClick={handleOnClick}>EDIT</Button>
-    </div>
-   </div>
   </UserStyles>
    )}
   </>

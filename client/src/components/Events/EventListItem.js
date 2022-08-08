@@ -150,6 +150,7 @@ function EventListItem({
 const [iconData, setIconData] = useState([]);
 
 let newObject = {};
+let newObjArr=[]
 let instrumentSummary = events.map((items) => {
   items.event_instruments.map((item) => {
   // for (let item of items.event_instruments) {
@@ -163,15 +164,18 @@ let instrumentSummary = events.map((items) => {
       status: item.status,
      },
     };
-    return newObject
+    newObjArr.push(newObject);
   })
 })
 });
 
 useEffect(function () {
-  setIconData(newObject)
+  setIconData(newObjArr)
 }, []);
-console.log(iconData)
+
+let eventArr = events.map((event) => {return event})
+let iconBreakdown = iconData.map((icon) => {return icon})
+// console.log(iconData[9])
 
 
  return (
@@ -229,15 +233,16 @@ console.log(iconData)
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-        {events.map((item) => {
-          // console.log(item)
-        //  if (item) {
-        //   return (
-        //     "item"
-        //   )
-        //  }
-        
-        })}
+        {/* {events.map((event) => { */}
+          {iconBreakdown.map((icon) => {
+            // console.log(iconData[9])
+             if (icon.event_id ) {
+             return(
+              "icon"
+             )
+             }
+            })}
+        {/* })} */}
        </div>
       </div>
      </div>

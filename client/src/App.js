@@ -75,6 +75,7 @@ function App () {
           <Route path="/signup" element={<Signup handleLogin={handleLogin} loggedInStatus={loggedInStatus} />} />
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
+          <Route path="/session/new" element={<EventForm />} />
           <Route path="/myprofile" element={<UserListItem loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} />} />
         </Routes>
 

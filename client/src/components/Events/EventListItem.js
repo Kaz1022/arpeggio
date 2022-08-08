@@ -237,15 +237,15 @@ const icondeep  = iconBreakdown.map((num) => {return num})
             }
 
          }else if(instrument.status === "Pending"){
-          if (instrument.event_id === id && instrument.name === "Drum" && instrument.status === "Available") {
+          if (instrument.event_id === id && instrument.name === "Drum") {
             return(
               [...Array(instrument.quantity)].map((v, i) => <DrumImg key={`selector-${i}`} /> )
             )
-          }else if(instrument.event_id === id && instrument.name === "Guitar" && instrument.status === "Available"){
+          }else if(instrument.event_id === id && instrument.name === "Guitar"){
             return(
               [...Array(instrument.quantity)].map((v, i) => <GuitarImg key={`selector-${i}`} /> )
             )
-          }else if(instrument.event_id === id && instrument.name === "Vocal" && instrument.status === "Available"){
+          }else if(instrument.event_id === id && instrument.name === "Vocal"){
             return(
               [...Array(instrument.quantity)].map((v, i) => <VocalImg key={`selector-${i}`} /> )
             )

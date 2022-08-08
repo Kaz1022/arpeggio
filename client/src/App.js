@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
 import MyProfile from './components/Users/MyProfile';
+import MyFavourites from './components/Users/MyFavourites';
 import EventForm from './components/Events/EventForm';
 import './App.scss';
 
@@ -80,6 +81,7 @@ function App () {
           <Route path="/events" element={<EventList />} />
           <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} currentUserInstruments={currentUserInstruments} />} />
           <Route path="/session/new" element={<EventForm />} />
+          <Route path="/favourites" element={<MyFavourites loggedInStatus={loggedInStatus} />} />
 
         </Routes>
 

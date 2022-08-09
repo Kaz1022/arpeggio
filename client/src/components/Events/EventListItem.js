@@ -200,6 +200,7 @@ function EventListItem({
  events,
 }) {
  const [show, setShow] = useState(false);
+ const [statuss, setStatuss] = useState();
 
  
  const instrumentsArr = [];
@@ -240,7 +241,7 @@ useEffect(function () {
 
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
-const handleConfirm = () => setStatus();
+const handleConfirm = () => setStatuss();
 
  return (
   <EventStyles>

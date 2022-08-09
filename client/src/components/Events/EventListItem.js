@@ -231,6 +231,9 @@ const getEventData = () => {
 }
 
 useEffect(function () {
+  // setIconData(newObjArr)
+  console.log("confirmation request submitted")
+  axios.post("/api/events")
 }, []);  //url id
 
 const handleClose = () => setShow(false);

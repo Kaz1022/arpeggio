@@ -1,5 +1,5 @@
 class Api::EventInstrumentsController < ApplicationController
-  before_action :set_event, only: %i[show update destroy]
+  # before_action :set_event, only: %i[show update destroy]
   
   # GET /events
   def index
@@ -9,6 +9,8 @@ class Api::EventInstrumentsController < ApplicationController
   
   # GET /events/1
   def show
+    @event_instrument = EventInstrument.includes(:event)
+    .find_by(event_instruments: {event_id: params[:id]})
     render json: @event_instrument
   end
 
@@ -33,7 +35,7 @@ class Api::EventInstrumentsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    @event = Event.find(params[:id])
+    @event_instrument = EventInstrument.find(params[:event_id])
     @event.update(status: params[:status])
     if @event_instrument.update(event_instrument_params)
       render json: @event_instrument
@@ -51,9 +53,9 @@ class Api::EventInstrumentsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_event
-    @event_instrument = EventInstrument.find(params[:id])
-  end
+  # def set_event
+  #   @event_instrument = EventInstrument.find(params[:id])
+  # end
 
   # Only allow a trusted parameter "white list" through.
   def event_instrument_params

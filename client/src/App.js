@@ -27,12 +27,15 @@ function App () {
     setCurrentUser(data.user)
     setCurrentUserImage(data.image)
     setCurrentUserInstruments(data.instruments)
+    const userData = data.user;
+    localStorage.setItem("user", JSON.stringify({userData}))
   }
 
   function handleLogout () {
     setLoggedInStatus("NOT_LOGGED_IN")
     setCurrentUser({})
     setCurrentUserImage("")
+    localStorage.clear();
   }
 
   useEffect(() => {
@@ -49,6 +52,8 @@ function App () {
           setCurrentUser(response.data.user)
           setCurrentUserImage(response.data.image)
           setCurrentUserInstruments(response.data.instruments)
+          const userData = response.data.user;
+          localStorage.setItem("user", JSON.stringify({userData}))
         } else if (!response.data.logged_in && loggedInStatus === "LOGGED_IN") {
           setLoggedInStatus("NOT_LOGGED_IN")
           setCurrentUser({})
@@ -81,7 +86,7 @@ function App () {
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
           <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} currentUserInstruments={currentUserInstruments} />} />
-          <Route path="/mysessions" element={<MySessionsList />} />
+          <Route path="/mysessions" element={<MySessionsList currentUser={currentUser} />} />
           <Route path="/session/new" element={<EventForm />} />
           <Route path="/favourites" element={<MyFavourites loggedInStatus={loggedInStatus} />} />
 

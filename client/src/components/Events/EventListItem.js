@@ -10,6 +10,51 @@ import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
 import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
 
+
+const DrumImg = styled.img.attrs({
+  src: `${drumsA}`,
+ })`
+   height: 120px;
+   max-width: 100%;
+   border-radius: 60%;
+   margin-right: 30px;
+   margin-top: 20px;
+   box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+   &:hover{
+    box-shadow: 1px 1px 5px 1px pink;
+    outline: none;
+     }
+   }
+   `;
+
+const GuitarImg = styled.img.attrs({
+  src: `${guitarA}`,
+})`
+  height: 120px;
+  max-width: 100%;
+  border-radius: 60%;
+  margin-right: 30px;
+  margin-top: 20px;
+  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+  &:hover{
+  box-shadow: 1px 1px 5px 1px pink;
+  outline: none;
+   }}`;
+
+   const VocalImg = styled.img.attrs({
+    src: `${vocalA}`,
+  })`
+    height: 120px;
+    max-width: 100%;
+    border-radius: 60%;
+    margin-right: 30px;
+    margin-top: 20px;
+    box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+    &:hover{
+    box-shadow: 1px 1px 5px 1px pink;
+    outline: none;
+     }}`;
+
 const Img = styled.img.attrs({
  src: `${main}`,
 })`
@@ -26,13 +71,13 @@ const EventStyles = styled.div`
   display:flex;
   flex-direction: column;
   align-items:center;
-  border: none;
-  
+  border: none;  
+  padding: 0rem 5rem;
 }
 .eventCard{
-  height: 50vh;
+  height: fit-content
   // max-height: 90vh;
-  width: 70%;
+  width: 100%;
   margin: 30px;
   padding:0;
   display:flex;
@@ -41,7 +86,7 @@ const EventStyles = styled.div`
   align-items:center;
   border-radius: 3px;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   background-color: #FFFFFF;
   box-shadow: 1px 3px 8px 0px rgba(148, 148, 148, 1);
 }
@@ -57,8 +102,7 @@ const EventStyles = styled.div`
 //LEFT
 .left{
   position: relative;
-  padding: 10px 25px;
-  line-height: 38px;
+  padding: 1em 2em;
   height: 100%;
   flex:1.5;
 }
@@ -100,8 +144,10 @@ const EventStyles = styled.div`
 //RIGHT
 .right{
   position: relative;
-  height: 100%;
-  // width:100%;
+  height: auto;
+  width:auto;
+  padding: 0;
+  margin: 0;
   flex:1;
 
   .timeago{
@@ -113,6 +159,24 @@ const EventStyles = styled.div`
   }
 }
 `;
+
+const InstrumentStatusComp = {
+  Drum: {
+    Available: VocalImg,
+    Pending: VocalImg,
+    Filled: VocalImg
+  },
+  Guitar: {
+    Available: GuitarImg,
+    Pending: GuitarImg,
+    Filled: GuitarImg
+  },
+  Vocal: {
+    Available: DrumImg,
+    Pending: DrumImg,
+    Filled: DrumImg
+  }
+}
 
 function EventListItem({
  id,
@@ -153,6 +217,21 @@ const instrumentSummary = events.map((event) => {
  
 });
 // console.log(events)
+
+const getEventData = () => {
+  const event = events.find(e => e.id === id);
+
+  const instrumentsById = event.instruments.reduce((acc, val) => {
+    acc[val.id] = val
+    return acc
+  }, {})
+  
+  return event.event_instruments.map((ei) => {
+    const name = instrumentsById[ei.instrument_id].name
+    const Comp = InstrumentStatusComp[name][ei.status];
+   return [...Array(ei.quantity)].map((v, i) => <Comp key={`selector-${i}`} />)
+  })  
+}
 
 useEffect(function () {
   // setIconData(newObjArr)
@@ -219,7 +298,7 @@ const icondeep  = iconBreakdown.map((num) => {return num})
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <div className="instrument-icons">
-         {
+        {/*
          instrumentsArr.map((instrument) => {
          if(instrument.status === "Available"){
             if (instrument.event_id === id && instrument.name === "Drum") {
@@ -267,7 +346,8 @@ const icondeep  = iconBreakdown.map((num) => {return num})
           }
         }
 
-        })}
+        })*/}
+        {getEventData()}
        </div>
       </div>
      </div>
@@ -285,47 +365,3 @@ const icondeep  = iconBreakdown.map((num) => {return num})
 
 export default EventListItem;
 
-
-const DrumImg = styled.img.attrs({
-  src: `${drumsA}`,
- })`
-   height: 120px;
-   max-width: 100%;
-   border-radius: 60%;
-   margin-right: 30px;
-   margin-top: 20px;
-   box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
-   &:hover{
-    box-shadow: 1px 1px 5px 1px pink;
-    outline: none;
-     }
-   }
-   `;
-
-const GuitarImg = styled.img.attrs({
-  src: `${guitarA}`,
-})`
-  height: 120px;
-  max-width: 100%;
-  border-radius: 60%;
-  margin-right: 30px;
-  margin-top: 20px;
-  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
-  &:hover{
-  box-shadow: 1px 1px 5px 1px pink;
-  outline: none;
-   }}`;
-
-   const VocalImg = styled.img.attrs({
-    src: `${vocalA}`,
-  })`
-    height: 120px;
-    max-width: 100%;
-    border-radius: 60%;
-    margin-right: 30px;
-    margin-top: 20px;
-    box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
-    &:hover{
-    box-shadow: 1px 1px 5px 1px pink;
-    outline: none;
-     }}`;

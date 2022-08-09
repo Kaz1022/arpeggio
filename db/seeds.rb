@@ -147,6 +147,21 @@ events= Event.create!([
     description: "My apartment has a nice rooftop and I like to play music there. It's in Kits. Let's jam together!",
     post_active: true
   },
+  {
+    user_id: 1,
+    title: "Looking for a vocalist for Friday night gig!",
+    created_at: "2022-08-07 10:30:30",
+    event_date: "2022-08-29",
+    start_time: "18:00:00",
+    end_time: "19:00:00",
+    city: "Toronto",
+    country: "Canada",
+    level: "Beginner Friendly",
+    venue_style: "At a small bar",
+    genre: "Alternative rock",
+    description: "Hi! I live in downtown Toronto and looking for a vocalist who wants to sing at a bar!",
+    post_active: true
+  }
 ])
 
 user_instruments = UserInstrument.create!([
@@ -208,6 +223,12 @@ event_instruments = EventInstrument.create!([
     instrument_id: 9,
     quantity: 1,
     status: "Available"
+  },
+  {
+    event_id: 5,
+    instrument_id: 9,
+    quantity: 1,
+    status: "Available"
   }
 ])
 
@@ -229,3 +250,4 @@ events[0].event_image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg
 events[1].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
 events[2].event_image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
 events[3].event_image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")
+events[4].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")

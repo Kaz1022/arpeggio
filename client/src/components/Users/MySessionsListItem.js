@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BsHeartFill } from 'react-icons/bs';
+import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import TimeAgo from 'react-timeago';
 import '../../scss/custom.scss';
 import '../../App.scss';
-
-import main from '../../assets/images/main.jpeg';
 import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
 import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
@@ -56,16 +53,11 @@ const GuitarImg = styled.img.attrs({
     outline: none;
      }}`;
 
-const Img = styled.img.attrs({
- src: `${main}`,
-})`
-  max-width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  object-fit: cover;
-  // opacity: 0.92;
- }
- `;
+const Img = styled.img`
+max-width: 100%;
+height: 100%;
+object-fit: cover;
+`;
 
 const EventStyles = styled.div`
 .card{
@@ -144,21 +136,17 @@ const EventStyles = styled.div`
 
 //RIGHT
 .right{
-  position: relative;
-  height: auto;
-  width:auto;
+  flex-direction: column;
+  align-content: space-between;
   padding: 0;
   margin: 0;
   flex:1;
-
-  .timeago{
-    color:white;
-    font-weight: bold;
-    position: absolute;
-    top:94%;
-    left: 40%;
-  }
 }
+
+.edit-button{
+
+}
+
 `;
 
 const InstrumentStatusComp = {
@@ -179,7 +167,7 @@ const InstrumentStatusComp = {
   }
 }
 
-function EventListItem({
+function MySessionsListItem({
  id,
  title,
  user,
@@ -195,32 +183,12 @@ function EventListItem({
  description,
  status,
  created,
- instruments,
- instrument_quantity,
  events,
 }) {
  const [show, setShow] = useState(false);
  const [statuss, setStatuss] = useState();
 
- 
- const instrumentsArr = [];
- const instrumentSummary = events.map((event) => {
-  event.event_instruments.map((event_i) => {
-   const instrument_name = event.instruments.find(
-    (inst) => inst.id === event_i.instrument_id
-   ).name;
-   
-   const instrument = {
-    name: instrument_name,
-    event_id: event_i.event_id,
-    quantity: event_i.quantity,
-    status: event_i.status,
-   };
-   instrumentsArr.push(instrument);
-  });
- });
-
-const getEventData = () => {
+ const getEventData = () => {
   const event = events.find(e => e.id === id);
 
   const instrumentsById = event.instruments.reduce((acc, val) => {
@@ -253,15 +221,6 @@ const handleConfirm = () => setStatuss();
        <div className="event-organiser">
         <strong>By:&nbsp;&nbsp;</strong>
         {user}
-       </div>
-       <div className="heart-icon">
-        <BsHeartFill
-         style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
-         onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')}
-         onMouseOut={({ target }) =>
-          (target.style.color = 'rgba(244, 56, 56,0.2)')
-         }
-        />
        </div>
       </div>
 
@@ -305,9 +264,12 @@ const handleConfirm = () => setStatuss();
      </div>
 
      <div className="right">
-      <img src={image} alt="" />
-      <Img src="../assets/images/main.jpeg" />
-      <TimeAgo className="timeago" date={created}></TimeAgo>
+      <div>
+        <Img src={image} />
+      </div>
+      <div  className="edit-button">
+        <Button variant="dark">EDIT</Button>
+      </div>
      </div>
     </div>
    </div>
@@ -315,5 +277,4 @@ const handleConfirm = () => setStatuss();
  );
 }
 
-export default EventListItem;
-
+export default MySessionsListItem;

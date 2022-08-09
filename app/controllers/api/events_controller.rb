@@ -56,18 +56,20 @@ class Api::EventsController < ApplicationController
         # location: @event
     }
     else
-      #render json: @event.errors, status: :unprocessable_entity
-      render :new
+      render json: @event.errors
+      # render :new
     end
   end
 
   # PATCH/PUT /events/1
   def update
-    if @event.update(event_params)
-      render json: @event
-    else
-      render json: @event.errors, status: :unprocessable_entity
-    end
+    @event = Event.find(params[:id])
+    @event.update(event_image: params[:event_image])
+    @image = rails_blob_path(@event.event_image)
+    render json: {
+      event: @event,
+      event_image: @image
+    }
   end
 
   # DELETE /events/1

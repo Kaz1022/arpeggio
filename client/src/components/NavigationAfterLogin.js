@@ -52,16 +52,6 @@ function NavigationAfterLogin(props) {
         }).catch(error => console.log("Logout Error >>> ", error))
   }
 
-  // const handleMyProfileClick = () => {
-  //   axios.get(`/api/users/${props.currentUser.id}/instruments`)
-  //     .then(response => {
-  //       console.log("My Profile Clicked:response>>>", response.data)
-  //       props.getInstruments(response.data);
-  //       navigate('/myprofile');
-  //     }).catch(error => console.log("Connecting API Error >>> ", error))
-  // }
-
-
   return (
     <Styles2>
       <Navbar expand="lg">

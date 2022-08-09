@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BsHeartFill } from 'react-icons/bs';
+import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import '../../scss/custom.scss';
 import '../../App.scss';
-
-import main from '../../assets/images/main.jpeg';
 import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
 import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
@@ -138,21 +136,17 @@ const EventStyles = styled.div`
 
 //RIGHT
 .right{
-  position: relative;
-  height: auto;
-  width:auto;
+  flex-direction: column;
+  align-content: space-between;
   padding: 0;
   margin: 0;
   flex:1;
-
-  .timeago{
-    color:white;
-    font-weight: bold;
-    position: absolute;
-    top:94%;
-    left: 40%;
-  }
 }
+
+.edit-button{
+
+}
+
 `;
 
 const InstrumentStatusComp = {
@@ -228,15 +222,6 @@ const handleConfirm = () => setStatuss();
         <strong>By:&nbsp;&nbsp;</strong>
         {user}
        </div>
-       <div className="heart-icon">
-        <BsHeartFill
-         style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
-         onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')}
-         onMouseOut={({ target }) =>
-          (target.style.color = 'rgba(244, 56, 56,0.2)')
-         }
-        />
-       </div>
       </div>
 
       <div className="event-details">
@@ -279,7 +264,12 @@ const handleConfirm = () => setStatuss();
      </div>
 
      <div className="right">
-      <Img src={image} />
+      <div>
+        <Img src={image} />
+      </div>
+      <div  className="edit-button">
+        <Button variant="dark">EDIT</Button>
+      </div>
      </div>
     </div>
    </div>

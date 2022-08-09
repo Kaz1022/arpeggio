@@ -5,7 +5,6 @@ import TimeAgo from 'react-timeago';
 import '../../scss/custom.scss';
 import '../../App.scss';
 
-import main from '../../assets/images/main.jpeg';
 import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
 import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
@@ -56,17 +55,6 @@ const GuitarImg = styled.img.attrs({
     outline: none;
      }}`;
 
-const Img = styled.img.attrs({
- src: `${main}`,
-})`
-  max-width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  object-fit: cover;
-  // opacity: 0.92;
- }
- `;
-
 const EventStyles = styled.div`
 .card{
   display:flex;
@@ -76,7 +64,7 @@ const EventStyles = styled.div`
   padding: 0rem 5rem;
 }
 .eventCard{
-  height: fit-content
+  height: fit-content;
   // max-height: 90vh;
   width: 100%;
   margin: 30px;
@@ -137,7 +125,7 @@ const EventStyles = styled.div`
   line-height: 30px;
 }
 .instrument-icons{
-  width: 50%;
+  width: 75%;
   display:flex;
   justify content: space-around;
 }
@@ -145,8 +133,8 @@ const EventStyles = styled.div`
 //RIGHT
 .right{
   position: relative;
-  height: auto;
-  width:auto;
+  height: 100%;
+  width:100%;
   padding: 0;
   margin: 0;
   flex:1;
@@ -158,14 +146,20 @@ const EventStyles = styled.div`
     top:94%;
     left: 40%;
   }
+  .main_image{
+    max-width: 100%;
+    min-height: 50vh;
+    // flex-shrink: 0;
+    object-fit: cover;
+  }
 }
 `;
 
 const InstrumentStatusComp = {
   Drum: {
-    Available: VocalImg,
-    Pending: VocalImg,
-    Filled: VocalImg
+    Available: DrumImg,
+    Pending: DrumImg,
+    Filled: DrumImg,
   },
   Guitar: {
     Available: GuitarImg,
@@ -173,9 +167,9 @@ const InstrumentStatusComp = {
     Filled: GuitarImg
   },
   Vocal: {
-    Available: DrumImg,
-    Pending: DrumImg,
-    Filled: DrumImg
+    Available: VocalImg,
+    Pending: VocalImg,
+    Filled: VocalImg
   }
 }
 
@@ -299,14 +293,13 @@ const handleConfirm = () => setStatuss();
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <ConfirmationModal show={show} onHide={handleClose} onConfirm={handleConfirm}/>
        <div className="instrument-icons">
-        {getEventData()}
+        <div className="icons" onClick={handleShow}>{getEventData()}</div>
        </div>
       </div>
      </div>
 
      <div className="right">
-      <img src={image} alt="" />
-      <Img src="../assets/images/main.jpeg" />
+      <img className="main_image" src={image} alt="" />
       <TimeAgo className="timeago" date={created}></TimeAgo>
      </div>
     </div>

@@ -25,6 +25,14 @@ class Api::EventsController < ApplicationController
     @instruments = Instrument.all
     render json: @instruments.to_json(:include => [:event_instruments])
   end
+    
+  # GET /users/:user_id/sessions
+  def mysessions
+    @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments])
+    .where(user_id: params[:user_id])
+
+    render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
+  end
 
   
   # GET /events/1
@@ -77,7 +85,7 @@ class Api::EventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_params
-    params.require(:event).permit( :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time)
+    params.require(:event).permit( :user_id, :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time)
   end
 
 end

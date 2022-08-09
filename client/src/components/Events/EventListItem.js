@@ -9,6 +9,7 @@ import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
 import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
 import ConfirmationModal from '../Others/ConfirmationModal';
+import axios from 'axios';
 
 
 const DrumImg = styled.img.attrs({
@@ -230,7 +231,6 @@ const getEventData = () => {
 }
 
 useEffect(function () {
-  // setIconData(newObjArr)
 }, []);  //url id
 
 const handleClose = () => setShow(false);
@@ -309,4 +309,3 @@ const handleConfirm = () => setStatuss();
 }
 
 export default EventListItem;
-

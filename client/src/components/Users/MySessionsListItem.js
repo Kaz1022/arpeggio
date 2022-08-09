@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
-import TimeAgo from 'react-timeago';
 import '../../scss/custom.scss';
 import '../../App.scss';
 
@@ -56,16 +55,11 @@ const GuitarImg = styled.img.attrs({
     outline: none;
      }}`;
 
-const Img = styled.img.attrs({
- src: `${main}`,
-})`
-  max-width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  object-fit: cover;
-  // opacity: 0.92;
- }
- `;
+const Img = styled.img`
+max-width: 100%;
+height: 100%;
+object-fit: cover;
+`;
 
 const EventStyles = styled.div`
 .card{
@@ -179,7 +173,7 @@ const InstrumentStatusComp = {
   }
 }
 
-function EventListItem({
+function MySessionsListItem({
  id,
  title,
  user,
@@ -195,32 +189,12 @@ function EventListItem({
  description,
  status,
  created,
- instruments,
- instrument_quantity,
  events,
 }) {
  const [show, setShow] = useState(false);
  const [statuss, setStatuss] = useState();
 
- 
- const instrumentsArr = [];
- const instrumentSummary = events.map((event) => {
-  event.event_instruments.map((event_i) => {
-   const instrument_name = event.instruments.find(
-    (inst) => inst.id === event_i.instrument_id
-   ).name;
-   
-   const instrument = {
-    name: instrument_name,
-    event_id: event_i.event_id,
-    quantity: event_i.quantity,
-    status: event_i.status,
-   };
-   instrumentsArr.push(instrument);
-  });
- });
-
-const getEventData = () => {
+ const getEventData = () => {
   const event = events.find(e => e.id === id);
 
   const instrumentsById = event.instruments.reduce((acc, val) => {
@@ -305,9 +279,7 @@ const handleConfirm = () => setStatuss();
      </div>
 
      <div className="right">
-      <img src={image} alt="" />
-      <Img src="../assets/images/main.jpeg" />
-      <TimeAgo className="timeago" date={created}></TimeAgo>
+      <Img src={image} />
      </div>
     </div>
    </div>
@@ -315,5 +287,4 @@ const handleConfirm = () => setStatuss();
  );
 }
 
-export default EventListItem;
-
+export default MySessionsListItem;

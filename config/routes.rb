@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get "/events/instruments/:instrument", to: "events#instruments"
     post "/rails/active_storage/direct_uploads", to: "direct_uploads#create"
     get "/users/:id/instruments", to: "users#instruments"
+    get "/users/:user_id/sessions", to: "events#mysessions"
   end
 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

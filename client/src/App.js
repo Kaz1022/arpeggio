@@ -11,6 +11,7 @@ import Home from './components/Home/Main';
 import MyProfile from './components/Users/MyProfile';
 import MyFavourites from './components/Users/MyFavourites';
 import EventForm from './components/Events/EventForm';
+import MySessionsList from './components/Users/MySessionsList';
 import './App.scss';
 
 function App () {
@@ -80,6 +81,7 @@ function App () {
           <Route path="/login" element={<Login handleLogin={handleLogin} loggedInStatus={loggedInStatus}/>} />
           <Route path="/events" element={<EventList />} />
           <Route path="/myprofile" element={<MyProfile loggedInStatus={loggedInStatus} currentUser={currentUser} currentUserImage={currentUserImage} currentUserInstruments={currentUserInstruments} />} />
+          <Route path="/mysessions" element={<MySessionsList />} />
           <Route path="/session/new" element={<EventForm />} />
           <Route path="/favourites" element={<MyFavourites loggedInStatus={loggedInStatus} />} />
 

@@ -4,7 +4,7 @@ import '../../scss/custom.scss';
 import '../../App.scss';
 import { DrumImg, GuitarImg, VocalImg } from '../styled-component/instrumenticons-styled'; 
 import { Img, EventStyles } from '../styled-component/mySessionListItem-styled';
-import ConfirmationModal from '../Others/ConfirmationModal';
+import AcceptanceModal from '../Others/AcceptanceModal';
 
 const InstrumentStatusComp = {
   Drum: {
@@ -113,9 +113,11 @@ const handleConfirm = () => setStatuss();
 
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
-       <ConfirmationModal show={show} onHide={handleClose} onConfirm={handleConfirm}/>
+       <AcceptanceModal show={show} onHide={handleClose} onConfirm={handleConfirm}/>
        <div className="instrument-icons">
-        {getEventData()}
+        <div className="icons" onClick={handleShow}>
+          {getEventData()}
+        </div>
        </div>
       </div>
      </div>

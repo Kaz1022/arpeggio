@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DirectUpload } from 'activestorage';
 import axios from 'axios';
 
 function NewEvent (props) {
@@ -29,7 +30,7 @@ function NewEvent (props) {
 										level: level,
                     venue_style: venue,
                     genre: genre,
-										event_image: eventImage,
+										// event_image: eventImage,
 										description: description,
 										event_date: eventDate,
 										start_time: startTime,
@@ -39,16 +40,41 @@ function NewEvent (props) {
             { withCredentials: true }
         ).then(response => {
 					console.log(response);
+					console.log(response.data);
 					if (response.data.status === 'created') {
 							console.log("event POST is successful. response data:", response.data);
-							props.handleLogin(response.data);
-							navigate('/events');
+							uploadFile(eventImage, response.data.user.id)
+              console.log("after uploadFile Run data >>>>>>>>>", response);
 					}
         }).catch(error => {
             console.log("event creation error", error)
         })
     e.preventDefault()
 	}
+
+	const uploadFile = (file, eventId) => {
+		const upload = new DirectUpload(file, '/api/rails/active_storage/direct_uploads')
+		upload.create((error, blob) => {
+			if (error) {
+				console.log(error)
+			} else {
+				fetch(`/api/events/${eventId}`, {
+					method: 'PUT',
+					headers: {
+							'Content-Type': 'application/json' 
+					},
+					body: JSON.stringify({event_image: blob.signed_id})
+			})
+			.then(resp => resp.json())
+			.then(data => {
+					console.log('updated event', data)
+          // props.handleLogin(data);
+					navigate('/events');
+			})
+			}
+		})
+	}
+	
 	
 	return (
 		<div className="base-container">
@@ -134,14 +160,15 @@ function NewEvent (props) {
 							/>
 
 							
-								<label htmlFor="evet_image">Image</label>
+								<label htmlFor="event_image">Image</label>
 								<input
 									type="file"
 									name="event_image"
 									placeholder="Event Picture"
 									value ={eventImage}
-									onChange={e => setEventImage(e.target.value)}
+									onChange={e => setEventImage(e.target.files[0])}
 									required
+									direct_upload='true'
 								/>   
 
 								<label htmlFor="date">Event date</label>

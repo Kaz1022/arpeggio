@@ -83,18 +83,9 @@ function EventFilter() {
  };
 
 const makeUniqueArray = (key, arr) => {
-  // Since I will be returning an array of unique objects, that is why it is an array
   const result = [
-    ...new Map(arr?.map(item => [item[key], item])).values() // -> LINE 1
+    ...new Map(arr?.map(item => [item[key], item])).values()
   ]
-  // BEFORE RUNNING THE values() FUNCTION, THE OUTPUT LOOKS LIKE THIS
-  // [
-  //   [ 'toronto', { id: 2, city: 'toronto' } ],
-  //   [ 'vancouver', { id: 4, city: 'vancouver' } ]
-  // ]
-  // RUNNING THE values() FUNCTION RETURNS THE 2ND ITEM OF EACH ARRAY INSIDE THE FIRST ARRAY
-  // i.e- { id: 2, city: 'toronto' } OR THE ITEM ITSELF
-  // RESULT LOOKS LIKE: [ { id: 2, city: 'toronto' }, { id: 4, city: 'vancouver' } ]
   return result
 }
 

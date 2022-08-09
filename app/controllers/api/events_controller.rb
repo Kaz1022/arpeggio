@@ -28,10 +28,10 @@ class Api::EventsController < ApplicationController
     
   # GET /users/:user_id/sessions
   def mysessions
-    @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments])
+    @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments, :attendees])
     .where(user_id: params[:user_id])
 
-    render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
+    render json: @events.as_json(:include => [:user, :event_instruments, :instruments, :attendees], methods: [:event_image_data])
   end
 
   

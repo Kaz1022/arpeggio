@@ -11,16 +11,7 @@ class Api::EventsController < ApplicationController
    # Event3 - 
    # Event4 - 
 
-
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
-    # render json: @events, each_serializer: EventSerializer
-
-
-    # @events = Event.all.with_attached_image
-
-    # render json: @events.map { |event|
-    #   event.as_json.merge({ image: url_for(event.image) })
-    # }
   end
 
   def search

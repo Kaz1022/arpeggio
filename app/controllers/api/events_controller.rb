@@ -18,7 +18,6 @@ class Api::EventsController < ApplicationController
     @events = Event.joins(:instruments)
     .where(instruments: { name: params[:instrument] })
     .where('city = ? AND level = ? AND genre = ?', params[:city], params[:level], params[:genre])  
-    # Instrument.joins(:events).where(events: {event_id: event})
     render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
   end
 

@@ -148,7 +148,7 @@ const EventStyles = styled.div`
   }
   .main_image{
     max-width: 100%;
-    height: 55vh;
+    min-height: 50vh;
     // flex-shrink: 0;
     object-fit: cover;
   }

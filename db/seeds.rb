@@ -164,7 +164,7 @@ user_instruments = UserInstrument.create!([
   },
   {
     user_id: 4,
-    instrument_id: 4
+    instrument_id: 7
   },
   {
     user_id: 5,
@@ -199,13 +199,13 @@ event_instruments = EventInstrument.create!([
   },
   {
     event_id: 4,
-    instrument_id: 3,
+    instrument_id: 1,
     quantity: 1,
     status: "Available"
   },
   {
     event_id: 4,
-    instrument_id: 8,
+    instrument_id: 9,
     quantity: 1,
     status: "Available"
   }
@@ -225,7 +225,7 @@ users[2].image.attach(io: open_asset("user3.jpg"), filename: "user3.jpg", conten
 users[3].image.attach(io: open_asset("user4.jpg"), filename: "user4.jpg", content_type: "application/jpeg")
 users[4].image.attach(io: open_asset("user5.jpg"), filename: "user5.jpg", content_type: "application/jpeg")
 
-events[0].image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg", content_type: "application/jpeg")
-events[1].image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
-events[2].image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
-events[3].image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")
+events[0].event_image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg", content_type: "application/jpeg")
+events[1].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
+events[2].event_image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
+events[3].event_image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")

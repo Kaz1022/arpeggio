@@ -3,9 +3,24 @@ class Api::EventsController < ApplicationController
   
   # GET /events
   def index
-    @events = Event.all
-    render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
+    @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments]).all
+    # 100 + 1 query problem
+
+   # Event1 - EventInstruaments for event 1 - instrument 
+   # Event2 - event_instruments for event 2
+   # Event3 - 
+   # Event4 - 
+
+
+    render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
     # render json: @events, each_serializer: EventSerializer
+
+
+    # @events = Event.all.with_attached_image
+
+    # render json: @events.map { |event|
+    #   event.as_json.merge({ image: url_for(event.image) })
+    # }
   end
 
   def search

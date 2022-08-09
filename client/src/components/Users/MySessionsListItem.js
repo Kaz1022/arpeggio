@@ -151,9 +151,9 @@ const EventStyles = styled.div`
 
 const InstrumentStatusComp = {
   Drum: {
-    Available: VocalImg,
-    Pending: VocalImg,
-    Filled: VocalImg
+    Available: DrumImg,
+    Pending: DrumImg,
+    Filled: DrumImg,
   },
   Guitar: {
     Available: GuitarImg,
@@ -161,9 +161,9 @@ const InstrumentStatusComp = {
     Filled: GuitarImg
   },
   Vocal: {
-    Available: DrumImg,
-    Pending: DrumImg,
-    Filled: DrumImg
+    Available: VocalImg,
+    Pending: VocalImg,
+    Filled: VocalImg
   }
 }
 

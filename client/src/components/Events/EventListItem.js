@@ -161,6 +161,7 @@ function EventListItem({
 
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
+const handleConfirm = () => setStatus();
 
  return (
   <EventStyles>
@@ -216,7 +217,7 @@ const handleShow = () => setShow(true);
 
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
-       <ConfirmationModal show={show} onHide={handleClose}/>
+       <ConfirmationModal show={show} onHide={handleClose} onConfirm={handleConfirm}/>
        <div className="instrument-icons">
         {instrumentsArr.map((instrument) => {
          if (instrument.status === 'Available') {

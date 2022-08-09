@@ -15,7 +15,7 @@ function ConfirmationModal(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="primary">Yes! Send Text</Button>
+        <Button variant="primary" onClick={props.onConfirm} >Yes! Send Text</Button>
         <Button variant="secondary" onClick={props.onHide}>Cancel</Button>
       </Modal.Footer>
     </Modal>

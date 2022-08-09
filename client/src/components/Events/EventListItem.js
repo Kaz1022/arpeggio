@@ -9,6 +9,7 @@ import main from '../../assets/images/main.jpeg';
 import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
 import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
 import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
+import ConfirmationModal from '../Others/ConfirmationModal';
 
 const Img = styled.img.attrs({
  src: `${main}`,
@@ -134,38 +135,35 @@ function EventListItem({
  instrument_quantity,
  events,
 }) {
-const [iconData, setIconData] = useState([]);
+ const [show, setShow] = useState(false);
 
-const instrumentsArr=[];
-const instrumentSummary = events.map((event) => {
-  event.event_instruments.map((event_i) => {
-    const instrument_name = event.instruments.find(( inst ) => inst.id === event_i.instrument_id).name;
-    // console.log("instrument name",  instrument_name)
-    const instrument ={
-      name: instrument_name,
-      event_id: event_i.event_id,
-      quantity: event_i.quantity,
-      status: event_i.status,
-    }
-    instrumentsArr.push(instrument)
-    // console.log({instrumentsArr})
-  })
  
-});
-// console.log(events)
+ const instrumentsArr = [];
+ const instrumentSummary = events.map((event) => {
+  event.event_instruments.map((event_i) => {
+   const instrument_name = event.instruments.find(
+    (inst) => inst.id === event_i.instrument_id
+   ).name;
+   
+   const instrument = {
+    name: instrument_name,
+    event_id: event_i.event_id,
+    quantity: event_i.quantity,
+    status: event_i.status,
+   };
+   instrumentsArr.push(instrument);
+  });
+ });
 
-useEffect(function () {
+ useEffect(function () {  //DO http request here to make it pending and then it will refresh on event/id changein the array below
   // setIconData(newObjArr)
-}, []);
+}, []);  //url id
 
-// let eventArr = events.map((event) => {return event})
-const iconBreakdown = iconData.map((icon) => {return icon})
-const icondeep  = iconBreakdown.map((num) => {return num})
-// console.log(iconData[9])
-
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
 
  return (
-  <EventStyles >
+  <EventStyles>
    <div className="card">
     <div className="eventCard">
      <div className="left">
@@ -218,55 +216,72 @@ const icondeep  = iconBreakdown.map((num) => {return num})
 
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
+       <ConfirmationModal show={show} onHide={handleClose}/>
        <div className="instrument-icons">
-         {
-         instrumentsArr.map((instrument) => {
-         if(instrument.status === "Available"){
-            if (instrument.event_id === id && instrument.name === "Drum") {
-              return(
-                [...Array(instrument.quantity)].map((v, i) => <DrumImg key={`selector-${i}`} /> )
-              )
-            }else if(instrument.event_id === id && instrument.name === "Guitar"){
-              return(
-                [...Array(instrument.quantity)].map((v, i) => <GuitarImg key={`selector-${i}`} /> )
-              )
-            }else if(instrument.event_id === id && instrument.name === "Vocal"){
-              return(
-                [...Array(instrument.quantity)].map((v, i) => <VocalImg key={`selector-${i}`} /> )
-              )
-            }
-
-         }else if(instrument.status === "Pending"){
-          if (instrument.event_id === id && instrument.name === "Drum") {
-            return(
-              [...Array(instrument.quantity)].map((v, i) => <DrumImg key={`selector-${i}`} /> )
-            )
-          }else if(instrument.event_id === id && instrument.name === "Guitar"){
-            return(
-              [...Array(instrument.quantity)].map((v, i) => <GuitarImg key={`selector-${i}`} /> )
-            )
-          }else if(instrument.event_id === id && instrument.name === "Vocal"){
-            return(
-              [...Array(instrument.quantity)].map((v, i) => <VocalImg key={`selector-${i}`} /> )
-            )
+        {instrumentsArr.map((instrument) => {
+         if (instrument.status === 'Available') {
+          if (instrument.event_id === id && instrument.name === 'Drum') {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <div onClick={handleShow}>
+             <DrumImg key={`selector-${i}`} />{' '}
+            </div>
+           ));
+          } else if (
+           instrument.event_id === id &&
+           instrument.name === 'Guitar'
+          ) {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <GuitarImg key={`selector-${i}`} />
+           ));
+          } else if (
+           instrument.event_id === id &&
+           instrument.name === 'Vocal'
+          ) {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <VocalImg key={`selector-${i}`} />
+           ));
           }
-
-        }else if(instrument.status === "Filled"){
-          if (instrument.event_id === id && instrument.name === "Drum") {
-            return(
-              [...Array(instrument.quantity)].map((v, i) => <DrumImg key={`selector-${i}`} /> )
-            )
-          }else if(instrument.event_id === id && instrument.name === "Guitar"){
-            return(
-              [...Array(instrument.quantity)].map((v, i) => <GuitarImg key={`selector-${i}`} /> )
-            )
-          }else if(instrument.event_id === id && instrument.name === "Vocal"){
-            return(
-              [...Array(instrument.quantity)].map((v, i) => <VocalImg key={`selector-${i}`} /> )
-            )
+         } else if (instrument.status === 'Pending') {
+          if (instrument.event_id === id && instrument.name === 'Drum') {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <DrumImg key={`selector-${i}`} />
+           ));
+          } else if (
+           instrument.event_id === id &&
+           instrument.name === 'Guitar'
+          ) {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <GuitarImg key={`selector-${i}`} />
+           ));
+          } else if (
+           instrument.event_id === id &&
+           instrument.name === 'Vocal'
+          ) {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <VocalImg key={`selector-${i}`} />
+           ));
           }
-        }
-
+         } else if (instrument.status === 'Filled') {
+          if (instrument.event_id === id && instrument.name === 'Drum') {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <DrumImg key={`selector-${i}`} />
+           ));
+          } else if (
+           instrument.event_id === id &&
+           instrument.name === 'Guitar'
+          ) {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <GuitarImg key={`selector-${i}`} />
+           ));
+          } else if (
+           instrument.event_id === id &&
+           instrument.name === 'Vocal'
+          ) {
+           return [...Array(instrument.quantity)].map((v, i) => (
+            <VocalImg key={`selector-${i}`} />
+           ));
+          }
+         }
         })}
        </div>
       </div>
@@ -285,10 +300,9 @@ const icondeep  = iconBreakdown.map((num) => {return num})
 
 export default EventListItem;
 
-
 const DrumImg = styled.img.attrs({
-  src: `${drumsA}`,
- })`
+ src: `${drumsA}`,
+})`
    height: 120px;
    max-width: 100%;
    border-radius: 60%;
@@ -303,7 +317,7 @@ const DrumImg = styled.img.attrs({
    `;
 
 const GuitarImg = styled.img.attrs({
-  src: `${guitarA}`,
+ src: `${guitarA}`,
 })`
   height: 120px;
   max-width: 100%;
@@ -316,9 +330,9 @@ const GuitarImg = styled.img.attrs({
   outline: none;
    }}`;
 
-   const VocalImg = styled.img.attrs({
-    src: `${vocalA}`,
-  })`
+const VocalImg = styled.img.attrs({
+ src: `${vocalA}`,
+})`
     height: 120px;
     max-width: 100%;
     border-radius: 60%;

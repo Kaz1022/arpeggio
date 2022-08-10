@@ -207,6 +207,7 @@ function EventListItem({
  id,
  title,
  user,
+ userPhone,
  date,
  start,
  end,
@@ -357,6 +358,7 @@ function EventListItem({
         show={show}
         onHide={handleClose}
         onConfirm={handleConfirm}
+        userPhone={userPhone}
        />
        <div className="instrument-icons">
         <div className="icons" onClick={handleShow}>

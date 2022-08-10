@@ -4,7 +4,7 @@ class CreateEventInstruments < ActiveRecord::Migration[7.0]
       t.integer :event_id
       t.integer :instrument_id
       t.integer :quantity
-      t.string :status
+      t.string :status 
 
       t.timestamps
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_06_204027) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_10_144523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,12 +53,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_06_204027) do
   end
 
   create_table "event_instruments", force: :cascade do |t|
-    t.integer "quantity"
-    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "event_id", null: false
     t.bigint "instrument_id", null: false
+    t.json "status", default: [], array: true
     t.index ["event_id"], name: "index_event_instruments_on_event_id"
     t.index ["instrument_id"], name: "index_event_instruments_on_instrument_id"
   end

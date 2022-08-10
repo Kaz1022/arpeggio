@@ -191,44 +191,65 @@ event_instruments = EventInstrument.create!([
   {
     event_id: 1,
     instrument_id: 1,
-    quantity: 2,
-    status: "Available"
+    status: [
+      {name:"Available", quantity: 2},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   },
   {
     event_id: 2,
     instrument_id: 7,
-    quantity: 1,
-    status: "Available"
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   },
   {
     event_id: 2,
     instrument_id: 9,
-    quantity: 1,
-    status: "Available"
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   },
   {
     event_id: 3,
     instrument_id: 7,
-    quantity: 1,
-    status: "Available"
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   },
   {
     event_id: 4,
     instrument_id: 1,
-    quantity: 1,
-    status: "Available"
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   },
   {
     event_id: 4,
     instrument_id: 9,
-    quantity: 1,
-    status: "Available"
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   },
   {
     event_id: 5,
     instrument_id: 9,
-    quantity: 1,
-    status: "Available"
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   }
 ])
 

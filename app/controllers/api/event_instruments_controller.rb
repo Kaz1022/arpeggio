@@ -65,7 +65,7 @@ class Api::EventInstrumentsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_instrument_params
-    params.require(:event_instrument).permit(:status)
+    params.require(:event_instrument).permit(:status, status: [])
   end
 
 end

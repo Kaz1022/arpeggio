@@ -253,8 +253,9 @@ function EventListItem({
 
   return event.event_instruments.map((ei) => {
    const name = instrumentsById[ei.instrument_id].name;
-   const Comp = InstrumentStatusComp[name][ei.status];
-   return [...Array(ei.quantity)].map((v, i) => <Comp key={`selector-${i}`} />);
+  //  const Comp = InstrumentStatusComp[name][ei.status];
+  //  return [...Array(ei.quantity)].map((v, i) => <Comp key={`selector-${i}`} />);
+   return [...Array(ei.quantity)].map((v, i) => <DrumImgA key={`selector-${i}`} />);
   });
  };
 

@@ -47,13 +47,13 @@ function EventFilter() {
   axios
    .get(`/api/events`)
    .then((res) => setEvents(res.data))
-   .then((err) => console.log(err));
+   .catch((err) => console.log(err));
  }, []);
 
  useEffect(function () {
  axios.get('/api/events/instruments/Guitar')
  .then((res) => setInstruments(res.data))
- .then((err) => console.log(err));
+ .catch((err) => console.log(err));
 }, []);
 
  const handleSubmit = (e) => {
@@ -153,10 +153,10 @@ const genreResult = makeUniqueArray('genre', events)
           genre={item.genre}
           image={item.event_image_data}
           description={item.description}
-          status={item.post_active}
+          status={item.event_instruments.map((event_i) => {return event_i.status})}
           created={item.created_at}
           instruments={instruments.map((item) => {return item})}
-          instrument_quantity={item.event_instruments}
+          instrument_quantity={item.event_instruments.map((event_i) => {return event_i.quantity})}
           events={events}
          />
         </>
@@ -180,10 +180,10 @@ const genreResult = makeUniqueArray('genre', events)
           genre={item.genre}
           image={item.event_image_data}
           description={item.description}
-          status={item.post_active}
+          status={item.event_instruments.map((event_i) => {return event_i.status})}
           created={item.created_at}
           instruments={instruments.map((item) => {return item})}
-          instrument_quantity={item.event_instruments}
+          instrument_quantity={item.event_instruments.map((event_i) => {return event_i.quantity})}
           events={events}
          />
         </>

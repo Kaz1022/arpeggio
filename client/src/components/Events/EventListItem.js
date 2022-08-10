@@ -13,6 +13,7 @@ import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
 import vocalP from '../../assets/images/music_icons/Vocals/vocals_p.png';
 import ConfirmationModal from '../Modals/ConfirmationModal';
 import NotAvailableModal from '../Modals/NotAvailableModal';
+import MesssageSentModal from '../Modals/MessageSentModal';
 import axios from 'axios';
 
 const DrumImgA = () => {
@@ -143,12 +144,13 @@ const EventStyles = styled.div`
 }
 .icon-container{
   width:100%;
+  margin-right: 20px;
 
   .instr-icon{
-  height:120px;
-  max-width: 100%;
-  margin-right: 50px;
-  margin-top: 20px;
+  height:140px;
+  width:auto;
+  min-width:100%;
+  margin-top: 30px;
   border-radius: 60%;
   box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
   &:hover{
@@ -176,8 +178,8 @@ const EventStyles = styled.div`
     left: 40%;
   }
   .main_image{
-    max-width: 40vw;
-    min-height: 40vh;
+    width: 100%;
+    min-height: 50vh;
     object-fit: cover;
   }
 }
@@ -285,14 +287,14 @@ function EventListItem({
   //       setStatuss(status[[0]]); //the status caused to occur by clicking confirm application button
   //       console.log('after Update Run data >>>>>>>>>', response);
             //handleClose();
-  //       <MessageSentModal show={show} onHide={handleClose} />
+        // <MessageSentModal show={show} onHide={handleClose} />
   //      }
   //     })
   //     .catch((error) => {
   //      console.log('event update error', error);
   //     });
   //   } else {
-  //    <NotAvailableModal show={show} onHide={handleClose} />
+    //  <NotAvailableModal show={show} onHide={handleClose} />
   //   }
  };
  //  }, []);  //url id

@@ -284,6 +284,7 @@ function EventListItem({
   //       // updateEvent(status, response.data)  //send status down from EventFilter?
   //       setStatuss(status[[0]]); //the status caused to occur by clicking confirm application button
   //       console.log('after Update Run data >>>>>>>>>', response);
+            //handleClose();
   //       <MessageSentModal show={show} onHide={handleClose} />
   //      }
   //     })

@@ -102,7 +102,7 @@ function ApplicantProfile(props) {
 
     const [applicant, setApplicant] = useState({});
     const [applicantImg, setApplicantImg] = useState("");
-    const [applicantInstruments, setApplicantInstruments] = useState([]);
+    const [applicantInstruments, setApplicantInstruments] = useState({});
 
     // const currentUser = JSON.parse(localStorage.getItem("user"));
     
@@ -114,7 +114,7 @@ function ApplicantProfile(props) {
           setApplicant(res.data.user);
           setApplicantImg(res.data.image);
           setApplicantInstruments(res.data.instruments);
-          console.log("user instruments>>", applicantInstruments);
+          console.log("user instruments>>", res.data.instruments);
         })
         .then((err) => console.log(err));
     }, []);
@@ -157,17 +157,16 @@ function ApplicantProfile(props) {
               <div className="bio">
                 {applicant.bio}
               </div>
+              <br/>
+              <div  className="contact-button">
+                <Button variant="dark"  className="m-1">TEXT</Button>
+                <Button variant="dark"  className="m-1">EMAIL</Button>
+              </div>
               </div>
             </div>
           </div>
           <div className="right">
             {applicantImg.length > 0 && <Img src={`http://localhost:3000/${applicantImg}`} /> }
-          </div>
-          <div  className="contact-button">
-            <Button variant="dark"  className="m-1">TEXT</Button>
-          </div>
-          <div  className="contact-button">
-            <Button variant="dark"  className="m-1">EMAIL</Button>
           </div>
         </div>
     </div>

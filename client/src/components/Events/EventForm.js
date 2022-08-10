@@ -19,18 +19,20 @@ function NewEvent (props) {
 
 	const navigate = useNavigate();
 
+	const currentUser = JSON.parse(localStorage.getItem("user"));
+
 	const handleSubmit = (e) => {
 		console.log("Submitted new event!")
 		axios.post("/api/new_event",
             {
                 event: {
+										user_id: currentUser.userData.id,
 										title: title,
 										city: city,
                     country: country,
 										level: level,
                     venue_style: venue,
                     genre: genre,
-										// event_image: eventImage,
 										description: description,
 										event_date: eventDate,
 										start_time: startTime,
@@ -39,11 +41,10 @@ function NewEvent (props) {
             },
             { withCredentials: true }
         ).then(response => {
-					console.log(response);
-					console.log(response.data);
+					console.log("axios call response>>>>>", response);
 					if (response.data.status === 'created') {
 							console.log("event POST is successful. response data:", response.data);
-							uploadFile(eventImage, response.data.user.id)
+							uploadFile(eventImage, response.data.event.id)
               console.log("after uploadFile Run data >>>>>>>>>", response);
 					}
         }).catch(error => {
@@ -68,7 +69,6 @@ function NewEvent (props) {
 			.then(resp => resp.json())
 			.then(data => {
 					console.log('updated event', data)
-          // props.handleLogin(data);
 					navigate('/events');
 			})
 			}
@@ -165,7 +165,6 @@ function NewEvent (props) {
 									type="file"
 									name="event_image"
 									placeholder="Event Picture"
-									value ={eventImage}
 									onChange={e => setEventImage(e.target.files[0])}
 									required
 									direct_upload='true'

@@ -35,9 +35,15 @@ class Api::EventInstrumentsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    @event_instrument = EventInstrument.find(params[:event_id])
-    @event.update(status: params[:status])
-    if @event_instrument.update(event_instrument_params)
+    @event_instrument = EventInstrument.includes(:event).find_by(event_instruments: {event_id: params[:id]})
+    @event_instrument.update(status: params[:status])  #sending status and qty as params? 
+
+    if @event_instrument.update(event_instrument_params) # would params below change due to api change
+
+      render json: {
+        status: :updated, 
+        event_instrument: @event_instrument
+    }
       render json: @event_instrument
     else
       render json: @event_instrument.errors, status: :unprocessable_entity
@@ -59,7 +65,7 @@ class Api::EventInstrumentsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_instrument_params
-    params.require(:event_instrument).permit( :id, :quantity, :status ,:event_id, :instrument_id)
+    params.require(:event_instrument).permit(:status)
   end
 
 end

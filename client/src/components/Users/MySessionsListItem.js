@@ -4,7 +4,7 @@ import '../../scss/custom.scss';
 import '../../App.scss';
 import { DrumImg, GuitarImg, VocalImg } from '../styled-component/instrumenticons-styled'; 
 import { Img, EventStyles } from '../styled-component/mySessionListItem-styled';
-import AcceptanceModal from '../Others/AcceptanceModal';
+import AcceptanceModal from '../Modals/AcceptanceModal';
 
 const InstrumentStatusComp = {
   Drum: {

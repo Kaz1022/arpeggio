@@ -11,7 +11,8 @@ import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
 import guitarP from '../../assets/images/music_icons/Guitars/guitar_p.png';
 import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
 import vocalP from '../../assets/images/music_icons/Vocals/vocals_p.png';
-import ConfirmationModal from '../Others/ConfirmationModal';
+import ConfirmationModal from '../Modals/ConfirmationModal';
+import NotAvailableModal from '../Modals/NotAvailableModal';
 import axios from 'axios';
 
 const DrumImgA = () => {
@@ -283,14 +284,14 @@ function EventListItem({
   //       // updateEvent(status, response.data)  //send status down from EventFilter?
   //       setStatuss(status[[0]]); //the status caused to occur by clicking confirm application button
   //       console.log('after Update Run data >>>>>>>>>', response);
+  //       <MessageSentModal show={show} onHide={handleClose} />
   //      }
   //     })
   //     .catch((error) => {
   //      console.log('event update error', error);
   //     });
   //   } else {
-  //    console.log('display other modal');
-  //    // display another modal? whixh says "Sorry this position is either pending of filled"
+  //    <NotAvailableModal show={show} onHide={handleClose} />
   //   }
  };
  //  }, []);  //url id

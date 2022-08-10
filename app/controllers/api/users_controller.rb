@@ -31,7 +31,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.includes(:user_instruments).find(params[:id])
     @instruments = Instrument.includes(:user_instruments)
-    .find_by(user_instruments: { user_id: params[:id] }).user_instruments
+    .find_by(user_instruments: { user_id: params[:id] })
     @image = rails_blob_path(@user.image)
 
     render json: {
@@ -40,16 +40,6 @@ class Api::UsersController < ApplicationController
       image: @image
     }
   end
-
-  # def show
-  #   @user = User.find(params[:id])
-  #   @image = rails_blob_path(@user.image)
-
-  #   render json: {
-  #     user: @user.to_json(include: [:instruments]),
-  #     image: @image
-  #   }
-  # end
 
   def instruments
     @instruments = Instrument.includes(:user_instruments)

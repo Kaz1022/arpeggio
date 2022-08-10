@@ -23,11 +23,11 @@ const Styles = styled.div`
 
 function MySessionsList() {
   const [events, setEvents] = useState([]);
-
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  
   useEffect(function () {
-    // need to find a way to get current user_id
     axios
-      .get(`/api/users/1/sessions`)
+      .get(`/api/users/${currentUser.userData.id}/sessions`)
       .then((res) => setEvents(res.data))
       .then((err) => console.log(err));
   }, []);

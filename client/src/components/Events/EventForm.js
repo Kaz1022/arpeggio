@@ -8,7 +8,7 @@ function NewEvent (props) {
 	const [title, setTitle] = useState("")
 	const [city, setCity] = useState("")
   const [country, setCountry] = useState("")
-	const [level, setLevel] = useState("")
+	const [level, setLevel] = useState("Beginner")
   const [venue, setVenue] = useState("")
   const [genre, setGenre] = useState("")
   const [eventImage, setEventImage] = useState("")
@@ -118,14 +118,21 @@ function NewEvent (props) {
 									/>
 
 								<label htmlFor="level">Proficiency</label>
-								<input
+								<select onChange={e => setLevel(e.target.value)}>
+								<option value="Beginner">Beginner</option>
+								<option value="Intermediate">Intermediate</option>
+								<option value="Proficient">Proficient</option>
+								<option value="Professional">Professional</option>
+								</select>
+
+								{/* <input
 									type="text"
 									name="level"
 									placeholder="Level"
 									value={level}
 									onChange={e => setLevel(e.target.value)}
 									required
-								/>
+								/> */}
 									
 								<label htmlFor="genre">Genre</label>
 								<input

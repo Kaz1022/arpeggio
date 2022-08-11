@@ -224,6 +224,7 @@ function EventListItem({
  instrument_quantity,
  events,
 }) {
+
  const [show, setShow] = useState(false);
 //  const [statuss, setStatuss] = useState();
 
@@ -261,6 +262,20 @@ function EventListItem({
 
  const handleClose = () => setShow(false);
  const handleShow = () => setShow(true);
+ 
+ const currentUser = JSON.parse(localStorage.getItem("user"));
+ const handleLike = (e) => {
+  e.preventDefault();
+  const myfavourite = {event_id: id, user_id: currentUser.userData.id}
+  axios.post("/api/user_favourites",
+    {myfavourite})
+    .then(response => {
+			console.log("axios call response>>>>>", response);
+        // need to change the icon to red!! 
+    }).catch(error => {
+      console.log("Clicking Heart", error)
+    })
+ }
 
  //  useEffect(function () {
  const handleConfirm = (e) => {
@@ -318,6 +333,7 @@ function EventListItem({
          onMouseOut={({ target }) =>
           (target.style.color = 'rgba(244, 56, 56,0.2)')
          }
+         onClick={handleLike}
         />
        </div>
       </div>

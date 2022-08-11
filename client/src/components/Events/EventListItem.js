@@ -223,61 +223,56 @@ function EventListItem({
  instrument_quantity,
  events,
 }) {
- const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
- const instrumentsArr = [];
- const instrumentSummary = events.map((event) => {
-  event.event_instruments.map((event_i) => {
-   const status = event_i.status.reduce((acc, curr, i) => {                               //This is the status objects
-    acc[i] = curr;
-    return acc;
-   }, {});
-  //  console.log("status", status)
-  
-  const instrument_name = event.instruments.find(
-   (inst) => inst.id === event_i.instrument_id
-  ).name;
+  const instrumentsArr = [];
 
+  const instrumentSummary = events.map((event) => {
+    event.event_instruments.map((event_i) => {
+       //This is the status objects
+        //const status = ;
+      //console.log("status", status)
+      
+      const instrument_name = event.instruments.find(
+        (inst) => inst.id === event_i.instrument_id
+      ).name;
+      
+      const instrument = {
+        name: instrument_name,
+        event_id: event_i.event_id,
+        status: event_i.status.reduce((acc, curr, i) => {
+            acc[curr.name] = curr.quantity;
+            return acc;
+        }, {})
+      };
 
-  
-  const instrument = {
-   name: instrument_name,
-   event_id: event_i.event_id,
-   status: [
-    {Available: 0},
-    {Pending: 0},
-    {Filled: 0}
-   ]
- };
-
-  const loopOverObjects = (object, statusName, objToUpdate)=>{                          //Trying to get status to insert into Instruments table
-   for (const items in object) {
-     const singleStatusObj = object[items];
-     if(singleStatusObj.name === statusName){
-      for (const items in singleStatusObj) {
-        // console.log(singleStatusObj[items])  //'available' etc
-        return instrument.status[statusName] = singleStatusObj.quantity;
-      //  return instrument.status.push(`${instrument[statusName] = singleStatusObj.quantity}`);  //this is not giving the exact result i want(I want to insert values into the instruments table for available, pending, filled)
+      /*const loopOverObjects = (object, statusName, objToUpdate)=>{                          //Trying to get status to insert into Instruments table
+      for (const items in object) {
+        const singleStatusObj = object[items];
+        if(singleStatusObj.name === statusName){
+          for (const items in singleStatusObj) {
+            // console.log(singleStatusObj[items])  //'available' etc
+            return instrument.status[statusName] = singleStatusObj.quantity;
+          //  return instrument.status.push(`${instrument[statusName] = singleStatusObj.quantity}`);  //this is not giving the exact result i want(I want to insert values into the instruments table for available, pending, filled)
+          }
+          }
+        }
       }
-      }
-    }
-  }
 
-  loopOverObjects(status, "Available", instrument)
-  loopOverObjects(status, "Pending", instrument)
-  loopOverObjects(status, "Filled", instrument)
+      loopOverObjects(status, "Available", instrument)
+      loopOverObjects(status, "Pending", instrument)
+      loopOverObjects(status, "Filled", instrument)*/
 
- 
-  instrumentsArr.push(instrument);
+      instrumentsArr.push(instrument);
+    });
   });
- });
 
   console.log(instrumentsArr)
 
  const getEventData = () => {
   const event = events.find((e) => e.id === id);                             //find event where the event id is equal to id -> here e is each event object
 
-  const instrumentType = instrumentsArr.map((x) => x)
+  /*const instrumentType = instrumentsArr.map((x) => x)
   const status = instrumentsArr.map((x)=>{                                  //I want this to map over Available, Pending, Filled to send it to Comp
     // if(x.event_id === id){
       return x.status
@@ -289,7 +284,26 @@ function EventListItem({
    const Comp = InstrumentStatusComp[instrumentType][status];  //instrumentType = Guitar  //status = Available
    // //  console.log("quantity", quantity)
   // return [quantity].map((v, i) => <Comp key={`selector-${v}`} />);
-  // });
+  // });*/
+
+  const instrumentsById = event.instruments.reduce((acc, val) => {
+    acc[val.id] = val;
+    return acc;
+   }, {});
+ 
+   return event.event_instruments.map((ei) => {
+      console.log('ei', ei)
+      const name = instrumentsById[ei.instrument_id].name;
+      const instrumentsAry = [];
+      ei.status.forEach((item) => {
+        const Comp = InstrumentStatusComp[name][item.name];
+        [...Array(item.quantity)].forEach((v, i) => {
+          instrumentsAry.push( <Comp key={`selector-${i}`} />)
+        })
+      });
+      return instrumentsAry
+      //return [...Array(ei.quantity)].map((v, i) => <DrumImgA key={`selector-${i}`} />);
+   });
 
 
 

@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Home from './components/Home/Main';
 import MyProfile from './components/Users/MyProfile';
-import MyFavourites from './components/Users/MyFavourites';
+import MyFavouritesList from './components/Users/MyFavouritesList';
 import EventForm from './components/Events/EventForm';
 import MySessionsList from './components/Users/MySessionsList';
 import './App.scss';
@@ -90,7 +90,7 @@ function App () {
           <Route path="/applicant" element={<ApplicantProfile loggedInStatus={loggedInStatus} />} />
           <Route path="/mysessions" element={<MySessionsList currentUser={currentUser} />} />
           <Route path="/session/new" element={<EventForm />} />
-          <Route path="/favourites" element={<MyFavourites loggedInStatus={loggedInStatus} />} />
+          <Route path="/favourites" element={<MyFavouritesList loggedInStatus={loggedInStatus} />} />
 
         </Routes>
 

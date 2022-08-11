@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 
 import axios from 'axios';
 
-function SmsButton({userPhone}) {
+function SmsButton({userPhone, title}) {
 
   const organizerNum = userPhone.replace(/[^0-9]/g, '') 
 
@@ -11,7 +11,7 @@ function SmsButton({userPhone}) {
   
   let sms_message = {
     mobile_number: `+1${organizerNum}`, 
-    message: `${currentUser.userData.first_name} wants to join the session! Text ${currentUser.userData.phone} for futher chat! Accept the offer in your browser http://localhost.3000/mysessions !`
+    message: `${currentUser.userData.first_name} wants to join your session "${title}"! Text ${currentUser.userData.phone} for futher chat! Accept the offer on your browser!`
 }
 
   const sendSms = (event) => {

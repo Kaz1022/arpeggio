@@ -359,6 +359,7 @@ function EventListItem({
         onHide={handleClose}
         onConfirm={handleConfirm}
         userPhone={userPhone}
+        title={title}
        />
        <div className="instrument-icons">
         <div className="icons" onClick={handleShow}>

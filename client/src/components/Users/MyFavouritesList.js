@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import styled from "styled-components";
 import "../../scss/custom.scss";
-import axios from "axios";
-import MySessionsListItem from "./MySessionsListItem";
 import "../../App.scss";
+import axios from "axios";
+import EventListItem from "../Events/EventListItem";
 
 const Styles = styled.div`
  display: flex;
@@ -21,25 +21,25 @@ const Styles = styled.div`
  }
 `;
 
-function MySessionsList() {
+function MyFavouritesList({ loggedInStatus }) {
   const [events, setEvents] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(function () {
     axios
-      .get(`/api/users/${currentUser.userData.id}/sessions`)
+      .get(`/api/users/${currentUser.userData.id}/favourites`)
       .then((res) => setEvents(res.data))
       .then((err) => console.log(err));
   }, []);
 
-  console.log("events data >>>", events);
-  const mysessions = events.map((eachSession) => {
+  const myfavourites = events.map((eachSession) => {
     return (
-      <MySessionsListItem
+      <EventListItem
         key={eachSession.id}
         id={eachSession.id}
         title={eachSession.title}
         user={eachSession.user.handle}
+        userPhone={eachSession.user.phone}
         date={eachSession.event_date}
         start={eachSession.start_time}
         end={eachSession.end_time}
@@ -60,11 +60,11 @@ function MySessionsList() {
   return (
     <div className="base-container">
       <div className="header">
-        <h1>My Sessions</h1>
+        <h1>My Favourites</h1>
       </div>
-      <Styles>{mysessions}</Styles>
+      <Styles>{myfavourites}</Styles>
     </div>
   );
 }
 
-export default MySessionsList;
+export default MyFavouritesList;

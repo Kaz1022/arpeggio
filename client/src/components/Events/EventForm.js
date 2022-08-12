@@ -17,7 +17,7 @@ function NewEvent (props) {
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
 
-	const [instrument, setInstrument] = useState("vocal")
+	const [instrument, setInstrument] = useState("Vocal")
 
 	const navigate = useNavigate();
 

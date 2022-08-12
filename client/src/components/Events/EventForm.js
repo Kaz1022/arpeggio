@@ -15,12 +15,9 @@ function NewEvent (props) {
   const [description, setDescription] = useState("")
   const [eventDate, setEventDate] = useState("")
   const [startTime, setStartTime] = useState("")
-  const [endTime, setEndTime] = useState("")
-	const [post_active, setPostActive] = useState("True")
+  const [endTime, setEndTime] = useState("")	
 
-	
-
-	const [instrument, setInstrument] = useState("Vocal")
+	const [instrument, setInstrument] = useState("")
 
 	const navigate = useNavigate();
 
@@ -42,8 +39,7 @@ function NewEvent (props) {
 										event_date: eventDate,
 										start_time: startTime,
                     end_time: endTime,
-										instrument: instrument,
-										post_active: post_active
+										instrument: instrument
                 }
             },
             { withCredentials: true }

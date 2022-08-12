@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get :logged_in, to: "sessions#logged_in"
     delete :logout, to: "sessions#logout"
     post :signup, to: "users#create"
-    post :new_event, to: "events#create"
+    post :new_event, to: "events#create1"
     get "/myprofile", to: "users#show"
     get "/events/search/:city/:level/:genre/:instrument", to: "events#search"
     get "/events/instruments/:instrument", to: "events#instruments"

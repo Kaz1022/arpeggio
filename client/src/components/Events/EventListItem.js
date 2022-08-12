@@ -149,8 +149,7 @@ useEffect(function () {
     axios.post("/api/user_favourites",
     {myfavourite})
       .then(response => {
-        console.log("axios call response>>>>>", response);
-          // need to change the icon to red!! 
+        // console.log("axios call response>", response);
       }).catch(error => {
         console.log("Clicking Heart", error)
       })
@@ -158,7 +157,6 @@ useEffect(function () {
       axios.delete(`/api/user_favourites/delete`,
       {data : {myfavourite}})
       .then(response => {
-        console.log("axios call response>>>>>", response); 
         setEvents((prev) => {
           return prev.filter(item => {
             return item.id !== response.data.event_id

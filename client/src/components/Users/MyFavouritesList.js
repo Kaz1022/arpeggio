@@ -4,6 +4,7 @@ import "../../scss/custom.scss";
 import "../../App.scss";
 import axios from "axios";
 import EventListItem from "../Events/EventListItem";
+import { Link } from "react-router-dom";
 
 const Styles = styled.div`
  display: flex;
@@ -63,7 +64,18 @@ function MyFavouritesList({ loggedInStatus }) {
       <div className="header">
         <h1>My Favourites</h1>
       </div>
-      <Styles>{myfavourites}</Styles>
+      {events.length === 0 ? 
+      (<>
+        <div className="header">
+          <h2>You have no favourites!</h2>
+        </div>
+        <Link to="/events">Go find your session!</Link>
+      </>
+      )
+      : 
+      (
+        <Styles>{myfavourites}</Styles>
+      )}
     </div>
   );
 }

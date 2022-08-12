@@ -63,6 +63,7 @@ function EventListItem({
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
+ const [instrStatus, setInstrStatus] = useState({});
 
  const handleClose = () => setShow(false);
  const handleShow = () => setShow(true);
@@ -119,69 +120,77 @@ function EventListItem({
    return instrumentsAry;
   });
 };
-const [instrStatus, setInstrStatus] = useState({})
 
-// useEffect(function () {
-//   axios
-//    .get(`/api/event_instruments/${id}`)
-//    .then((res) => setInstrStatus(res.data))
-//    .catch((err) => console.log(err));
-//  }, []);  //url id
+useEffect(function () {
+  axios
+   .get(`/api/event_instruments/${id}`)  //if i click on the first event it will setInstr to entire first object
+   .then((res) => setInstrStatus(res.data))
+   .catch((err) => console.log(err));
+ }, []);
 
+//  console.log(instrStatus)
  const handleConfirm = (e) => {
   e.preventDefault();
   handleClose();
   console.log('confirmation button clicked submitted');
 
-  const status = instrumentsArr.map((x) => x.status); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
-  instrumentsArr.map((x, i) => {
-   if (x.event_id === id && status[i]['Available'] > 0) {
+  
+  instrStatus.status.map((objs) =>{ //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+    // console.log(instrStatus.event_id, x.name, x.qty)
+    if (instrStatus.event_id === id) {
+      // console.log(objs)
+     const name = objs.name
+    //  console.log(name)
+     const qty = objs.quantity
+    //  console.log(qty)
     console.log('confirmation request submitted');
-    axios
-     .put(
-      `/api/event_instruments/${id}`, //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
-      {
-       status: [
-        {
-         name: 'Available',
-         quantity: status[i]['Available'] - 1,
-        },
-        {
-         name: 'Pending',
-         quantity: status[i]['Pending'] + 1,
-        },
-        {
-         name: 'Filled',
-         quantity: 0,
-        },
-       ],
-      },
-      {
-       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      }
-     )
-     .then((response) => {
-      console.log('PUT response >>>', response);
-      if (response.data.status === 'updated') {
-        setTimeout(function() {
-        handleOpenMsg()
-      }, 1500);
-       console.log(
-        'event update is successful. response data >>',
-        response.data
-        );
-        //How do i re render the browser to see the chnages immediately
-       //DO I need to save this response to state
-      }
-    })
-    .catch((error) => {
-        console.log('event update error', error);
-    });
-    }else{
-     setTimeout(function() {
-     handleOpenNA()
-    }, 1500);
-   }
+    // axios
+    //  .put(
+    //   `/api/event_instruments/${id}`, //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
+    //   {
+    //    status: [
+    //     {
+    //      name: 'Available',
+    //      quantity: qty - 1,
+    //     },
+    //     {
+    //      name: 'Pending',
+    //      quantity: qty + 1,
+    //     },
+    //     {
+    //      name: 'Filled',
+    //      quantity: 0,
+    //     },
+    //    ],
+    //   },
+    //   {
+    //    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    //   }
+    //  )
+  //    .then((response) => {
+  //     console.log('PUT response >>>', response);
+  //     if (response.data.status === 'updated') {
+  //       setInstrStatus(response.data)
+  //       setTimeout(function() {
+  //       handleOpenMsg()
+  //     }, 1500);
+  //      console.log(
+  //       'event update is successful. response data >>',
+  //       response.data
+  //       );
+  //       //How do i re render the browser to see the chnages immediately
+  //      //DO I need to save this response to state
+  //     }
+  //   })
+  //   .catch((error) => {
+  //       console.log('event update error', error);
+  //   });
+    }
+  // else{
+  //    setTimeout(function() {
+  //    handleOpenNA()
+  //   }, 2000);
+  //  }
   });
  };
 

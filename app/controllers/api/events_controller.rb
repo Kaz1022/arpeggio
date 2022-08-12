@@ -47,28 +47,6 @@ class Api::EventsController < ApplicationController
     @event = Event.new
   end
 
-
-  # # POST /events
-  # def create
-
-  #   # instrument = EventInstrument.new(instrument_params)
-  #   # instrument.save!
-  #   # params[:instrument_id] = instrument[:instrument_id]
-
-  #   @event = Event.new(event_params)
-
-  #   if @event.save
-  #     render json: {
-  #       status: :created, 
-  #       event: @event
-  #       # location: @event
-  #   }
-  #   else
-  #     render json: @event.errors
-  #     # render :new
-  #   end
-  # end
-
   def create1
     ActiveRecord::Base.transaction do
       @event = Event.create!(event_params)

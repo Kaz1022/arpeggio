@@ -8,7 +8,7 @@ function NewEvent (props) {
 	const [title, setTitle] = useState("")
 	const [city, setCity] = useState("")
   const [country, setCountry] = useState("")
-	const [level, setLevel] = useState("")
+	const [level, setLevel] = useState("Any level")
   const [venue, setVenue] = useState("")
   const [genre, setGenre] = useState("")
   const [eventImage, setEventImage] = useState("")
@@ -16,6 +16,8 @@ function NewEvent (props) {
   const [eventDate, setEventDate] = useState("")
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
+
+	const [instrument, setInstrument] = useState("Vocal")
 
 	const navigate = useNavigate();
 
@@ -37,6 +39,7 @@ function NewEvent (props) {
 										event_date: eventDate,
 										start_time: startTime,
                     end_time: endTime,
+										instrument: instrument
                 }
             },
             { withCredentials: true }
@@ -69,7 +72,7 @@ function NewEvent (props) {
 			.then(resp => resp.json())
 			.then(data => {
 					console.log('updated event', data)
-					navigate('/events');
+					navigate('/mysessions');
 			})
 			}
 		})
@@ -118,14 +121,22 @@ function NewEvent (props) {
 									/>
 
 								<label htmlFor="level">Proficiency</label>
-								<input
+								<select onChange={e => setLevel(e.target.value)}>
+								<option value="Beginner Friendly">Any level</option>
+								<option value="Beginner Friendly">Beginner Friendly</option>
+								<option value="Intermediate">Intermediate</option>
+								<option value="Proficient">Proficient/casual</option>
+								<option value="Professional">Professional</option>
+								</select>
+
+								{/* <input
 									type="text"
 									name="level"
 									placeholder="Level"
 									value={level}
 									onChange={e => setLevel(e.target.value)}
 									required
-								/>
+								/> */}
 									
 								<label htmlFor="genre">Genre</label>
 								<input
@@ -199,6 +210,17 @@ function NewEvent (props) {
 									onChange={e => setEndTime(e.target.value)}
 									required
 							/>
+
+								<label htmlFor="Instrument">Instruments needed for session </label>
+								<select onChange={e => setInstrument(e.target.value)}>
+								<option value="Guitar">Guitar</option>
+								<option value="Keyboard">Keyboard</option>
+								<option value="Violin">Violin</option>
+								<option value="Flute">Flute</option>
+								<option value="Drum">Drum</option>
+								<option value="Banjo">Banjo</option>
+								<option value="Vocal">Vocal</option>
+								</select>
 
 								<button type="submit">
 									Create a new event

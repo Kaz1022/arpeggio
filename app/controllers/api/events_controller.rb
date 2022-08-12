@@ -55,19 +55,29 @@ class Api::EventsController < ApplicationController
 
 
   # POST /events
-  def create
-    @event = Event.new(event_params)
+  # def create
 
-    if @event.save
-      render json: {
-        status: :created, 
-        event: @event
-        # location: @event
-    }
-    else
-      render json: @event.errors
-      # render :new
-    end
+  #   @event = Event.new(event_params)
+
+  #   if @event.save
+  #     render json: {
+  #       status: :created, 
+  #       event: @event
+  #       # location: @event
+  #   }
+  #   else
+  #     render json: @event.errors
+  #     # render :new
+  #   end
+  # end
+
+  def create
+    ActiveRecord::Base.transaction do
+      @event = Event.create!(event_params)
+      @instrument = Instrument.find_by!(name: instrument_params[:instrument])
+      EventInstrument.create!(event_id: @event.id, instrument: @instrument)
+    end   
+    render json: { status: :created, event: @event }
   end
 
   # PATCH/PUT /events/1
@@ -96,7 +106,10 @@ class Api::EventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_params
-    params.require(:event).permit( :user_id, :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time)
+    params.require(:event).permit(:user_id, :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time)
   end
 
+  def instrument_params
+    params.require(:event).permit(:instrument)
+  end
 end

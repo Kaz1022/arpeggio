@@ -44,6 +44,7 @@ function EventListItem({
  id,
  title,
  user,
+ userPhone,
  date,
  start,
  end,
@@ -60,6 +61,7 @@ function EventListItem({
  instrument_quantity,
  events,
 }) {
+
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
@@ -74,6 +76,8 @@ function EventListItem({
  const handleCloseNA = () => setShowNAvail(false)
  const handleOpenNA = () => setShowNAvail(true)
 
+//  const [statuss, setStatuss] = useState();
+ const [like, setLike] = useState(false);
 
  const instrumentsArr = [];
 
@@ -127,6 +131,34 @@ useEffect(function () {
    .then((res) => setInstrStatus(res.data))
    .catch((err) => console.log(err));
  }, []);
+ 
+ const currentUser = JSON.parse(localStorage.getItem("user"));
+ 
+ const handleLike = (e) => {
+  e.preventDefault();
+  const myfavourite = {event_id: id, user_id: currentUser.userData.id}
+  setLike((prevLike)=> !prevLike);
+  if (!like) {
+    axios.post("/api/user_favourites",
+      {myfavourite})
+      .then(response => {
+        console.log("axios call response>>>>>", response);
+          // need to change the icon to red!! 
+      }).catch(error => {
+        console.log("Clicking Heart", error)
+      })
+    } else {
+      axios.delete(`/api/user_favourites/${id}`,
+      {myfavourite})
+      .then(response => {
+        console.log("axios call response>>>>>", response); 
+      }).catch(error => {
+        console.log("Clicking Heart", error)
+      })
+
+    }
+  }
+
 
 //  console.log(instrStatus)
  const handleConfirm = (e) => {
@@ -205,14 +237,16 @@ useEffect(function () {
         <strong>By:&nbsp;&nbsp;</strong>
         {user}
        </div>
-       <div className="heart-icon">
-        <BsHeartFill
-         style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
-         onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')}
-         onMouseOut={({ target }) =>
-          (target.style.color = 'rgba(244, 56, 56,0.2)')
-         }
-        />
+       <div className="heart-icon" onClick={handleLike}>
+        {like? (<BsHeartFill style={{ color: 'rgb(244, 56, 56)', fontSize: '1.6rem' }} />
+          ) : (
+          <BsHeartFill
+            style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
+            onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')}
+            onMouseOut={({ target }) =>
+            (target.style.color = 'rgba(244, 56, 56,0.2)')}
+          />)
+        }
        </div>
       </div>
 
@@ -252,6 +286,8 @@ useEffect(function () {
         show={show}
         onHide={handleClose}
         onConfirm={handleConfirm}
+        userPhone={userPhone}
+        title={title}
        />
        <MesssageSentModal 
         show={showMsg}

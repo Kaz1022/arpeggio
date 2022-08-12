@@ -15,9 +15,9 @@ function NewEvent (props) {
   const [description, setDescription] = useState("")
   const [eventDate, setEventDate] = useState("")
   const [startTime, setStartTime] = useState("")
-  const [endTime, setEndTime] = useState("")
+  const [endTime, setEndTime] = useState("")	
 
-	const [instrument, setInstrument] = useState("vocal")
+	const [instrument, setInstrument] = useState("")
 
 	const navigate = useNavigate();
 
@@ -213,13 +213,13 @@ function NewEvent (props) {
 
 								<label htmlFor="Instrument">Instruments needed for session </label>
 								<select onChange={e => setInstrument(e.target.value)}>
+								<option value="Vocal">Vocal</option>
 								<option value="Guitar">Guitar</option>
 								<option value="Keyboard">Keyboard</option>
 								<option value="Violin">Violin</option>
 								<option value="Flute">Flute</option>
 								<option value="Drum">Drum</option>
 								<option value="Banjo">Banjo</option>
-								<option value="Vocal">Vocal</option>
 								</select>
 
 								<button type="submit">

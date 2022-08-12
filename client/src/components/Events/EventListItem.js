@@ -135,7 +135,7 @@ useEffect(function () {
    .catch((err) => console.log(err));
 
    axios
-   .get(`/api/user_favourites/${id}`, {params: {user_id: currentUser.userData.id}})  //if i click on the first event it will setInstr to entire first object
+   .get(`/api/user_favourites/${id}`, {params: {user_id: currentUser.userData.id}})
    .then((res) => setLike(res.data.like))
    .catch((err) => console.log(err));
  }, []);

@@ -16,6 +16,9 @@ function NewEvent (props) {
   const [eventDate, setEventDate] = useState("")
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
+	const [post_active, setPostActive] = useState("True")
+
+	
 
 	const [instrument, setInstrument] = useState("Vocal")
 
@@ -39,7 +42,8 @@ function NewEvent (props) {
 										event_date: eventDate,
 										start_time: startTime,
                     end_time: endTime,
-										instrument: instrument
+										instrument: instrument,
+										post_active: post_active
                 }
             },
             { withCredentials: true }
@@ -213,13 +217,13 @@ function NewEvent (props) {
 
 								<label htmlFor="Instrument">Instruments needed for session </label>
 								<select onChange={e => setInstrument(e.target.value)}>
+								<option value="Vocal">Vocal</option>
 								<option value="Guitar">Guitar</option>
 								<option value="Keyboard">Keyboard</option>
 								<option value="Violin">Violin</option>
 								<option value="Flute">Flute</option>
 								<option value="Drum">Drum</option>
 								<option value="Banjo">Banjo</option>
-								<option value="Vocal">Vocal</option>
 								</select>
 
 								<button type="submit">

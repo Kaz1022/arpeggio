@@ -148,8 +148,8 @@ useEffect(function () {
         console.log("Clicking Heart", error)
       })
     } else {
-      axios.delete(`/api/user_favourites/${id}`,
-      {myfavourite})
+      axios.delete(`/api/user_favourites/delete`,
+      {data : {myfavourite}})
       .then(response => {
         console.log("axios call response>>>>>", response); 
       }).catch(error => {

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :event_instruments
     resources :sessions, only: [:create]
     resources :sms_messages, only: [:create]
-    resources :user_favourites, only: [:create, :destroy]
+    resources :user_favourites, only: [:create]
 
     get :logged_in, to: "sessions#logged_in"
     delete :logout, to: "sessions#logout"
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get "/users/:id/instruments", to: "users#instruments"
     get "/users/:user_id/sessions", to: "events#mysessions"
     get "/users/:user_id/favourites", to: "events#myfavourites"
+    delete "/user_favourites/delete", to: "user_favourites#destroy"
   end
 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

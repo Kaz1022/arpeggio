@@ -15,10 +15,10 @@ class Api::EventsController < ApplicationController
   end
 
   def search
-    @events = Event.joins(:instruments)
+    @events = Event.with_attached_event_image.joins(:instruments)
     .where(instruments: { name: params[:instrument] })
     .where('city = ? AND level = ? AND genre = ?', params[:city], params[:level], params[:genre])  
-    render json: @events.to_json(:include => [:user, :event_instruments, :instruments])
+    render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
   end
 
   def instruments

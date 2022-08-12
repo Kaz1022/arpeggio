@@ -2,188 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
-import '../../scss/custom.scss';
-import '../../App.scss';
-
-import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
-import drumsP from '../../assets/images/music_icons/Drums/drums_p.png';
-import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
-import guitarP from '../../assets/images/music_icons/Guitars/guitar_p.png';
-import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
-import vocalP from '../../assets/images/music_icons/Vocals/vocals_p.png';
 import ConfirmationModal from '../Modals/ConfirmationModal';
 import NotAvailableModal from '../Modals/NotAvailableModal';
 import MesssageSentModal from '../Modals/MessageSentModal';
 import axios from 'axios';
 
-const DrumImgA = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={drumsA} alt="" />
-  </div>
- );
-};
-const DrumImgP = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={drumsP} alt="" />
-  </div>
- );
-};
-const GuitarImgA = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={guitarA} alt="" />
-  </div>
- );
-};
-
-const GuitarImgP = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={guitarP} alt="" />
-  </div>
- );
-};
-const VocalImgA = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={vocalA} alt="" />
-  </div>
- );
-};
-
-const VocalImgP = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={vocalP} alt="" />
-  </div>
- );
-};
-
-const EventStyles = styled.div`
-
-.card{
-  display:flex;
-  flex-direction: column;
-  align-items:center;
-  border: none;  
-  padding: 0rem 5rem;
-}
-.eventCard{
-  height: fit-content;
-  max-height: 90vh;
-  width: 100%;
-  margin: 30px;
-  padding:0;
-  display:flex;
-  flex-wrap:wrap;
-  justify content: space-betweeen;
-  align-items:center;
-  border-radius: 3px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
-  background-color: #FFFFFF;
-  box-shadow: 1px 3px 8px 0px rgba(148, 148, 148, 1);
-}
-.event-name{
-  text-transform: uppercase;
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.74rem;
-}
-.top{
-  margin:15px 0px;
-}
-
-//LEFT
-.left{
-  position: relative;
-  padding: 1em 2em;
-  height: 100%;
-  flex:1.5;
-}
-.top{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content: space-between;
-}
-.heart-icon{
-  position: absolute;
-  left: 92%;
-  bottom: 5%;
-}
-.event-details{
-  display: flex;
-  flex-direction:column;
-  flex-wrap:wrap;
-}
-.details{
-  display:flex;
-  justify-content:space-between;
-  padding-right: 8rem;
-}
-.spots{
-  width: 50%;
-  .spots-heading{
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.4rem;
-  }
-}
-.event-description{
-  font-size: 1.2rem;
-  margin: 30px 0px;
-  line-height: 30px;
-}
-.instrument-icons{
-  width: 75%;
-  display:flex;
-  justify content: space-around;
-
-  .icons{
-    display: flex;
-}
-.icon-container{
-  width:100%;
-  margin-right: 20px;
-
-  .instr-icon{
-  height:140px;
-  width:auto;
-  min-width:100%;
-  margin-top: 30px;
-  border-radius: 60%;
-  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
-  &:hover{
-      box-shadow: 1px 1px 5px 1px pink;
-      outline: none;
-  }
-  }
-}
-
-}
-
-//RIGHT
-.right{
-  // background-color: lightpink;
-  position: relative;
-  height: 100%;
-  width:100%;
-  flex:1;
-
-  .timeago{
-    color:white;
-    font-weight: bold;
-    position: absolute;
-    top:94%;
-    left: 40%;
-  }
-  .main_image{
-    width: 100%;
-    min-height: 50vh;
-    object-fit: cover;
-  }
-}
-`;
+import {
+ DrumImgA,
+ DrumImgP,
+ DrumImgF,
+ GuitarImgA,
+ GuitarImgP,
+ GuitarImgF,
+ VocalImgA,
+ VocalImgP,
+ VocalImgF,
+} from '../styled-component/instrumenticons-styled';
+import '../../scss/custom.scss';
+import '../../App.scss';
+import { EventStyles } from '../styled-component/mySessionListItem-styled';
 
 const InstrumentStatusComp = {
  Drum: {
@@ -226,12 +63,28 @@ function EventListItem({
 }) {
 
  const [show, setShow] = useState(false);
+ const [showMsg, setShowMsg] = useState(false);
+ const [showNAvail, setShowNAvail] = useState(false);
+ const [instrStatus, setInstrStatus] = useState({});
+
+ const handleClose = () => setShow(false);
+ const handleShow = () => setShow(true);
+
+ const handleCloseMsg = () => setShowMsg(false)
+ const handleOpenMsg = () => setShowMsg(true)
+
+ const handleCloseNA = () => setShowNAvail(false)
+ const handleOpenNA = () => setShowNAvail(true)
+
 //  const [statuss, setStatuss] = useState();
  const [like, setLike] = useState(false);
 
  const instrumentsArr = [];
+
  const instrumentSummary = events.map((event) => {
   event.event_instruments.map((event_i) => {
+   //This is the status objects
+
    const instrument_name = event.instruments.find(
     (inst) => inst.id === event_i.instrument_id
    ).name;
@@ -239,12 +92,17 @@ function EventListItem({
    const instrument = {
     name: instrument_name,
     event_id: event_i.event_id,
-    quantity: event_i.quantity,
-    status: event_i.status,
+    status: event_i.status.reduce((acc, curr, i) => {
+     acc[curr.name] = curr.quantity;
+     return acc;
+    }, {}),
    };
+
    instrumentsArr.push(instrument);
   });
  });
+
+ // console.log(instrumentsArr)
 
  const getEventData = () => {
   const event = events.find((e) => e.id === id);
@@ -256,13 +114,23 @@ function EventListItem({
 
   return event.event_instruments.map((ei) => {
    const name = instrumentsById[ei.instrument_id].name;
-   const Comp = InstrumentStatusComp[name][ei.status];
-   return [...Array(ei.quantity)].map((v, i) => <Comp key={`selector-${i}`} />);
+   const instrumentsAry = [];
+   ei.status.forEach((item) => {
+    const Comp = InstrumentStatusComp[name][item.name];
+    [...Array(item.quantity)].forEach((v, i) => {
+     instrumentsAry.push(<Comp key={`selector-${i}`} />);
+    });
+   });
+   return instrumentsAry;
   });
- };
+};
 
- const handleClose = () => setShow(false);
- const handleShow = () => setShow(true);
+useEffect(function () {
+  axios
+   .get(`/api/event_instruments/${id}`)  //if i click on the first event it will setInstr to entire first object
+   .then((res) => setInstrStatus(res.data))
+   .catch((err) => console.log(err));
+ }, []);
  
  const currentUser = JSON.parse(localStorage.getItem("user"));
  
@@ -292,43 +160,71 @@ function EventListItem({
   }
 
 
- //  useEffect(function () {
+//  console.log(instrStatus)
  const handleConfirm = (e) => {
-    e.preventDefault();
-    console.log('confirmation button clicked submitted');
-  //   // console.log(status[0])
-  //   if (status[0] === 'Pending') {
-  //    console.log('confirmation request submitted');
-  //    axios
-  //     .put(
-  //      `/api/event_instruments/${id}`,
-  //      {
-  //       status: 'Available',
-  //      },
-  //      {
-  //       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-  //      }
-  //     )
-  //     .then((response) => {
-  //      console.log(response);
-  //      console.log(response.data);
-  //      if (response.data.status === 'updated') {
-  //       console.log('event update is successful. response data:', response.data);
-  //       // updateEvent(status, response.data)  //send status down from EventFilter?
-  //       setStatuss(status[[0]]); //the status caused to occur by clicking confirm application button
-  //       console.log('after Update Run data >>>>>>>>>', response);
-            //handleClose();
-        // <MessageSentModal show={show} onHide={handleClose} />
-  //      }
-  //     })
-  //     .catch((error) => {
-  //      console.log('event update error', error);
-  //     });
-  //   } else {
-    //  <NotAvailableModal show={show} onHide={handleClose} />
-  //   }
+  e.preventDefault();
+  handleClose();
+  console.log('confirmation button clicked submitted');
+
+  
+  instrStatus.status.map((objs) =>{ //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+    // console.log(instrStatus.event_id, x.name, x.qty)
+    if (instrStatus.event_id === id) {
+      // console.log(objs)
+     const name = objs.name
+    //  console.log(name)
+     const qty = objs.quantity
+    //  console.log(qty)
+    console.log('confirmation request submitted');
+    // axios
+    //  .put(
+    //   `/api/event_instruments/${id}`, //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
+    //   {
+    //    status: [
+    //     {
+    //      name: 'Available',
+    //      quantity: qty - 1,
+    //     },
+    //     {
+    //      name: 'Pending',
+    //      quantity: qty + 1,
+    //     },
+    //     {
+    //      name: 'Filled',
+    //      quantity: 0,
+    //     },
+    //    ],
+    //   },
+    //   {
+    //    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    //   }
+    //  )
+  //    .then((response) => {
+  //     console.log('PUT response >>>', response);
+  //     if (response.data.status === 'updated') {
+  //       setInstrStatus(response.data)
+  //       setTimeout(function() {
+  //       handleOpenMsg()
+  //     }, 1500);
+  //      console.log(
+  //       'event update is successful. response data >>',
+  //       response.data
+  //       );
+  //       //How do i re render the browser to see the chnages immediately
+  //      //DO I need to save this response to state
+  //     }
+  //   })
+  //   .catch((error) => {
+  //       console.log('event update error', error);
+  //   });
+    }
+  // else{
+  //    setTimeout(function() {
+  //    handleOpenNA()
+  //   }, 2000);
+  //  }
+  });
  };
- //  }, []);  //url id
 
  return (
   <EventStyles>
@@ -393,6 +289,16 @@ function EventListItem({
         userPhone={userPhone}
         title={title}
        />
+       <MesssageSentModal 
+        show={showMsg}
+        onHide={handleCloseMsg}
+        onClose={handleOpenMsg}
+        />
+        <NotAvailableModal 
+        show={showNAvail}
+        onHide={handleCloseNA}
+        onClose={handleOpenNA}
+        />
        <div className="instrument-icons">
         <div className="icons" onClick={handleShow}>
          {getEventData()}

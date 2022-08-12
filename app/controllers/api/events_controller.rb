@@ -3,8 +3,9 @@ class Api::EventsController < ApplicationController
   
   # GET /events
   def index
-    @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments]).all
-    render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
+    @events = Event.with_attached_event_image.includes([:user, :attendees, :event_instruments, :instruments]).all
+
+    render json: @events.as_json(:include => [:user, :attendees, :event_instruments, :instruments], methods: [:event_image_data])
   end
 
   def search

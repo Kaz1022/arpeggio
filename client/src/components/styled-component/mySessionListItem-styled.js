@@ -7,6 +7,7 @@ object-fit: cover;
 `;
 
 export const EventStyles = styled.div`
+
 .card{
   display:flex;
   flex-direction: column;
@@ -15,8 +16,8 @@ export const EventStyles = styled.div`
   padding: 0rem 5rem;
 }
 .eventCard{
-  height: fit-content
-  // max-height: 90vh;
+  height: fit-content;
+  max-height: 90vh;
   width: 100%;
   margin: 30px;
   padding:0;
@@ -64,11 +65,14 @@ export const EventStyles = styled.div`
 .details{
   display:flex;
   justify-content:space-between;
-  padding-right: 10rem;
+  padding-right: 8rem;
 }
-.spots-heading{
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.4rem;
+.spots{
+  width: 50%;
+  .spots-heading{
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.4rem;
+  }
 }
 .event-description{
   font-size: 1.2rem;
@@ -76,22 +80,52 @@ export const EventStyles = styled.div`
   line-height: 30px;
 }
 .instrument-icons{
-  width: 50%;
+  width: 75%;
   display:flex;
   justify content: space-around;
+
+  .icons{
+    display: flex;
+}
+.icon-container{
+  width:100%;
+  margin-right: 20px;
+
+  .instr-icon{
+  height:140px;
+  width:auto;
+  min-width:100%;
+  margin-top: 30px;
+  border-radius: 60%;
+  box-shadow: 0.5px 0.5px 8px 1px #A9A9A9;
+  &:hover{
+      box-shadow: 1px 1px 5px 1px pink;
+      outline: none;
+  }
+  }
+}
+
 }
 
 //RIGHT
 .right{
-  flex-direction: column;
-  align-content: space-between;
-  padding: 0;
-  margin: 0;
+  // background-color: lightpink;
+  position: relative;
+  height: 100%;
+  width:100%;
   flex:1;
+
+  .timeago{
+    color:white;
+    font-weight: bold;
+    position: absolute;
+    top:94%;
+    left: 40%;
+  }
+  .main_image{
+    width: 100%;
+    min-height: 50vh;
+    object-fit: cover;
+  }
 }
-
-.edit-button{
-
-}
-
 `;

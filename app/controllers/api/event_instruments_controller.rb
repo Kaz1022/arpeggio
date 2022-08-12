@@ -1,13 +1,13 @@
 class Api::EventInstrumentsController < ApplicationController
   # before_action :set_event, only: %i[show update destroy]
   
-  # GET /events
+  # GET /event_instruments
   def index
     @event_instruments = EventInstrument.all
     render json: @event_instruments
   end
   
-  # GET /events/1
+  # GET /event_instruments/1
   def show
     @event_instrument = EventInstrument.includes(:event)
     .find_by(event_instruments: {event_id: params[:id]})
@@ -19,7 +19,7 @@ class Api::EventInstrumentsController < ApplicationController
   end
 
 
-  # POST /events
+  # POST /event_instruments
   def create
     @event_instrument = EventInstrument.new(event_instrument_params)
 
@@ -33,7 +33,7 @@ class Api::EventInstrumentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /events/1
+  # PATCH/PUT /event_instruments/1
   def update
     @event_instrument = EventInstrument.includes(:event).find_by(event_instruments: {event_id: params[:id]})
     @event_instrument.update(status: params[:status])  #sending status and qty as params? 
@@ -42,15 +42,15 @@ class Api::EventInstrumentsController < ApplicationController
 
       render json: {
         status: :updated, 
-        event_instrument: @event_instrument
+        event_instrument: @event_instrument.to_json
     }
-      render json: @event_instrument
+
     else
       render json: @event_instrument.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /events/1
+  # DELETE /event_instruments/1
   def destroy
     @event_instrument.destroy
   end
@@ -65,7 +65,7 @@ class Api::EventInstrumentsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_instrument_params
-    params.require(:event_instrument).permit(:status)
+    params.require(:event_instrument).permit(status: [])
   end
 
 end

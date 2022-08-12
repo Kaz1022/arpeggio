@@ -47,6 +47,11 @@ class Api::EventsController < ApplicationController
 
   # POST /events
   def create
+
+    # instrument = EventInstrument.new(instrument_params)
+    # instrument.save!
+    # params[:instrument_id] = instrument[:instrument_id]
+
     @event = Event.new(event_params)
 
     if @event.save
@@ -87,7 +92,7 @@ class Api::EventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_params
-    params.require(:event).permit( :user_id, :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time)
+    params.require(:event).permit( :user_id, :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time, :instruments)
   end
 
 end

@@ -16,6 +16,9 @@ function NewEvent (props) {
   const [eventDate, setEventDate] = useState("")
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
+	const [post_active, setPostActive] = useState("True")
+
+	
 
 	const [instrument, setInstrument] = useState("Vocal")
 
@@ -39,7 +42,8 @@ function NewEvent (props) {
 										event_date: eventDate,
 										start_time: startTime,
                     end_time: endTime,
-										instrument: instrument
+										instrument: instrument,
+										post_active: post_active
                 }
             },
             { withCredentials: true }

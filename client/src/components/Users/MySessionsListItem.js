@@ -2,27 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import '../../scss/custom.scss';
 import '../../App.scss';
-import { DrumImg, GuitarImg, VocalImg } from '../styled-component/instrumenticons-styled'; 
+import {
+ DrumImgA,DrumImgP,DrumImgF,
+ GuitarImgA, GuitarImgP,GuitarImgF,
+ VocalImgA, VocalImgP,VocalImgF
+} from '../styled-component/instrumenticons-styled';
 import { Img, EventStyles } from '../styled-component/mySessionListItem-styled';
 import AcceptanceModal from '../Modals/AcceptanceModal';
 
 const InstrumentStatusComp = {
-  Drum: {
-    Available: DrumImg,
-    Pending: DrumImg,
-    Filled: DrumImg,
-  },
-  Guitar: {
-    Available: GuitarImg,
-    Pending: GuitarImg,
-    Filled: GuitarImg
-  },
-  Vocal: {
-    Available: VocalImg,
-    Pending: VocalImg,
-    Filled: VocalImg
-  }
-}
+ Drum: {
+  Available: DrumImgA,
+  Pending: DrumImgP,
+  Filled: DrumImgF,
+ },
+ Guitar: {
+  Available: GuitarImgA,
+  Pending: GuitarImgP,
+  Filled: GuitarImgF,
+ },
+ Vocal: {
+  Available: VocalImgA,
+  Pending: VocalImgP,
+  Filled: VocalImgF,
+ },
+};
 
 function MySessionsListItem({
  id,
@@ -46,27 +50,33 @@ function MySessionsListItem({
  const [statuss, setStatuss] = useState();
 
  const getEventData = () => {
-  const event = events.find(e => e.id === id);
+  const event = events.find((e) => e.id === id); //find event where the event id is equal to id -> here e is each event object
 
   const instrumentsById = event.instruments.reduce((acc, val) => {
-    acc[val.id] = val
-    return acc
-  }, {})
-  
+   acc[val.id] = val;
+   return acc;
+  }, {});
+
   return event.event_instruments.map((ei) => {
-    const name = instrumentsById[ei.instrument_id].name
-    const Comp = InstrumentStatusComp[name][ei.status];
-   return [...Array(ei.quantity)].map((v, i) => <Comp key={`selector-${i}`} />)
-  })  
-}
+   const name = instrumentsById[ei.instrument_id].name;
+   const instrumentsAry = [];
+   ei.status.forEach((item) => {
+    const Comp = InstrumentStatusComp[name][item.name];
+    [...Array(item.quantity)].forEach((v, i) => {
+     instrumentsAry.push(<Comp key={`selector-${i}`} />);
+    });
+   });
+   return instrumentsAry;
+  });
+ };
 
-useEffect(function () {
+ useEffect(function () {
   // setIconData(newObjArr)
-}, []);  //url id
+ }, []); //url id
 
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
-const handleConfirm = () => setStatuss();
+ const handleClose = () => setShow(false);
+ const handleShow = () => setShow(true);
+ const handleConfirm = () => setStatuss();
 
  return (
   <EventStyles>
@@ -113,10 +123,14 @@ const handleConfirm = () => setStatuss();
 
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
-       <AcceptanceModal show={show} onHide={handleClose} onConfirm={handleConfirm}/>
+       <AcceptanceModal
+        show={show}
+        onHide={handleClose}
+        onConfirm={handleConfirm}
+       />
        <div className="instrument-icons">
         <div className="icons" onClick={handleShow}>
-          {getEventData()}
+         {getEventData()}
         </div>
        </div>
       </div>
@@ -124,10 +138,10 @@ const handleConfirm = () => setStatuss();
 
      <div className="right">
       <div>
-        <Img src={image} />
+       <Img src={image} />
       </div>
-      <div  className="edit-button">
-        <Button variant="dark">EDIT</Button>
+      <div className="edit-button">
+       <Button variant="dark">EDIT</Button>
       </div>
      </div>
     </div>

@@ -154,7 +154,7 @@ const genreResult = makeUniqueArray('genre', events)
           genre={item.genre}
           image={item.event_image_data}
           description={item.description}
-          status={item.event_instruments.map((event_i) => {return event_i.status})}
+          status={item.event_instruments.map((event_i) => {return event_i.status.map((e_status, i)=> {return e_status})})}
           created={item.created_at}
           instruments={instruments.map((item) => {return item})}
           instrument_quantity={item.event_instruments.map((event_i) => {return event_i.quantity})}

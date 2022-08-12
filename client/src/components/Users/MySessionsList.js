@@ -60,7 +60,7 @@ function MySessionsList() {
   return (
     <div className="base-container">
       <div className="header">
-        <h1>My Favourites</h1>
+        <h1>My Sessions</h1>
       </div>
       <Styles>{mysessions}</Styles>
     </div>

@@ -34,15 +34,6 @@ class Api::EventsController < ApplicationController
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments, :attendees], methods: [:event_image_data])
   end
 
-    # GET /users/:user_id/favourites
-  def myfavourites
-
-    @events = Event.with_attached_event_image.joins(:user_favourites)
-    .where(user_favourites: { user_id: params[:user_id] })
-
-    render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
-  end
-
   
   # GET /events/1
   def show
@@ -55,23 +46,27 @@ class Api::EventsController < ApplicationController
 
 
   # POST /events
-  # def create
-
-  #   @event = Event.new(event_params)
-
-  #   if @event.save
-  #     render json: {
-  #       status: :created, 
-  #       event: @event
-  #       # location: @event
-  #   }
-  #   else
-  #     render json: @event.errors
-  #     # render :new
-  #   end
-  # end
-
   def create
+
+    # instrument = EventInstrument.new(instrument_params)
+    # instrument.save!
+    # params[:instrument_id] = instrument[:instrument_id]
+
+    @event = Event.new(event_params)
+
+    if @event.save
+      render json: {
+        status: :created, 
+        event: @event
+        # location: @event
+    }
+    else
+      render json: @event.errors
+      # render :new
+    end
+  end
+
+  def create1
     ActiveRecord::Base.transaction do
       @event = Event.create!(event_params)
       @instrument = Instrument.find_by!(name: instrument_params[:instrument])
@@ -107,10 +102,10 @@ class Api::EventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_params
-    params.require(:event).permit(:user_id, :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time)
+    params.require(:event).permit(:user_id, :title, :city, :country, :level, :venue_style, :genre, :event_image, :description, :event_date, :start_time, :end_time, :post_active)
   end
 
   def instrument_params
-    params.require(:event).permit(:instrument)
+    params.require(:event).permit(:instruments)
   end
 end

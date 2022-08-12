@@ -2,64 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
+import {
+  DrumImgA,DrumImgP,DrumImgF,
+  GuitarImgA, GuitarImgP,GuitarImgF,
+  VocalImgA, VocalImgP,VocalImgF
+ } from '../styled-component/instrumenticons-styled';
 import '../../scss/custom.scss';
 import '../../App.scss';
-
-import drumsA from '../../assets/images/music_icons/Drums/drums_a.png';
-import drumsP from '../../assets/images/music_icons/Drums/drums_p.png';
-import guitarA from '../../assets/images/music_icons/Guitars/guitar_a.png';
-import guitarP from '../../assets/images/music_icons/Guitars/guitar_p.png';
-import vocalA from '../../assets/images/music_icons/Vocals/vocals_a.png';
-import vocalP from '../../assets/images/music_icons/Vocals/vocals_p.png';
 import ConfirmationModal from '../Modals/ConfirmationModal';
 import NotAvailableModal from '../Modals/NotAvailableModal';
 import MesssageSentModal from '../Modals/MessageSentModal';
 import axios from 'axios';
 
-const DrumImgA = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={drumsA} alt="" />
-  </div>
- );
-};
-const DrumImgP = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={drumsP} alt="" />
-  </div>
- );
-};
-const GuitarImgA = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={guitarA} alt="" />
-  </div>
- );
-};
-
-const GuitarImgP = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={guitarP} alt="" />
-  </div>
- );
-};
-const VocalImgA = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={vocalA} alt="" />
-  </div>
- );
-};
-
-const VocalImgP = () => {
- return (
-  <div className="icon-container">
-   <img className="instr-icon" src={vocalP} alt="" />
-  </div>
- );
-};
 
 const EventStyles = styled.div`
 

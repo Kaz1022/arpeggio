@@ -3,28 +3,28 @@ import { Button } from 'react-bootstrap';
 import '../../scss/custom.scss';
 import '../../App.scss';
 import {
- DrumImg,
- GuitarImg,
- VocalImg,
+ DrumImgA,DrumImgP,DrumImgF,
+ GuitarImgA, GuitarImgP,GuitarImgF,
+ VocalImgA, VocalImgP,VocalImgF
 } from '../styled-component/instrumenticons-styled';
 import { Img, EventStyles } from '../styled-component/mySessionListItem-styled';
 import AcceptanceModal from '../Modals/AcceptanceModal';
 
 const InstrumentStatusComp = {
  Drum: {
-  Available: DrumImg,
-  Pending: DrumImg,
-  Filled: DrumImg,
+  Available: DrumImgA,
+  Pending: DrumImgP,
+  Filled: DrumImgF,
  },
  Guitar: {
-  Available: GuitarImg,
-  Pending: GuitarImg,
-  Filled: GuitarImg,
+  Available: GuitarImgA,
+  Pending: GuitarImgP,
+  Filled: GuitarImgF,
  },
  Vocal: {
-  Available: VocalImg,
-  Pending: VocalImg,
-  Filled: VocalImg,
+  Available: VocalImgA,
+  Pending: VocalImgP,
+  Filled: VocalImgF,
  },
 };
 

@@ -1,9 +1,9 @@
-import { React, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import '../../scss/custom.scss';
-import '../../App.scss';
-import axios from 'axios';
-import EventListItem from '../Events/EventListItem';
+import { React, useEffect, useState } from "react";
+import styled from "styled-components";
+import "../../scss/custom.scss";
+import "../../App.scss";
+import axios from "axios";
+import EventListItem from "../Events/EventListItem";
 
 const Styles = styled.div`
  display: flex;
@@ -21,11 +21,10 @@ const Styles = styled.div`
  }
 `;
 
-function MyFavouritesList(props) {
-
+function MyFavouritesList({ loggedInStatus }) {
   const [events, setEvents] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  
+
   useEffect(function () {
     axios
       .get(`/api/users/${currentUser.userData.id}/favourites`)
@@ -33,33 +32,39 @@ function MyFavouritesList(props) {
       .then((err) => console.log(err));
   }, []);
 
-  console.log("events data >>>", events);
   const myfavourites = events.map((eachSession) => {
     return (
-        <EventListItem
-          key={eachSession.id}
-          id={eachSession.id}
-          title={eachSession.title}
-          user={eachSession.user.handle}
-          date={eachSession.event_date}
-          start={eachSession.start_time}
-          end={eachSession.end_time}
-          city={eachSession.city}
-          country={eachSession.country}
-          level={eachSession.level}
-          venue={eachSession.venue_style}
-          genre={eachSession.genre}
-          image={eachSession.event_image_data}
-          description={eachSession.description}
-          status={eachSession.post_active}
-          created={eachSession.created_at}
-          events={events}
-        />
+      <EventListItem
+        key={eachSession.id}
+        id={eachSession.id}
+        title={eachSession.title}
+        user={eachSession.user.handle}
+        userPhone={eachSession.user.phone}
+        date={eachSession.event_date}
+        start={eachSession.start_time}
+        end={eachSession.end_time}
+        city={eachSession.city}
+        country={eachSession.country}
+        level={eachSession.level}
+        venue={eachSession.venue_style}
+        genre={eachSession.genre}
+        image={eachSession.event_image_data}
+        description={eachSession.description}
+        status={eachSession.post_active}
+        created={eachSession.created_at}
+        events={events}
+      />
     );
   });
 
-  return <Styles>{myfavourites}</Styles>
-
+  return (
+    <div className="base-container">
+      <div className="header">
+        <h1>My Favourites</h1>
+      </div>
+      <Styles>{myfavourites}</Styles>
+    </div>
+  );
 }
 
 export default MyFavouritesList;

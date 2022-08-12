@@ -38,7 +38,7 @@ class Api::EventsController < ApplicationController
   def myfavourites
 
     @events = Event.with_attached_event_image.joins(:user_favourites)
-    .where(user_favourites: { user_id: params[:instrument] })
+    .where(user_favourites: { user_id: params[:user_id] })
 
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
   end

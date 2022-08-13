@@ -264,7 +264,7 @@ attendee1 = Attendee.create!(
 attendee2 = Attendee.create!(
   {
     user_id: 3,
-    event_instrument_id: 5,
+    event_instrument_id: 7,
     accepted: false
   }
 )

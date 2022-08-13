@@ -9,7 +9,6 @@ import AcceptedModal from '../Modals/AcceptedModal';
 import NotAvailableModal from '../Modals/NotAvailableModal';
 
 import axios from 'axios';
-import AttendeeList from './AttendeeList';
 
 const InstrumentStatusComp = {
  Drum: {
@@ -52,19 +51,28 @@ function MySessionsListItem({
   const [showMsg, setShowMsg] = useState(false);
   const [showNAvail, setShowNAvail] = useState(false);
   const [instrStatus, setInstrStatus] = useState();
-  const [pendingEventInstrument, setPendingEventInstrument] = useState();
+  const [activeEventInstrument, setActiveEventInstrument] = useState();
+  const [attendee, setAttendee] = useState();
  
   const handleShow = (eventInstrumentId) => {
-   setPendingEventInstrument(eventInstrumentId)
-   axios
-   .get(`/api/event_instruments/${eventInstrumentId}`)
-   .then((res) => console.log(res.data))
-   .catch((err) => console.log(err));
+    setActiveEventInstrument(eventInstrumentId)
+    // axios call to get the attendees info?
+    // how to get attendees id for the button.... 
+    // event_instruments has attendees ids...
 
-     setShow(true)
+
+
+
+    // axios
+    // .get(`/api/attendees/${attendees_id}`)  
+    // .then((res) => setAttendee(res.data))
+    // .catch((err) => console.log(err));
+
+
+    setShow(true)
   }
   const handleClose = () => {
-   setPendingEventInstrument(undefined)
+   setActiveEventInstrument(undefined)
    setShow(false);
   }
  
@@ -109,7 +117,7 @@ function MySessionsListItem({
     acc[val.id] = val;
     return acc;
    }, {});
- 
+  //  console.log("instrumentsById>>>>", instrumentsById);
    return event.event_instruments.map((ei) => {
     const name = instrumentsById[ei.instrument_id].name;
     const instrumentsAry = [];
@@ -248,14 +256,14 @@ function MySessionsListItem({
 
        <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
-       <AttendeeList eventsData={events} id={id}/>
         <AcceptanceModal
-          eventInstrumentId={pendingEventInstrument}
+          eventsData={events}
+          id={id}
+          eventInstrumentId={activeEventInstrument}
           show={show}
           onHide={handleClose}
           onConfirm={handleConfirm}
         />
-        {/* <AttendeeList eventsData={events} id={id}/> */}
         <AcceptedModal 
           show={showMsg}
           onHide={handleCloseMsg}

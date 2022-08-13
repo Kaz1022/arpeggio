@@ -1,23 +1,21 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import AttendeeList from '../Users/AttendeeList';
 
-function AcceptanceModal(props) {
+function AcceptanceModal({show, onHide, onConfirm, events, id}) {
   return (
-    <Modal show={props.show} onHide={props.onHide}>
+    <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
         <Modal.Title>Response to The Request</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <AttendeeList />
         <p><a href="/applicant">@APPLICANT</a> is sending a request to attend.</p>
         <p>How would you like to response?</p>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="primary" onClick={props.onConfirm} >Accept</Button>
-        <Button variant="secondary" onClick={props.onHide}>Decline</Button>
+        <Button variant="primary" onClick={onConfirm} >Accept</Button>
+        <Button variant="secondary" onClick={onHide}>Decline</Button>
       </Modal.Footer>
     </Modal>
   );

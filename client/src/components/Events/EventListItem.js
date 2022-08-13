@@ -1,342 +1,372 @@
-import React, { useState, useEffect } from 'react';
-import { BsHeartFill } from 'react-icons/bs';
-import styled from 'styled-components';
-import TimeAgo from 'react-timeago';
-import ConfirmationModal from '../Modals/ConfirmationModal';
-import NotAvailableModal from '../Modals/NotAvailableModal';
-import MesssageSentModal from '../Modals/MessageSentModal';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { BsHeartFill } from "react-icons/bs";
+import styled from "styled-components";
+import TimeAgo from "react-timeago";
+import ConfirmationModal from "../Modals/ConfirmationModal";
+import NotAvailableModal from "../Modals/NotAvailableModal";
+import MesssageSentModal from "../Modals/MessageSentModal";
+import axios from "axios";
 
 import {
- DrumImgA,
- DrumImgP,
- DrumImgF,
- GuitarImgA,
- GuitarImgP,
- GuitarImgF,
- VocalImgA,
- VocalImgP,
- VocalImgF,
-} from '../styled-component/instrumenticons-styled';
-import '../../scss/custom.scss';
-import '../../App.scss';
-import { EventStyles } from '../styled-component/mySessionListItem-styled';
+  DrumImgA,
+  DrumImgP,
+  DrumImgF,
+  GuitarImgA,
+  GuitarImgP,
+  GuitarImgF,
+  VocalImgA,
+  VocalImgP,
+  VocalImgF,
+} from "../styled-component/instrumenticons-styled";
+import "../../scss/custom.scss";
+import "../../App.scss";
+import { EventStyles } from "../styled-component/mySessionListItem-styled";
 
 const InstrumentStatusComp = {
- Drum: {
-  Available: DrumImgA,
-  Pending: DrumImgP,
-  Filled: DrumImgP,
- },
- Guitar: {
-  Available: GuitarImgA,
-  Pending: GuitarImgP,
-  Filled: GuitarImgP,
- },
- Vocal: {
-  Available: VocalImgA,
-  Pending: VocalImgP,
-  Filled: VocalImgP,
- },
+  Drum: {
+    Available: DrumImgA,
+    Pending: DrumImgP,
+    Filled: DrumImgP,
+  },
+  Guitar: {
+    Available: GuitarImgA,
+    Pending: GuitarImgP,
+    Filled: GuitarImgP,
+  },
+  Vocal: {
+    Available: VocalImgA,
+    Pending: VocalImgP,
+    Filled: VocalImgP,
+  },
 };
 
 function EventListItem({
- id,
- title,
- user,
- userPhone,
- date,
- start,
- end,
- city,
- country,
- level,
- venue,
- genre,
- image,
- description,
- status,
- event_instruments_id,
- created,
- instruments,
- instrument_quantity,
- events,
- setEvents
+  id,
+  title,
+  user,
+  userPhone,
+  date,
+  start,
+  end,
+  city,
+  country,
+  level,
+  venue,
+  genre,
+  image,
+  description,
+  status,
+  event_instruments_id,
+  created,
+  instruments,
+  instrument_quantity,
+  events,
+  setEvents,
 }) {
+  const [show, setShow] = useState(false);
+  const [showMsg, setShowMsg] = useState(false);
+  const [showNAvail, setShowNAvail] = useState(false);
+  const [instrStatus, setInstrStatus] = useState();
+  const [activeEventInstrument, setActiveEventInstrument] = useState();
 
- const [show, setShow] = useState(false);
- const [showMsg, setShowMsg] = useState(false);
- const [showNAvail, setShowNAvail] = useState(false);
- const [instrStatus, setInstrStatus] = useState();
- const [activeEventInstrument, setActiveEventInstrument] = useState();
+  const handleShow = (eventInstrumentId) => {
+    setActiveEventInstrument(eventInstrumentId);
+    setShow(true);
+  };
+  const handleClose = () => {
+    setActiveEventInstrument(undefined);
+    setShow(false);
+  };
 
- const handleShow = (eventInstrumentId) => {
-  setActiveEventInstrument(eventInstrumentId)
-    setShow(true)
- }
- const handleClose = () => {
-  setActiveEventInstrument(undefined)
-  setShow(false);
- }
-//  const handleShow = () => setShow(true);
+  const handleCloseMsg = () => setShowMsg(false);
+  const handleOpenMsg = () => setShowMsg(true);
 
- const handleCloseMsg = () => setShowMsg(false)
- const handleOpenMsg = () => setShowMsg(true)
+  const handleCloseNA = () => setShowNAvail(false);
+  const handleOpenNA = () => setShowNAvail(true);
 
- const handleCloseNA = () => setShowNAvail(false)
- const handleOpenNA = () => setShowNAvail(true)
+  const [like, setLike] = useState(false);
 
- const [like, setLike] = useState(false);
+  const instrumentsArr = [];
 
- const instrumentsArr = [];
+  const instrumentSummary = events.map((event) => {
+    event.event_instruments.map((event_i) => {
+      //This is the status objects
 
- const instrumentSummary = events.map((event) => {
-  event.event_instruments.map((event_i) => {
-   //This is the status objects
+      const instrument_name = event.instruments.find(
+        (inst) => inst.id === event_i.instrument_id
+      ).name;
 
-   const instrument_name = event.instruments.find(
-    (inst) => inst.id === event_i.instrument_id
-   ).name;
+      const instrument = {
+        name: instrument_name,
+        event_id: event_i.event_id,
+        event_instruments_id: event_i.id,
+        status: event_i.status.reduce((acc, curr, i) => {
+          acc[curr.name] = curr.quantity;
+          return acc;
+        }, {}),
+      };
 
-   const instrument = {
-    name: instrument_name,
-    event_id: event_i.event_id,
-    event_instruments_id: event_i.id,
-    status: event_i.status.reduce((acc, curr, i) => {
-     acc[curr.name] = curr.quantity;
-     return acc;
-    }, {}),
-   };
-
-   instrumentsArr.push(instrument);
-  });
- });
-
-//  console.log(instrumentsArr)
-
- const getEventData = () => {
-  const event = events.find((e) => e.id === id);
-  console.log(event)
-
-  const instrumentsById = event.instruments.reduce((acc, val) => {
-   acc[val.id] = val;
-   return acc;
-  }, {});
-
-  return event.event_instruments.map((ei) => {
-   const name = instrumentsById[ei.instrument_id].name;
-   const instrumentsAry = [];
-   ei.status.forEach((item) => {
-    const Comp = InstrumentStatusComp[name][item.name];
-    [...Array(item.quantity)].forEach((v, i) => {
-     instrumentsAry.push( <div key={`selector-${i}`} onClick={() => handleShow(ei.id)} ><Comp /></div>);
+      instrumentsArr.push(instrument);
     });
-   });
-   return instrumentsAry;
   });
-};
 
+  //  console.log(instrumentsArr)
 
-// need to get user_favourites 
-useEffect(function () {
-  axios
-   .get(`/api/event_instruments/${id}`)  //if i click on the first event it will setInstr to entire first object
-   .then((res) => setInstrStatus(res.data))
-   .catch((err) => console.log(err));
+  const getEventData = () => {
+    const event = events.find((e) => e.id === id);
 
-   axios
-   .get(`/api/user_favourites/${id}`, {params: {user_id: currentUser.userData.id}})
-   .then((res) => setLike(res.data.like))
-   .catch((err) => console.log(err));
- }, []);
- 
+    const instrumentsById = event.instruments.reduce((acc, val) => {
+      acc[val.id] = val;
+      return acc;
+    }, {});
 
- const currentUser = JSON.parse(localStorage.getItem("user"));
- 
- const handleLike = (e) => {
-  e.preventDefault();
-  const myfavourite = {event_id: id, user_id: currentUser.userData.id}
-  if (!like) {
-    axios.post("/api/user_favourites",
-    {myfavourite})
-      .then(response => {
-        // console.log("axios call response>", response);
-      }).catch(error => {
-        console.log("Clicking Heart", error)
-      })
-  } else {
-      axios.delete(`/api/user_favourites/delete`,
-      {data : {myfavourite}})
-      .then(response => {
-        setEvents((prev) => {
-          return prev.filter(item => {
-            return item.id !== response.data.event_id
-          })
-        })
-      }).catch(error => {
-        console.log("Clicking Heart", error)
-      })
-    }
-    setLike((prevLike)=> !prevLike);
-  }
+    return event.event_instruments.map((ei) => {
+      const name = instrumentsById[ei.instrument_id].name;
+      const instrumentsAry = [];
+      ei.status.forEach((item) => {
+        const Comp = InstrumentStatusComp[name][item.name];
+        [...Array(item.quantity)].forEach((v, i) => {
+          instrumentsAry.push(
+            <div key={`selector-${i++}`} onClick={() => handleShow(ei.id)}>
+              <Comp />
+            </div>
+          );
+        });
+      });
+      return instrumentsAry;
+    });
+  };
 
-
-//  console.log(instrStatus)
- const handleConfirm = (eventInstrumentId) => {
-  // handleClose();
-  // console.log('confirmation button clicked submitted');
-  // const status = instrumentsArr.map((x) => x.status); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
-
-  // instrumentsArr.map((x, i) => {
-  //  if (x.event_id === id && status[i]['Available'] > 0) {
-  //   console.log("event_id",x.event_id)
-  //   console.log("quantity", status[i]['Available'])
-  //   console.log("event instr id from instrumentsArr", x.event_instruments_id)
-  //   if(event_instruments_id.includes(x.event_instruments_id)){
-  //     console.log(x.event_instruments_id)
-  //   console.log('confirmation request submitted');
+  // need to get user_favourites
+  useEffect(function () {
     axios
-     .put(
-      `/api/event_instruments/${eventInstrumentId}`,                                                 //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
-      {
-       status: [
-        {
-         name: 'Available',
-         quantity: 0,
-        },
-        {
-         name: 'Pending',
-         quantity: 1,
-        },
-        {
-         name: 'Filled',
-         quantity: 0,
-        },
-       ],
-      },
-      {
-       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      }
-     )
-     .then((response) => {
-      console.log('PUT response >>>', response);
-      if (response.data.status === 'updated') {
-        //do other axios requests?
-        // setInstrStatus(response.data)
-        setTimeout(function() {
-        handleOpenMsg()
-      }, 1500);
-       console.log(
-        'event update is successful. response data >>',
-        response.data
-        );
-        //How do i re render the browser to see the chnages immediately
-       //DO I need to save this response to state
-      }
-    })
-    .catch((error) => {
-        console.log('event update error', error);
-    });
-  //   }
-  //   else{
-  //     setTimeout(function() {
-  //       handleOpenNA()
-  //     }, 3000);
-  //   }
-  //  }
-  // })
-}
+      .get(`/api/event_instruments/${id}`) //if i click on the first event it will setInstr to entire first object
+      .then((res) => setInstrStatus(res.data))
+      .catch((err) => console.log(err));
 
- return (
-  <EventStyles>
-   <div className="card">
-    <div className="eventCard">
-     <div className="left">
-      <div className="top">
-       <div className="event-name">{title}</div>
-       <div className="event-organiser">
-        <strong>By:&nbsp;&nbsp;</strong>
-        {user}
-       </div>
-       <div className="heart-icon" onClick={handleLike}>
-        {like? (<BsHeartFill style={{ color: 'rgb(244, 56, 56)', fontSize: '1.6rem' }} />
-          ) : (
-          <BsHeartFill
-            style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
-            onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')}
-            onMouseOut={({ target }) =>
-            (target.style.color = 'rgba(244, 56, 56,0.2)')}
-          />)
-        }
-       </div>
-      </div>
+    axios
+      .get(`/api/user_favourites/${id}`, {
+        params: { user_id: currentUser.userData.id },
+      })
+      .then((res) => setLike(res.data.like))
+      .catch((err) => console.log(err));
+  }, []);
 
-      <div className="event-details">
-       <div className="event-date">
-        <strong>Date:&nbsp;&nbsp;</strong>
-        {date}
-       </div>
-       <div className="details">
-        <div className="details1">
-         <div className="event-location">
-          <strong>Location:&nbsp;&nbsp;</strong>
-          {city}, {country}
-         </div>
-         <div className="event-level">
-          <strong>Level:&nbsp;&nbsp;</strong> {level}
-         </div>
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
+  const handleLike = (e) => {
+    e.preventDefault();
+    const myfavourite = { event_id: id, user_id: currentUser.userData.id };
+    if (!like) {
+      axios
+        .post("/api/user_favourites", { myfavourite })
+        .then((response) => {
+          // console.log("axios call response>", response);
+        })
+        .catch((error) => {
+          console.log("Clicking Heart", error);
+        });
+    } else {
+      axios
+        .delete(`/api/user_favourites/delete`, { data: { myfavourite } })
+        .then((response) => {
+          setEvents((prev) => {
+            return prev.filter((item) => {
+              return item.id !== response.data.event_id;
+            });
+          });
+        })
+        .catch((error) => {
+          console.log("Clicking Heart", error);
+        });
+    }
+    setLike((prevLike) => !prevLike);
+  };
+
+  //  console.log(instrStatus)
+  const handleConfirm = (eventInstrumentId) => {
+    handleClose();
+    console.log("confirmation button clicked submitted"); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+    const status = instrumentsArr.find(
+      (e, i) => eventInstrumentId === e.event_instruments_id
+    ).status;
+    const event_instruments_id = instrumentsArr.find(
+      (e, i) => eventInstrumentId === e.event_instruments_id
+    ).event_instruments_id;
+    const qtyA = status["Available"];
+    const qtyP = status["Pending"];
+    if (status["Available"] > 0) {
+      console.log("confirmation request submitted");
+      axios
+        .put(
+          `/api/event_instruments/${eventInstrumentId}`, //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
+          {
+            status: [
+              {
+                name: "Available",
+                quantity: qtyA - 1,
+              },
+              {
+                name: "Pending",
+                quantity: qtyP + 1,
+              },
+              {
+                name: "Filled",
+                quantity: 0,
+              },
+            ],
+          },
+          {
+            headers: { "Content-type": "application/json; charset=UTF-8" },
+          }
+        )
+        .then((response) => {
+          console.log("PUT response >>>", response);
+          if (response.data.status === "updated") {
+            // setInstrStatus(prev => [...prev, response.data]);
+            setTimeout(function () {
+              handleOpenMsg();
+            }, 1500);
+            console.log("event update was successful");
+            //>>>>>>>>>>>>>>>>>>>>
+            axios
+              .post(
+                `/api/new_attendee`,
+                {
+                  attendee: [
+                    {
+                      id: 2, //HOW?
+                      accepted: false,
+                      user_id: currentUser.userData.id,
+                      event_instrument_id: event_instruments_id,
+                    },
+                  ],
+                },
+                {
+                  headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                  },
+                }
+              )
+              .then((response) => {
+                console.log("POST attendee response >>>", response);
+                if (response.data.status === "updated") {
+                  console.log(response);
+                }
+              })
+              .catch((error) => {
+                console.log("event update error", error);
+              });
+            //How do i re render the browser to see the chnages immediately
+          }
+        })
+        .catch((error) => {
+          console.log("event update error", error);
+        });
+    } else {
+      setTimeout(function () {
+        handleOpenNA();
+      }, 2500);
+    }
+
+    //  }
+    // })
+  };
+
+  return (
+    <EventStyles>
+      <div className="card">
+        <div className="eventCard">
+          <div className="left">
+            <div className="top">
+              <div className="event-name">{title}</div>
+              <div className="event-organiser">
+                <strong>By:&nbsp;&nbsp;</strong>
+                {user}
+              </div>
+              <div className="heart-icon" onClick={handleLike}>
+                {like ? (
+                  <BsHeartFill
+                    style={{ color: "rgb(244, 56, 56)", fontSize: "1.6rem" }}
+                  />
+                ) : (
+                  <BsHeartFill
+                    style={{ color: "whitesmoke", fontSize: "1.6rem" }}
+                    onMouseOver={({ target }) =>
+                      (target.style.color = "rgb(244, 56, 56)")
+                    }
+                    onMouseOut={({ target }) =>
+                      (target.style.color = "rgba(244, 56, 56,0.2)")
+                    }
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className="event-details">
+              <div className="event-date">
+                <strong>Date:&nbsp;&nbsp;</strong>
+                {date}
+              </div>
+              <div className="details">
+                <div className="details1">
+                  <div className="event-location">
+                    <strong>Location:&nbsp;&nbsp;</strong>
+                    {city}, {country}
+                  </div>
+                  <div className="event-level">
+                    <strong>Level:&nbsp;&nbsp;</strong> {level}
+                  </div>
+                </div>
+                <div className="details2">
+                  <div className="event-venue">
+                    <strong>Venue:&nbsp;&nbsp;</strong>
+                    {venue}
+                  </div>
+                  <div className="genre">
+                    <strong>Genre:&nbsp;&nbsp;</strong>
+                    {genre}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="event-description">{description}</div>
+
+            <div className="spots">
+              <div className="spots-heading">AVAILABLE SPOTS</div>
+              <ConfirmationModal
+                eventInstrumentId={activeEventInstrument}
+                show={show}
+                onHide={handleClose}
+                onConfirm={handleConfirm}
+                userPhone={userPhone}
+                title={title}
+              />
+              <MesssageSentModal
+                show={showMsg}
+                onHide={handleCloseMsg}
+                onClose={handleOpenMsg}
+              />
+              <NotAvailableModal
+                show={showNAvail}
+                onHide={handleCloseNA}
+                onClose={handleOpenNA}
+              />
+              <div className="instrument-icons">
+                <div className="icons">{getEventData()}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="right">
+            <img className="main_image" src={image} alt="" />
+            <TimeAgo className="timeago" date={created}></TimeAgo>
+          </div>
         </div>
-        <div className="details2">
-         <div className="event-venue">
-          <strong>Venue:&nbsp;&nbsp;</strong>
-          {venue}
-         </div>
-         <div className="genre">
-          <strong>Genre:&nbsp;&nbsp;</strong>
-          {genre}
-         </div>
-        </div>
-       </div>
       </div>
-
-      <div className="event-description">{description}</div>
-
-      <div className="spots">
-       <div className="spots-heading">AVAILABLE SPOTS</div>
-       <ConfirmationModal
-        eventInstrumentId={activeEventInstrument}
-        show={show}
-        onHide={handleClose}
-        onConfirm={handleConfirm}
-        userPhone={userPhone}
-        title={title}
-       />
-       <MesssageSentModal 
-        show={showMsg}
-        onHide={handleCloseMsg}
-        onClose={handleOpenMsg}
-        />
-        <NotAvailableModal 
-        show={showNAvail}
-        onHide={handleCloseNA}
-        onClose={handleOpenNA}
-        />
-       <div className="instrument-icons">
-        <div className="icons">
-         {getEventData()}
-        </div>
-       </div>
-      </div>
-     </div>
-
-     <div className="right">
-      <img className="main_image" src={image} alt="" />
-      <TimeAgo className="timeago" date={created}></TimeAgo>
-     </div>
-    </div>
-   </div>
-  </EventStyles>
- );
+    </EventStyles>
+  );
 }
 
 export default EventListItem;

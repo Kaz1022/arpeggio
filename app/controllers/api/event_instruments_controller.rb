@@ -39,7 +39,7 @@ class Api::EventInstrumentsController < ApplicationController
     @event_instrument.update(status: params[:status])  #sending status and qty as params? 
 
     if @event_instrument.update(event_instrument_params) # would params below change due to api change
-
+      # @attendee = Attendee.create!(attendee_params) if params[:user_id]
       render json: {
         status: :updated, 
         event_instrument: @event_instrument.to_json
@@ -48,6 +48,10 @@ class Api::EventInstrumentsController < ApplicationController
     else
       render json: @event_instrument.errors, status: :unprocessable_entity
     end
+  end
+
+  def event_instrument_attendee
+    
   end
 
   # DELETE /event_instruments/1

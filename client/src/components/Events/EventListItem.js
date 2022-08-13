@@ -56,6 +56,7 @@ function EventListItem({
  image,
  description,
  status,
+ event_instruments_id,
  created,
  instruments,
  instrument_quantity,
@@ -65,10 +66,18 @@ function EventListItem({
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
- const [instrStatus, setInstrStatus] = useState({});
+ const [instrStatus, setInstrStatus] = useState();
+ const [activeEventInstrument, setActiveEventInstrument] = useState();
 
- const handleClose = () => setShow(false);
- const handleShow = () => setShow(true);
+ const handleShow = (eventInstrumentId) => {
+  setActiveEventInstrument(eventInstrumentId)
+    setShow(true)
+ }
+ const handleClose = () => {
+  setActiveEventInstrument(undefined)
+  setShow(false);
+ }
+//  const handleShow = () => setShow(true);
 
  const handleCloseMsg = () => setShowMsg(false)
  const handleOpenMsg = () => setShowMsg(true)
@@ -76,7 +85,6 @@ function EventListItem({
  const handleCloseNA = () => setShowNAvail(false)
  const handleOpenNA = () => setShowNAvail(true)
 
-//  const [statuss, setStatuss] = useState();
  const [like, setLike] = useState(false);
 
  const instrumentsArr = [];
@@ -92,6 +100,7 @@ function EventListItem({
    const instrument = {
     name: instrument_name,
     event_id: event_i.event_id,
+    event_instruments_id: event_i.id,
     status: event_i.status.reduce((acc, curr, i) => {
      acc[curr.name] = curr.quantity;
      return acc;
@@ -102,10 +111,11 @@ function EventListItem({
   });
  });
 
- // console.log(instrumentsArr)
+//  console.log(instrumentsArr)
 
  const getEventData = () => {
   const event = events.find((e) => e.id === id);
+  console.log(event)
 
   const instrumentsById = event.instruments.reduce((acc, val) => {
    acc[val.id] = val;
@@ -118,7 +128,7 @@ function EventListItem({
    ei.status.forEach((item) => {
     const Comp = InstrumentStatusComp[name][item.name];
     [...Array(item.quantity)].forEach((v, i) => {
-     instrumentsAry.push(<Comp key={`selector-${i}`} />);
+     instrumentsAry.push( <div key={`selector-${i}`} onClick={() => handleShow(ei.id)} ><Comp /></div>);
     });
    });
    return instrumentsAry;
@@ -130,8 +140,9 @@ useEffect(function () {
    .get(`/api/event_instruments/${id}`)  //if i click on the first event it will setInstr to entire first object
    .then((res) => setInstrStatus(res.data))
    .catch((err) => console.log(err));
- }, []);
+ }, [events]);
  
+
  const currentUser = JSON.parse(localStorage.getItem("user"));
  
  const handleLike = (e) => {
@@ -161,70 +172,70 @@ useEffect(function () {
 
 
 //  console.log(instrStatus)
- const handleConfirm = (e) => {
-  e.preventDefault();
-  handleClose();
-  console.log('confirmation button clicked submitted');
+ const handleConfirm = (eventInstrumentId) => {
+  // handleClose();
+  // console.log('confirmation button clicked submitted');
+  // const status = instrumentsArr.map((x) => x.status); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
 
-  
-  instrStatus.status.map((objs) =>{ //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
-    // console.log(instrStatus.event_id, x.name, x.qty)
-    if (instrStatus.event_id === id) {
-      // console.log(objs)
-     const name = objs.name
-    //  console.log(name)
-     const qty = objs.quantity
-    //  console.log(qty)
-    console.log('confirmation request submitted');
-    // axios
-    //  .put(
-    //   `/api/event_instruments/${id}`, //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
-    //   {
-    //    status: [
-    //     {
-    //      name: 'Available',
-    //      quantity: qty - 1,
-    //     },
-    //     {
-    //      name: 'Pending',
-    //      quantity: qty + 1,
-    //     },
-    //     {
-    //      name: 'Filled',
-    //      quantity: 0,
-    //     },
-    //    ],
-    //   },
-    //   {
-    //    headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    //   }
-    //  )
-  //    .then((response) => {
-  //     console.log('PUT response >>>', response);
-  //     if (response.data.status === 'updated') {
-  //       setInstrStatus(response.data)
-  //       setTimeout(function() {
-  //       handleOpenMsg()
-  //     }, 1500);
-  //      console.log(
-  //       'event update is successful. response data >>',
-  //       response.data
-  //       );
-  //       //How do i re render the browser to see the chnages immediately
-  //      //DO I need to save this response to state
-  //     }
-  //   })
-  //   .catch((error) => {
-  //       console.log('event update error', error);
-  //   });
-    }
-  // else{
-  //    setTimeout(function() {
-  //    handleOpenNA()
-  //   }, 2000);
+  // instrumentsArr.map((x, i) => {
+  //  if (x.event_id === id && status[i]['Available'] > 0) {
+  //   console.log("event_id",x.event_id)
+  //   console.log("quantity", status[i]['Available'])
+  //   console.log("event instr id from instrumentsArr", x.event_instruments_id)
+  //   if(event_instruments_id.includes(x.event_instruments_id)){
+  //     console.log(x.event_instruments_id)
+  //   console.log('confirmation request submitted');
+    axios
+     .put(
+      `/api/event_instruments/${eventInstrumentId}`,                                                 //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
+      {
+       status: [
+        {
+         name: 'Available',
+         quantity: 0,
+        },
+        {
+         name: 'Pending',
+         quantity: 1,
+        },
+        {
+         name: 'Filled',
+         quantity: 0,
+        },
+       ],
+      },
+      {
+       headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      }
+     )
+     .then((response) => {
+      console.log('PUT response >>>', response);
+      if (response.data.status === 'updated') {
+        //do other axios requests?
+        // setInstrStatus(response.data)
+        setTimeout(function() {
+        handleOpenMsg()
+      }, 1500);
+       console.log(
+        'event update is successful. response data >>',
+        response.data
+        );
+        //How do i re render the browser to see the chnages immediately
+       //DO I need to save this response to state
+      }
+    })
+    .catch((error) => {
+        console.log('event update error', error);
+    });
+  //   }
+  //   else{
+  //     setTimeout(function() {
+  //       handleOpenNA()
+  //     }, 3000);
+  //   }
   //  }
-  });
- };
+  // })
+}
 
  return (
   <EventStyles>
@@ -283,6 +294,7 @@ useEffect(function () {
       <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <ConfirmationModal
+        eventInstrumentId={activeEventInstrument}
         show={show}
         onHide={handleClose}
         onConfirm={handleConfirm}
@@ -300,7 +312,7 @@ useEffect(function () {
         onClose={handleOpenNA}
         />
        <div className="instrument-icons">
-        <div className="icons" onClick={handleShow}>
+        <div className="icons">
          {getEventData()}
         </div>
        </div>

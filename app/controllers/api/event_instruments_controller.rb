@@ -35,7 +35,7 @@ class Api::EventInstrumentsController < ApplicationController
 
   # PATCH/PUT /event_instruments/1
   def update
-    @event_instrument = EventInstrument.includes(:event).find_by(event_instruments: {event_id: params[:id]})
+    @event_instrument = EventInstrument.includes(:event).find_by(event_instruments: {id: params[:id]})
     @event_instrument.update(status: params[:status])  #sending status and qty as params? 
 
     if @event_instrument.update(event_instrument_params) # would params below change due to api change

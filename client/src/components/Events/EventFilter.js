@@ -155,6 +155,7 @@ const genreResult = makeUniqueArray('genre', events)
           image={item.event_image_data}
           description={item.description}
           status={item.event_instruments.map((event_i) => {return event_i.status.map((e_status, i)=> {return e_status})})}
+          event_instruments_id={item.event_instruments.map((event_i) => {return event_i.id})}
           created={item.created_at}
           instruments={instruments.map((item) => {return item})}
           instrument_quantity={item.event_instruments.map((event_i) => {return event_i.quantity})}
@@ -183,6 +184,7 @@ const genreResult = makeUniqueArray('genre', events)
           image={item.event_image_data}
           description={item.description}
           status={item.event_instruments.map((event_i) => {return event_i.status})}
+          event_instruments_id={item.event_instruments.map((event_i) => {return event_i.id})}
           created={item.created_at}
           instruments={instruments.map((item) => {return item})}
           instrument_quantity={item.event_instruments.map((event_i) => {return event_i.quantity})}

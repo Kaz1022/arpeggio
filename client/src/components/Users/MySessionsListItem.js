@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
+import AcceptanceModal from "../Modals/AcceptanceModal";
+import AcceptedModal from "../Modals/AcceptedModal";
+import AlreadyFilledModal from "../Modals/AlreadyFilledModal";
 import axios from 'axios';
 import "../../scss/custom.scss";
 import "../../App.scss";
@@ -15,9 +18,7 @@ import {
   VocalImgF,
 } from "../styled-component/instrumenticons-styled";
 import { Img, EventStyles } from "../styled-component/mySessionListItem-styled";
-import AcceptanceModal from "../Modals/AcceptanceModal";
-import AcceptedModal from "../Modals/AcceptedModal";
-import AlreadyFilledModal from "../Modals/AlreadyFilledModal";
+
 
 const InstrumentStatusComp = {
   Drum: {
@@ -105,7 +106,7 @@ function MySessionsListItem({
   });
 
   const getEventData = () => {
-    const event = events.find((e) => e.id === id); //find event where the event id is equal to id -> here e is each event object
+    const event = events.find((e) => e.id === id);
 
     const instrumentsById = event.instruments.reduce((acc, val) => {
       acc[val.id] = val;
@@ -118,7 +119,11 @@ function MySessionsListItem({
       ei.status.forEach((item) => {
         const Comp = InstrumentStatusComp[name][item.name];
         [...Array(item.quantity)].forEach((v, i) => {
-          instrumentsAry.push(<Comp key={`selector-${i}`} />);
+          instrumentsAry.push(
+            <div key={`selector-${i++}`} onClick={() => handleShow(ei.id)}>
+              <Comp />
+            </div>
+          );
         });
       });
       return instrumentsAry;
@@ -135,14 +140,9 @@ function MySessionsListItem({
 
   const handleConfirm = (eventInstrumentId) => {
     handleClose();
-    console.log("confirmation button clicked submitted"); //create attendees table(accepted:true, user_id: 1, event_instruments_id: 1)
-    const status = instrumentsArr.find(
-      (e, i) => eventInstrumentId === e.event_instruments_id
-    ).status;
-    const event_instruments_id = instrumentsArr.find(
-      (e, i) => eventInstrumentId === e.event_instruments_id
-    ).event_instruments_id;
-    
+    console.log("confirmation button clicked submitted, instrumentsArr >>>>", instrumentsArr); //create attendees table(accepted:true, user_id: 1, event_instruments_id: 1)
+    const status = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).status;
+    // const event_instruments_id = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).event_instruments_id;
     const qtyA = status["Available"];
     const qtyP = status["Pending"];
     const qtyF = status["Filled"];
@@ -155,7 +155,7 @@ function MySessionsListItem({
             status: [
               {
                 name: "Available",
-                quantity: 0,
+                quantity: qtyA,
               },
               {
                 name: "Pending",
@@ -238,6 +238,7 @@ function MySessionsListItem({
             <div className="spots">
               <div className="spots-heading">AVAILABLE SPOTS</div>
               <AcceptanceModal
+                eventInstrumentId={activeEventInstrument}
                 show={show}
                 onHide={handleClose}
                 onConfirm={handleConfirm}
@@ -253,9 +254,7 @@ function MySessionsListItem({
                 onClose={handleOpenNA}
               />
               <div className="instrument-icons">
-                <div className="icons" onClick={handleShow}>
-                  {getEventData()}
-                </div>
+                <div className="icons">{getEventData()}</div>
               </div>
             </div>
           </div>

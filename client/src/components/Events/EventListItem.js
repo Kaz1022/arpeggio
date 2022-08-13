@@ -110,7 +110,6 @@ function EventListItem({
     });
   });
 
-  //  console.log(instrumentsArr)
 
   const getEventData = () => {
     const event = events.find((e) => e.id === id);

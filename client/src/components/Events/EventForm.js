@@ -250,7 +250,7 @@ function NewEvent (props) {
 												}}
 												required
 											/>	
-											<button type='button'>Delete</button>
+											{/* <button type='button'>Delete</button> */}
 										</>
 									})
 								}

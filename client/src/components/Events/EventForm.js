@@ -17,7 +17,8 @@ function NewEvent (props) {
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")	
 
-	const [instrument, setInstrument] = useState("")
+	const [instrument, setInstrument] = useState("Vocal")
+	const [quantity, setQuantity] = useState("1")
 
 	const navigate = useNavigate();
 
@@ -129,14 +130,6 @@ function NewEvent (props) {
 								<option value="Professional">Professional</option>
 								</select>
 
-								{/* <input
-									type="text"
-									name="level"
-									placeholder="Level"
-									value={level}
-									onChange={e => setLevel(e.target.value)}
-									required
-								/> */}
 									
 								<label htmlFor="genre">Genre</label>
 								<input
@@ -221,6 +214,17 @@ function NewEvent (props) {
 								<option value="Drum">Drum</option>
 								<option value="Banjo">Banjo</option>
 								</select>
+
+								<label htmlFor="description">quantity</label>
+								<input
+									type="text"
+									name="quantity"
+									placeholder="How many?"
+									value ={quantity}
+									onChange={e => setQuantity(e.target.value)}
+									required
+
+								/>	
 
 								<button type="submit">
 									Create a new event

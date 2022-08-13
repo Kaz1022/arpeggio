@@ -61,9 +61,8 @@ function EventListItem({
  instruments,
  instrument_quantity,
  events,
- setEvents
+ setEvents,
 }) {
-
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
@@ -71,19 +70,19 @@ function EventListItem({
  const [activeEventInstrument, setActiveEventInstrument] = useState();
 
  const handleShow = (eventInstrumentId) => {
-  setActiveEventInstrument(eventInstrumentId)
-    setShow(true)
- }
+  setActiveEventInstrument(eventInstrumentId);
+  setShow(true);
+ };
  const handleClose = () => {
-  setActiveEventInstrument(undefined)
+  setActiveEventInstrument(undefined);
   setShow(false);
- }
+ };
 
- const handleCloseMsg = () => setShowMsg(false)
- const handleOpenMsg = () => setShowMsg(true)
+ const handleCloseMsg = () => setShowMsg(false);
+ const handleOpenMsg = () => setShowMsg(true);
 
- const handleCloseNA = () => setShowNAvail(false)
- const handleOpenNA = () => setShowNAvail(true)
+ const handleCloseNA = () => setShowNAvail(false);
+ const handleOpenNA = () => setShowNAvail(true);
 
  const [like, setLike] = useState(false);
 
@@ -111,7 +110,7 @@ function EventListItem({
   });
  });
 
-//  console.log(instrumentsArr)
+ //  console.log(instrumentsArr)
 
  const getEventData = () => {
   const event = events.find((e) => e.id === id);
@@ -127,120 +126,149 @@ function EventListItem({
    ei.status.forEach((item) => {
     const Comp = InstrumentStatusComp[name][item.name];
     [...Array(item.quantity)].forEach((v, i) => {
-     instrumentsAry.push( <div key={`selector-${i}`} onClick={() => handleShow(ei.id)} ><Comp /></div>);
+     instrumentsAry.push(
+      <div key={`selector-${i}`} onClick={() => handleShow(ei.id)}>
+       <Comp />
+      </div>
+     );
     });
    });
    return instrumentsAry;
   });
-};
+ };
 
-
-// need to get user_favourites 
-useEffect(function () {
+ // need to get user_favourites
+ useEffect(function () {
   axios
-   .get(`/api/event_instruments/${id}`)  //if i click on the first event it will setInstr to entire first object
+   .get(`/api/event_instruments/${id}`) //if i click on the first event it will setInstr to entire first object
    .then((res) => setInstrStatus(res.data))
    .catch((err) => console.log(err));
 
-   axios
-   .get(`/api/user_favourites/${id}`, {params: {user_id: currentUser.userData.id}})
+  axios
+   .get(`/api/user_favourites/${id}`, {
+    params: { user_id: currentUser.userData.id },
+   })
    .then((res) => setLike(res.data.like))
    .catch((err) => console.log(err));
  }, []);
- 
 
- const currentUser = JSON.parse(localStorage.getItem("user"));
- 
+ const currentUser = JSON.parse(localStorage.getItem('user'));
+
  const handleLike = (e) => {
   e.preventDefault();
-  const myfavourite = {event_id: id, user_id: currentUser.userData.id}
+  const myfavourite = { event_id: id, user_id: currentUser.userData.id };
   if (!like) {
-    axios.post("/api/user_favourites",
-    {myfavourite})
-      .then(response => {
-        // console.log("axios call response>", response);
-      }).catch(error => {
-        console.log("Clicking Heart", error)
-      })
-  } else {
-      axios.delete(`/api/user_favourites/delete`,
-      {data : {myfavourite}})
-      .then(response => {
-        setEvents((prev) => {
-          return prev.filter(item => {
-            return item.id !== response.data.event_id
-          })
-        })
-      }).catch(error => {
-        console.log("Clicking Heart", error)
-      })
-    }
-    setLike((prevLike)=> !prevLike);
-  }
-
-
-//  console.log(instrStatus)
- const handleConfirm = (eventInstrumentId) => {
-  handleClose();
-  console.log('confirmation button clicked submitted');     //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
-  const status = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).status;
-  console.log(status)
-  const qtyA = status['Available']
-  const qtyP = status['Pending']
-  if(status['Available'] > 0){
-    console.log('confirmation request submitted');
-    axios
-     .put(
-      `/api/event_instruments/${eventInstrumentId}`,                                                 //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
-      {
-       status: [
-        {
-         name: 'Available',
-         quantity: qtyA -1,
-        },
-        {
-         name: 'Pending',
-         quantity: qtyP +1,
-        },
-        {
-         name: 'Filled',
-         quantity: 0,
-        },
-       ],
-      },
-      {
-       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      }
-     )
-     .then((response) => {
-      console.log('PUT response >>>', response);
-      if (response.data.status === 'updated') {
-        //do other axios requests?
-        // setInstrStatus(response.data)
-        setTimeout(function() {
-        handleOpenMsg()
-      }, 1500);
-       console.log(
-        'event update is successful. response data >>',
-        response.data
-        );
-        //How do i re render the browser to see the chnages immediately
-       //DO I need to save this response to state
-      }
+   axios
+    .post('/api/user_favourites', { myfavourite })
+    .then((response) => {
+     // console.log("axios call response>", response);
     })
     .catch((error) => {
-        console.log('event update error', error);
+     console.log('Clicking Heart', error);
+    });
+  } else {
+   axios
+    .delete(`/api/user_favourites/delete`, { data: { myfavourite } })
+    .then((response) => {
+     setEvents((prev) => {
+      return prev.filter((item) => {
+       return item.id !== response.data.event_id;
+      });
+     });
+    })
+    .catch((error) => {
+     console.log('Clicking Heart', error);
     });
   }
-    else{
-      setTimeout(function() {
-        handleOpenNA()
-      }, 2500);
-    }
+  setLike((prevLike) => !prevLike);
+ };
+
+ //  console.log(instrStatus)
+ const handleConfirm = (eventInstrumentId) => {
+  handleClose();
+  console.log('confirmation button clicked submitted'); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+  const status = instrumentsArr.find(
+   (e, i) => eventInstrumentId === e.event_instruments_id
+  ).status;
+  console.log(status);
+  const qtyA = status['Available'];
+  const qtyP = status['Pending'];
+  if (status['Available'] > 0) {
+   console.log('confirmation request submitted');
+   axios
+    .put(
+     `/api/event_instruments/${eventInstrumentId}`, //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
+     {
+      status: [
+       {
+        name: 'Available',
+        quantity: qtyA - 1,
+       },
+       {
+        name: 'Pending',
+        quantity: qtyP + 1,
+       },
+       {
+        name: 'Filled',
+        quantity: 0,
+       },
+      ],
+     },
+     {
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+     }
+    )
+    .then((response) => {
+     console.log('PUT response >>>', response);
+     if (response.data.status === 'updated') {
+      setInstrStatus(response.data);
+      setTimeout(function () {
+       handleOpenMsg();
+      }, 1500);
+      console.log(
+       'event update is successful. response data >>',
+       response.data
+      );
+      //do other axios requests?
+      //>>>>>>>>>>>>>>>>>>>>
+      axios
+       .post(
+        `/api/new_attendee`,
+        {
+         attendees: [
+          {
+           id: 1,
+           accepted: false,
+           user_id: currentUser.userData.id,
+           event_instrument_id: event_instruments_id[0]
+          },
+         ],
+        },
+        {
+         headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        }
+       )
+       .then((response) => {
+        console.log('PUT response >>>', response);
+        if (response.data.status === 'updated') {
+         console.log(response.data);
+        }
+       });
+      //How do i re render the browser to see the chnages immediately
+     }
+    })
+    .catch((error) => {
+     console.log('event update error', error);
+    });
+  } else {
+   setTimeout(function () {
+    handleOpenNA();
+   }, 2500);
+  }
 
   //  }
   // })
-}
+ };
 
  return (
   <EventStyles>
@@ -254,15 +282,21 @@ useEffect(function () {
         {user}
        </div>
        <div className="heart-icon" onClick={handleLike}>
-        {like? (<BsHeartFill style={{ color: 'rgb(244, 56, 56)', fontSize: '1.6rem' }} />
-          ) : (
-          <BsHeartFill
-            style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
-            onMouseOver={({ target }) => (target.style.color = 'rgb(244, 56, 56)')}
-            onMouseOut={({ target }) =>
-            (target.style.color = 'rgba(244, 56, 56,0.2)')}
-          />)
-        }
+        {like ? (
+         <BsHeartFill
+          style={{ color: 'rgb(244, 56, 56)', fontSize: '1.6rem' }}
+         />
+        ) : (
+         <BsHeartFill
+          style={{ color: 'whitesmoke', fontSize: '1.6rem' }}
+          onMouseOver={({ target }) =>
+           (target.style.color = 'rgb(244, 56, 56)')
+          }
+          onMouseOut={({ target }) =>
+           (target.style.color = 'rgba(244, 56, 56,0.2)')
+          }
+         />
+        )}
        </div>
       </div>
 
@@ -306,20 +340,18 @@ useEffect(function () {
         userPhone={userPhone}
         title={title}
        />
-       <MesssageSentModal 
+       <MesssageSentModal
         show={showMsg}
         onHide={handleCloseMsg}
         onClose={handleOpenMsg}
-        />
-        <NotAvailableModal 
+       />
+       <NotAvailableModal
         show={showNAvail}
         onHide={handleCloseNA}
         onClose={handleOpenNA}
-        />
+       />
        <div className="instrument-icons">
-        <div className="icons">
-         {getEventData()}
-        </div>
+        <div className="icons">{getEventData()}</div>
        </div>
       </div>
      </div>

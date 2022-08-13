@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users
     resources :events
+    resources :attendees
     resources :event_instruments
     resources :sessions, only: [:create]
     resources :sms_messages, only: [:create]
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
     delete :logout, to: "sessions#logout"
     post :signup, to: "users#create"
     post :new_event, to: "events#create1"
+    post :new_attendee, to: "attendees#create"
     get "/myprofile", to: "users#show"
     get "/events/search/:city/:level/:genre/:instrument", to: "events#search"
     get "/events/instruments/:instrument", to: "events#instruments"

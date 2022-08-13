@@ -78,7 +78,6 @@ function EventListItem({
   setActiveEventInstrument(undefined)
   setShow(false);
  }
-//  const handleShow = () => setShow(true);
 
  const handleCloseMsg = () => setShowMsg(false)
  const handleOpenMsg = () => setShowMsg(true)
@@ -116,7 +115,6 @@ function EventListItem({
 
  const getEventData = () => {
   const event = events.find((e) => e.id === id);
-  console.log(event)
 
   const instrumentsById = event.instruments.reduce((acc, val) => {
    acc[val.id] = val;
@@ -183,18 +181,14 @@ useEffect(function () {
 
 //  console.log(instrStatus)
  const handleConfirm = (eventInstrumentId) => {
-  // handleClose();
-  // console.log('confirmation button clicked submitted');
-  // const status = instrumentsArr.map((x) => x.status); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
-
-  // instrumentsArr.map((x, i) => {
-  //  if (x.event_id === id && status[i]['Available'] > 0) {
-  //   console.log("event_id",x.event_id)
-  //   console.log("quantity", status[i]['Available'])
-  //   console.log("event instr id from instrumentsArr", x.event_instruments_id)
-  //   if(event_instruments_id.includes(x.event_instruments_id)){
-  //     console.log(x.event_instruments_id)
-  //   console.log('confirmation request submitted');
+  handleClose();
+  console.log('confirmation button clicked submitted');     //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+  const status = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).status;
+  console.log(status)
+  const qtyA = status['Available']
+  const qtyP = status['Pending']
+  if(status['Available'] > 0){
+    console.log('confirmation request submitted');
     axios
      .put(
       `/api/event_instruments/${eventInstrumentId}`,                                                 //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
@@ -202,11 +196,11 @@ useEffect(function () {
        status: [
         {
          name: 'Available',
-         quantity: 0,
+         quantity: qtyA -1,
         },
         {
          name: 'Pending',
-         quantity: 1,
+         quantity: qtyP +1,
         },
         {
          name: 'Filled',
@@ -237,12 +231,13 @@ useEffect(function () {
     .catch((error) => {
         console.log('event update error', error);
     });
-  //   }
-  //   else{
-  //     setTimeout(function() {
-  //       handleOpenNA()
-  //     }, 3000);
-  //   }
+  }
+    else{
+      setTimeout(function() {
+        handleOpenNA()
+      }, 2500);
+    }
+
   //  }
   // })
 }

@@ -61,6 +61,7 @@ function EventListItem({
  instruments,
  instrument_quantity,
  events,
+ setEvents
 }) {
 
  const [show, setShow] = useState(false);
@@ -135,12 +136,19 @@ function EventListItem({
   });
 };
 
+
+// need to get user_favourites 
 useEffect(function () {
   axios
    .get(`/api/event_instruments/${id}`)  //if i click on the first event it will setInstr to entire first object
    .then((res) => setInstrStatus(res.data))
    .catch((err) => console.log(err));
- }, [events]);
+
+   axios
+   .get(`/api/user_favourites/${id}`, {params: {user_id: currentUser.userData.id}})
+   .then((res) => setLike(res.data.like))
+   .catch((err) => console.log(err));
+ }, []);
  
 
  const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -148,26 +156,28 @@ useEffect(function () {
  const handleLike = (e) => {
   e.preventDefault();
   const myfavourite = {event_id: id, user_id: currentUser.userData.id}
-  setLike((prevLike)=> !prevLike);
   if (!like) {
     axios.post("/api/user_favourites",
-      {myfavourite})
+    {myfavourite})
       .then(response => {
-        console.log("axios call response>>>>>", response);
-          // need to change the icon to red!! 
+        // console.log("axios call response>", response);
       }).catch(error => {
         console.log("Clicking Heart", error)
       })
-    } else {
-      axios.delete(`/api/user_favourites/${id}`,
-      {myfavourite})
+  } else {
+      axios.delete(`/api/user_favourites/delete`,
+      {data : {myfavourite}})
       .then(response => {
-        console.log("axios call response>>>>>", response); 
+        setEvents((prev) => {
+          return prev.filter(item => {
+            return item.id !== response.data.event_id
+          })
+        })
       }).catch(error => {
         console.log("Clicking Heart", error)
       })
-
     }
+    setLike((prevLike)=> !prevLike);
   }
 
 

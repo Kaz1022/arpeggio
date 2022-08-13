@@ -160,6 +160,7 @@ const genreResult = makeUniqueArray('genre', events)
           instruments={instruments.map((item) => {return item})}
           instrument_quantity={item.event_instruments.map((event_i) => {return event_i.status})}
           events={events}
+          setEvents={setEvents}
          />
         </>
        );
@@ -189,6 +190,7 @@ const genreResult = makeUniqueArray('genre', events)
           instruments={instruments.map((item) => {return item})}
           instrument_quantity={item.event_instruments.map((event_i) => {return event_i.quantity})}
           events={events}
+          setEvents={setEvents}
          />
         </>
        );

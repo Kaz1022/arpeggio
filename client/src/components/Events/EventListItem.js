@@ -127,7 +127,7 @@ function EventListItem({
     const Comp = InstrumentStatusComp[name][item.name];
     [...Array(item.quantity)].forEach((v, i) => {
      instrumentsAry.push(
-      <div key={`selector-${i}`} onClick={() => handleShow(ei.id)}>
+      <div key={`selector-${i++}`} onClick={() => handleShow(ei.id)}>
        <Comp />
       </div>
      );
@@ -190,7 +190,8 @@ function EventListItem({
   const status = instrumentsArr.find(
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).status;
-  console.log(status);
+  const event_instruments_id = instrumentsArr.find(
+    (e, i) => eventInstrumentId === e.event_instruments_id).event_instruments_id;
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
   if (status['Available'] > 0) {
@@ -221,26 +222,21 @@ function EventListItem({
     .then((response) => {
      console.log('PUT response >>>', response);
      if (response.data.status === 'updated') {
-      setInstrStatus(response.data);
+      setInstrStatus(prev => [...prev, response.data]);
       setTimeout(function () {
        handleOpenMsg();
       }, 1500);
-      console.log(
-       'event update is successful. response data >>',
-       response.data
-      );
-      //do other axios requests?
+      console.log('event update was successful');
       //>>>>>>>>>>>>>>>>>>>>
-      axios
-       .post(
+      axios.post(
         `/api/new_attendee`,
-        {
-         attendees: [
+       {
+         attendee: [
           {
-           id: 1,
+           id: 2,                                                    //HOW?
            accepted: false,
            user_id: currentUser.userData.id,
-           event_instrument_id: event_instruments_id[0]
+           event_instrument_id: event_instruments_id,
           },
          ],
         },
@@ -249,10 +245,13 @@ function EventListItem({
         }
        )
        .then((response) => {
-        console.log('PUT response >>>', response);
+        console.log('POST attendee response >>>', response);
         if (response.data.status === 'updated') {
-         console.log(response.data);
+         console.log(response);
         }
+       })
+       .catch((error) => {
+        console.log('event update error', error);
        });
       //How do i re render the browser to see the chnages immediately
      }

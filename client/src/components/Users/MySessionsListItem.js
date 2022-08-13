@@ -9,6 +9,7 @@ import AcceptedModal from '../Modals/AcceptedModal';
 import NotAvailableModal from '../Modals/NotAvailableModal';
 
 import axios from 'axios';
+import AttendeeList from './AttendeeList';
 
 const InstrumentStatusComp = {
  Drum: {
@@ -55,6 +56,11 @@ function MySessionsListItem({
  
   const handleShow = (eventInstrumentId) => {
    setPendingEventInstrument(eventInstrumentId)
+   axios
+   .get(`/api/event_instruments/${eventInstrumentId}`)
+   .then((res) => console.log(res.data))
+   .catch((err) => console.log(err));
+
      setShow(true)
   }
   const handleClose = () => {
@@ -155,11 +161,11 @@ function MySessionsListItem({
          },
          {
           name: 'Pending',
-          quantity: 1,
+          quantity: 0,
          },
          {
           name: 'Filled',
-          quantity: 0,
+          quantity: 1,
          },
         ],
        },
@@ -242,6 +248,7 @@ function MySessionsListItem({
 
        <div className="spots">
        <div className="spots-heading">AVAILABLE SPOTS</div>
+       <AttendeeList eventsData={events} id={id}/>
         <AcceptanceModal
           eventInstrumentId={pendingEventInstrument}
           show={show}

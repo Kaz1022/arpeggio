@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import AttendeeList from '../Users/AttendeeList';
 
 function AcceptanceModal(props) {
   return (
@@ -9,6 +10,7 @@ function AcceptanceModal(props) {
       </Modal.Header>
 
       <Modal.Body>
+        <AttendeeList />
         <p><a href="/applicant">@APPLICANT</a> is sending a request to attend.</p>
         <p>How would you like to response?</p>
       </Modal.Body>

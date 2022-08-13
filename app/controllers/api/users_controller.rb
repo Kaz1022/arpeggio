@@ -57,7 +57,8 @@ class Api::UsersController < ApplicationController
       image: @image
     }
 end
-  
+
+ 
 
   private
 

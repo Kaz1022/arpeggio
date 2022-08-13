@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :sessions, only: [:create]
     resources :sms_messages, only: [:create]
     resources :user_favourites, only: [:create, :show] 
+    resources :attendees, only: [:create, :show]
 
     get :logged_in, to: "sessions#logged_in"
     delete :logout, to: "sessions#logout"

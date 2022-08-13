@@ -261,6 +261,14 @@ attendee1 = Attendee.create!(
   }
 )
 
+attendee2 = Attendee.create!(
+  {
+    user_id: 3,
+    event_instrument_id: 5,
+    accepted: false
+  }
+)
+
 users[0].image.attach(io: open_asset("user1.jpg"), filename: "user1.jpg", content_type: "application/jpeg")
 users[1].image.attach(io: open_asset("user2.jpg"), filename: "user2.jpg", content_type: "application/jpeg")
 users[2].image.attach(io: open_asset("user3.jpg"), filename: "user3.jpg", content_type: "application/jpeg")

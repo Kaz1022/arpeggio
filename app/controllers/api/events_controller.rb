@@ -50,9 +50,16 @@ class Api::EventsController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       @event = Event.create!(event_params)
-      @instrument = Instrument.find_by!(name: instrument_params[:instrument])
-      EventInstrument.create!(event_id: @event.id, instrument: @instrument, quantity: 1,
-      status: "Available" )
+      instrument_params[:instruments].each do |instrument|
+        @instrument = Instrument.find_by!(name: instrument[:name])
+        EventInstrument.create!({
+          event_id: @event.id, 
+          instrument: @instrument, 
+          status: [
+            { name:"Available", quantity: instrument[:quantity] }
+          ]
+        })
+      end     
     end   
     render json: { status: :created, event: @event }
   end
@@ -87,6 +94,6 @@ class Api::EventsController < ApplicationController
   end
 
   def instrument_params
-    params.require(:event).permit(:instrument)
+    params.require(:event).permit(instruments: [:name, :quantity])
   end
 end

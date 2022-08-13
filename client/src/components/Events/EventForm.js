@@ -20,6 +20,15 @@ function NewEvent (props) {
 	const [instrument, setInstrument] = useState("Vocal")
 	const [quantity, setQuantity] = useState("1")
 
+	const [instruments, setInstruments] = useState([
+		{
+			name: 'Vocal',
+			quantity: 1
+		}
+	])
+
+	console.log('instrments', instruments)
+
 	const navigate = useNavigate();
 
 	const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -40,7 +49,7 @@ function NewEvent (props) {
 										event_date: eventDate,
 										start_time: startTime,
                     end_time: endTime,
-										instrument: instrument
+										instruments
                 }
             },
             { withCredentials: true }
@@ -150,8 +159,7 @@ function NewEvent (props) {
 									onChange={e => setVenue(e.target.value)}
 									required
 							/>
-								</div>
-								<div className="box">
+
 
 								<label htmlFor="description">Event Description</label>
 								<input
@@ -162,7 +170,8 @@ function NewEvent (props) {
 									onChange={e => setDescription(e.target.value)}
 									required
 							/>
-
+								</div>
+								<div className="box">
 							
 								<label htmlFor="event_image">Image</label>
 								<input
@@ -205,6 +214,57 @@ function NewEvent (props) {
 							/>
 
 								<label htmlFor="Instrument">Instruments needed for session </label>
+								{
+									instruments.map((instr, index) => {
+										return <>
+											<select 
+												onChange={e => {
+													const newInstruments = [...instruments]
+													newInstruments[index] = { ...newInstruments[index] };
+													newInstruments[index].name = e.target.value
+													setInstruments(newInstruments)
+													console.log('HERE')
+												}} 
+												value={instr.name}
+											>
+												<option value="Vocal">Vocal</option>
+												<option value="Guitar">Guitar</option>
+												<option value="Keyboard">Keyboard</option>
+												<option value="Violin">Violin</option>
+												<option value="Flute">Flute</option>
+												<option value="Drum">Drum</option>
+												<option value="Banjo">Banjo</option>
+											</select>
+
+											<label htmlFor="description">quantity</label>
+											<input
+												type="text"
+												name="quantity"
+												placeholder="How many?"
+												value ={instr.quantity}
+												onChange={e => {
+													const newInstruments = [...instruments]
+													newInstruments[index] = { ...newInstruments[index] };
+													newInstruments[index].quantity = e.target.value;
+													setInstruments(newInstruments)
+												}}
+												required
+											/>	
+											{/* <button type='button'>Delete</button> */}
+										</>
+									})
+								}
+
+								<button 
+									type='button' 
+									onClick={() => {
+										setInstruments((state) => [ ...state, { quantity: 1 }])
+									}}
+								>
+									Add more Instruments
+								</button>
+
+								{/* <label htmlFor="Instrument">Instruments needed for session </label>
 								<select onChange={e => setInstrument(e.target.value)}>
 								<option value="Vocal">Vocal</option>
 								<option value="Guitar">Guitar</option>
@@ -224,7 +284,7 @@ function NewEvent (props) {
 									onChange={e => setQuantity(e.target.value)}
 									required
 
-								/>	
+								/>	 */}
 
 								<button type="submit">
 									Create a new event

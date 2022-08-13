@@ -246,8 +246,8 @@ event_instruments = EventInstrument.create!([
     event_id: 5,
     instrument_id: 9,
     status: [
-      {name:"Available", quantity: 1},
-      {name:"Pending", quantity: 0},
+      {name:"Available", quantity: 0},
+      {name:"Pending", quantity: 1},
       {name:"Filled", quantity: 0}
     ]
   }

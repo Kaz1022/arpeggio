@@ -2,7 +2,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function AcceptanceModal(props) {
-
   return (
     <Modal show={props.show} onHide={props.onHide}>
       <Modal.Header closeButton>

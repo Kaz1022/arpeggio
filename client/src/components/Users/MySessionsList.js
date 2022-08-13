@@ -53,6 +53,7 @@ function MySessionsList() {
         status={eachSession.post_active}
         created={eachSession.created_at}
         events={events}
+        setEvents={setEvents}
       />
     );
   });

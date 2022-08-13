@@ -7,11 +7,11 @@ class Api::EventInstrumentsController < ApplicationController
     render json: @event_instruments
   end
   
-  # GET /event_instruments/1
+# GET /event_instruments/1
   def show
-    @event_instrument = EventInstrument.includes(:event)
+    @event_instrument = EventInstrument.includes(:event, :attendees)
     .find_by(event_instruments: {event_id: params[:id]})
-    render json: @event_instrument
+    render json: @event_instrument.as_json(:include => [:attendees])
   end
 
   def new

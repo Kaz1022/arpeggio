@@ -80,7 +80,7 @@ function MySessionsListItem({
   const handleOpenNA = () => setShowNAvail(true);
 
   const instrumentsArr = [];
-  console.log("instrumentsARR>>>", instrumentsArr)
+  // console.log("instrumentsARR>>>", instrumentsArr)
 
   const instrumentSummary = events.map((event) => {
     event.event_instruments.map((event_i) => {
@@ -185,6 +185,7 @@ function MySessionsListItem({
         });
     } else {
       setTimeout(function () {
+        console.log("Update failed")
         handleOpenNA();
       }, 2500);
     }

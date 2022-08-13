@@ -23,16 +23,19 @@ const Styles = styled.div`
 
 function MySessionsList() {
   const [events, setEvents] = useState([]);
+  const [instruments, setInstruments] = useState([]);
+
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(function () {
     axios
       .get(`/api/users/${currentUser.userData.id}/sessions`)
       .then((res) => setEvents(res.data))
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err));
   }, []);
 
-  console.log("events data >>>", events);
+
+  // console.log("events data >>>", events);
   const mysessions = events.map((eachSession) => {
     return (
       <MySessionsListItem
@@ -52,6 +55,8 @@ function MySessionsList() {
         description={eachSession.description}
         status={eachSession.post_active}
         created={eachSession.created_at}
+        instruments={instruments.map((item) => { return item})}
+        instrument_quantity={eachSession.event_instruments.map((event_i) => { return event_i.status})}
         events={events}
         setEvents={setEvents}
       />

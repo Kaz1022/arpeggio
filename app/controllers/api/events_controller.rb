@@ -47,7 +47,7 @@ class Api::EventsController < ApplicationController
     @event = Event.new
   end
 
-  def create1
+  def create
     ActiveRecord::Base.transaction do
       @event = Event.create!(event_params)
       @instrument = Instrument.find_by!(name: instrument_params[:instrument])

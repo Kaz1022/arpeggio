@@ -21,6 +21,11 @@ const InstrumentStatusComp = {
   Pending: GuitarImgP,
   Filled: GuitarImgF,
  },
+ Keyboard: {
+  Available: GuitarImgA,
+  Pending: GuitarImgP,
+  Filled: GuitarImgF,
+ },
  Vocal: {
   Available: VocalImgA,
   Pending: VocalImgP,

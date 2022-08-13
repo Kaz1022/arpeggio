@@ -9,7 +9,7 @@ const Styles = styled.div`
  display: flex;
  align-items: center;
 
-//  position: fixed;
+// position: fixed;
 //  left: 0;
 //  bottom: 0;
 //  right: 0;

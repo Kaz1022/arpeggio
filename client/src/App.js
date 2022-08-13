@@ -94,14 +94,16 @@ function App () {
 
         </Routes>
 
-        <div className="content-wrapper">
-          <Footer />
-        </div>
+
 
       </div>
     </Router>
       )}
-    </>    
+              <div className="content-wrapper">
+          <Footer />
+        </div>
+    </> 
+       
   );
 }
 

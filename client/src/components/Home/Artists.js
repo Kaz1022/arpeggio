@@ -100,18 +100,22 @@ const Container = styled.div`
  .user1,
  .user2,
  .user3 {
-  height: auto;
+  height: 45vh;
   width: 30rem;
   padding: 3rem;
   text-align: center;
  }
 
  .feature {
-  font-family: 'Oswald', sans-serif;
-  margin: 15px 0px 15px 0px;
-  font-size: 1.5rem;
- }
- .description {
+   font-family: 'Oswald', sans-serif;
+   margin: 15px 0px 15px 0px;
+   font-size: 1.5rem;
+  }
+  .description {
+  height: 100%;
+  display:flex;
+  align-items: center;
+  // border: 3px solid blue;
   font-family: 'Roboto', sans-serif;
   font-size: 1.3rem;
  }
@@ -122,7 +126,7 @@ const MarinaIcon = styled.img.attrs({
  src: `${marina}`,
 })`
   width: auto;
-  height: 100%;
+  height: 120px
   object-fit: cover;
  }
  `;
@@ -131,7 +135,7 @@ const KazIcon = styled.img.attrs({
  src: `${kaz}`,
 })`
   width: auto;
-  height: 100%;
+  height: 120px;
   object-fit: cover;
  }
  `;
@@ -140,7 +144,7 @@ const MichaelaIcon = styled.img.attrs({
  src: `${michaela}`,
 })`
   width: auto;
-  height: 100%;
+  height: 120px;
   object-fit: cover;
  }
  `;
@@ -180,12 +184,11 @@ function Artists() {
       <MichaelaIcon src="../assets/images/michaela.jpg" />
       <div className="feature">MICHAELA KING</div>
       <div className="description">
-       Morbi dapibus nec libero vitae accumsan. Nunc condimentum mattis quam eu
-       tincidunt. Morbi pellentesque dictum mauris in ultrices. Pellentesque
-       dignissim leo in vestibulum convallis. Vestibulum sollicitudin dolor sit
-       amet lobortis tempus. Maecenas quis pulvinar metus, quis viverra dolor.
-       Ut maximus, sem non dictum vulputate, tortor arcu tempor nulla. Nec
-       consectetur libero vitae accumsantst.
+       Without Arpeggio, our band wouldnt exist! 
+       At the last minute our lead singer bailed, and as a new band,
+       we had no way of figuring out who could perform with us on short notice.
+       Since then, we've gone from amateur players in my garage, to performing
+       at small events all over Ontario, all thanks to Arpeggio!
       </div>
      </div>
     </div>

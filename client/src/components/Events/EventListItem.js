@@ -127,7 +127,7 @@ function EventListItem({
         const Comp = InstrumentStatusComp[name][item.name];
         [...Array(item.quantity)].forEach((v, i) => {
           instrumentsAry.push(
-            <div key={`selector-${i++}`} onClick={() => handleShow(ei.id)}>
+            <div className='render-icon' key={`selector-${i++}`} onClick={() => handleShow(ei.id)}>
               <Comp />
             </div>
           );

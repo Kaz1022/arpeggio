@@ -1,6 +1,6 @@
 .base-container {
   width: 100vw;
-  height: 80vh;
+  //height: 80vh;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -24,14 +24,14 @@
 
   .content {
     width: 100vw;
-    height: 80vh;
+    //height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     
     form {
-      height:80vh;
+      //height:80vh;
       margin-top: 1em;
       display: flex;
       flex-direction: column;

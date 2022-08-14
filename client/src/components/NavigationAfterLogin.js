@@ -3,42 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import '../scss/custom.scss';
-import styled from 'styled-components';
-
-
-const Styles2 = styled.div`
-  .navbar {
-    background-color: rgba(187, 13, 190, 0.8);
-    padding: 0.4em 2em;
-  }
-
-  .navbar-brand{
-    font-family: var(--bs-font-sans-serif);
-    font-size: 3em;
-    color: #49205E;
-  }
-
-  .navbar-nav, .nav-item, .nav-link {
-    font-family: var(--bs-font-sans-serif);
-    color: #E2EF70;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 0em ;
-  }
-
-  .dropdown-menu {
-    background-color: #070707;
-  }
-
-  .dropdown-item {
-    color: white;
-    background-color: #070707;
-
-    &:hover {
-      background-color: rgba(187, 13, 190, 0.8);
-    }
-  }
-`;
+import {NavStyles2} from '../components/styled-component/navStyles-styled'
 
 function NavigationAfterLogin(props) {
 
@@ -53,7 +18,7 @@ function NavigationAfterLogin(props) {
   }
 
   return (
-    <Styles2>
+    <NavStyles2>
       <Navbar expand="lg">
         <Container fluid>
         <Navbar.Brand  as={Link} to="/">ARPEGGIO</Navbar.Brand>
@@ -75,7 +40,7 @@ function NavigationAfterLogin(props) {
         </Navbar.Collapse>
         </Container>
       </Navbar>
-    </Styles2>
+    </NavStyles2>
   );
 }
 

@@ -333,3 +333,26 @@ export const FeaturesContainer = styled.div`
   font-size: 1.3rem;
  }
 `;
+
+//FOOTER STYLE
+export const FooterStyles = styled.div`
+ height: 8vh;
+ width: 100%;
+ background-color: #bb0dbe;
+ display: flex;
+ align-items: center;
+
+// position: fixed;
+//  left: 0;
+//  bottom: 0;
+//  right: 0;
+
+ .footer-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 58px 20px 58px;
+  color: white;
+ }
+`;

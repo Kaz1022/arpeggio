@@ -14,9 +14,9 @@ end
 
 users = User.create!([
   {
-    first_name: "Kaz",
+    first_name: "John",
     last_name: "Smith",
-    handle: "Kazz",
+    handle: "Jonhny",
     email: "johnsmith@test.com",
     password: "password",
     phone: "778-229-5711",
@@ -26,7 +26,7 @@ users = User.create!([
     bio: "Hey I live in Toronto, I like hanging out with poeple!"
   },
   {
-    first_name: "Mari",
+    first_name: "Emily",
     last_name: "Brown",
     handle: "MMusic",
     email: "emilybrown@test.com",

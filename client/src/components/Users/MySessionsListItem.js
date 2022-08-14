@@ -67,8 +67,18 @@ function MySessionsListItem({
 
   const handleShow = (eventInstrumentId) => {
     setActiveEventInstrument(eventInstrumentId);
-    setShow(true);
+    // Shows different Modal depends on the status but only works if there is one instruments. 
+    const status = instrumentsArr.find(
+      (e, i) => eventInstrumentId === e.event_instruments_id).status;
+    if (status["Filled"]) {
+      handleOpenNA();
+    } else if (status["Pending"]){
+      setShow(true);
+    } else {
+      setShow(false);
+    }   
   };
+  
   const handleClose = () => {
     setActiveEventInstrument(undefined);
     setShow(false);
@@ -143,7 +153,6 @@ function MySessionsListItem({
     console.log("confirmation button clicked submitted"); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id).status;
-    console.log(status)
   
     const qtyA = status["Available"];
     const qtyP = status["Pending"];

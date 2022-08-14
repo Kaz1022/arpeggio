@@ -10,7 +10,7 @@ function AlreadyFilledModal(props) {
       </Modal.Header>
 
       <Modal.Body>
-        <p>It look like you already have filled the spot! </p>
+        <p>It looks like you already have filled the spot! </p>
       </Modal.Body>
 
       <Modal.Footer>

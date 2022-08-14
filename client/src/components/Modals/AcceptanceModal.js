@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function AcceptanceModal({show, onHide, onConfirm, events, id}) {
+function AcceptanceModal({show, onHide, onConfirm, eventInstrumentId}) {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -14,7 +14,7 @@ function AcceptanceModal({show, onHide, onConfirm, events, id}) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="primary" onClick={onConfirm} >Accept</Button>
+        <Button variant="primary" onClick={() => onConfirm(eventInstrumentId)} >Accept</Button>
         <Button variant="secondary" onClick={onHide}>Decline</Button>
       </Modal.Footer>
     </Modal>

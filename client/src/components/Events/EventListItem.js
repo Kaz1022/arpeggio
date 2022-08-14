@@ -26,17 +26,17 @@ const InstrumentStatusComp = {
   Drum: {
     Available: DrumImgA,
     Pending: DrumImgP,
-    Filled: DrumImgP,
+    Filled: DrumImgF,
   },
   Guitar: {
     Available: GuitarImgA,
     Pending: GuitarImgP,
-    Filled: GuitarImgP,
+    Filled: GuitarImgF,
   },
   Vocal: {
     Available: VocalImgA,
     Pending: VocalImgP,
-    Filled: VocalImgP,
+    Filled: VocalImgF,
   },
 };
 
@@ -69,6 +69,8 @@ function EventListItem({
   const [instrStatus, setInstrStatus] = useState();
   const [activeEventInstrument, setActiveEventInstrument] = useState();
 
+  console.log("evnets page events>>>>", events)
+
   const handleShow = (eventInstrumentId) => {
     setActiveEventInstrument(eventInstrumentId);
     setShow(true);
@@ -87,7 +89,6 @@ function EventListItem({
   const [like, setLike] = useState(false);
 
   const instrumentsArr = [];
-
   const instrumentSummary = events.map((event) => {
     event.event_instruments.map((event_i) => {
       //This is the status objects

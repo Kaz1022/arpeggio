@@ -81,7 +81,7 @@ function MySessionsListItem({
   const handleOpenNA = () => setShowNAvail(true);
 
   const instrumentsArr = [];
-  // console.log("instrumentsARR>>>", instrumentsArr)
+  console.log("activeEventInstrument", activeEventInstrument)
 
   const instrumentSummary = events.map((event) => {
     event.event_instruments.map((event_i) => {
@@ -140,9 +140,11 @@ function MySessionsListItem({
 
   const handleConfirm = (eventInstrumentId) => {
     handleClose();
-    console.log("confirmation button clicked submitted, instrumentsArr >>>>", instrumentsArr); //create attendees table(accepted:true, user_id: 1, event_instruments_id: 1)
-    const status = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).status;
-    // const event_instruments_id = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).event_instruments_id;
+    console.log("confirmation button clicked submitted"); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+    const status = instrumentsArr.find(
+      (e, i) => eventInstrumentId === e.event_instruments_id).status;
+    console.log(status)
+  
     const qtyA = status["Available"];
     const qtyP = status["Pending"];
     const qtyF = status["Filled"];
@@ -174,7 +176,7 @@ function MySessionsListItem({
         .then((response) => {
           console.log("PUT response >>>", response);
           if (response.data.status === "updated") {
-            setTimeout(function () {
+              setTimeout(function () {
               handleOpenMsg();
             }, 1500);
             console.log("event update was successful");
@@ -185,11 +187,11 @@ function MySessionsListItem({
         });
     } else {
       setTimeout(function () {
-        console.log("Update failed")
         handleOpenNA();
       }, 2500);
     }
   };
+
 
 
   return (

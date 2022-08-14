@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BsHeartFill } from 'react-icons/bs';
-import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
 import ConfirmationModal from '../Modals/ConfirmationModal';
 import NotAvailableModal from '../Modals/NotAvailableModal';

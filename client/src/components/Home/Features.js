@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import '../../scss/custom.scss';
 //ICONS
 import { ConnectIcon, CollaborateIcon, LearnIcon,CreateIcon } from '../styled-component/icons-styled';

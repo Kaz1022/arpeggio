@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import '../../scss/custom.scss';
 import axios from 'axios';
 import EventListItem from './EventListItem';

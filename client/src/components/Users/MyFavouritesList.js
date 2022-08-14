@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from "react";
-import styled from "styled-components";
 import "../../scss/custom.scss";
 import "../../App.scss";
 import axios from "axios";

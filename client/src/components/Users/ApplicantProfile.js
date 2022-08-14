@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 import {Button} from 'react-bootstrap';
-import styled from 'styled-components';
 import '../../scss/custom.scss';
 import '../../App.scss';
 import {ApplicantImg} from '../styled-component/icons-styled' 

@@ -33,3 +33,19 @@ export const NavStyles2 = styled.div`
     }
   }
 `;
+
+export const NavStyles1 = styled.div`
+.navbar{
+  background-color: #49205E;
+  padding: 0.4em 2em;
+}
+.navbar-brand{
+  font-family: var(--bs-font-sans-serif);
+  font-size: 3em;
+  color: #49205E;
+}
+a{
+  font-family: var(--bs-font-sans-serif);
+  font-size: 1.2rem;
+}
+`;

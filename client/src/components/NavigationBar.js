@@ -1,29 +1,12 @@
 import React from 'react';
 import {Nav,Navbar,Button,Container} from 'react-bootstrap';
-import styled from 'styled-components';
 import '../scss/custom.scss';
 // import '../scss/_fonts.scss';  //when I insert this it puts the fonts but removes the colour
-
-
-const Styles = styled.div`
-.navbar{
-  background-color: #49205E;
-  padding: 0.4em 2em;
-}
-.navbar-brand{
-  font-family: var(--bs-font-sans-serif);
-  font-size: 3em;
-  color: #49205E;
-}
-a{
-  font-family: var(--bs-font-sans-serif);
-  font-size: 1.2rem;
-}
-`;
+import {NavStyles1} from '../components/styled-component/navStyles-styled'
 
 function NavigationBar() {
  return (
-  <Styles>
+  <NavStyles1>
    <Navbar bg="light" expand="lg">
     <Container fluid>
      <Navbar.Brand href="/">ARPEGGIO</Navbar.Brand>
@@ -36,7 +19,7 @@ function NavigationBar() {
      </Navbar.Collapse>
     </Container>
    </Navbar>
-  </Styles>
+  </NavStyles1>
  );
 }
 

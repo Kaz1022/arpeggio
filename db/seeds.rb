@@ -14,9 +14,9 @@ end
 
 users = User.create!([
   {
-    first_name: "John",
+    first_name: "Kaz",
     last_name: "Smith",
-    handle: "Johnny",
+    handle: "Kazz",
     email: "johnsmith@test.com",
     password: "password",
     phone: "778-229-5711",
@@ -26,9 +26,9 @@ users = User.create!([
     bio: "Hey I live in Toronto, I like hanging out with poeple!"
   },
   {
-    first_name: "Emily",
+    first_name: "Mari",
     last_name: "Brown",
-    handle: "EmMusic",
+    handle: "MMusic",
     email: "emilybrown@test.com",
     password: "password",
     phone: "647-701-7160",
@@ -38,7 +38,7 @@ users = User.create!([
     bio: "Hey I love singing, playing instruments and beer!"
   },
   {
-    first_name: "Mike",
+    first_name: "Michaela",
     last_name: "Lee",
     handle: "Mikey",
     email: "mikelee@test.com",
@@ -279,4 +279,4 @@ events[0].event_image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg
 events[1].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
 events[2].event_image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
 events[3].event_image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")
-events[4].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
+events[4].event_image.attach(io: open_asset("event5.jpg"), filename: "event2.jpg", content_type: "application/jpeg")

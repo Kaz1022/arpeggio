@@ -64,6 +64,7 @@ function MySessionsListItem({
   const [showNAvail, setShowNAvail] = useState(false);
   const [instrStatus, setInstrStatus] = useState();
   const [activeEventInstrument, setActiveEventInstrument] = useState();
+  const [attendee, setAttendee] = useState();
 
   const handleShow = (eventInstrumentId) => {
     setActiveEventInstrument(eventInstrumentId);
@@ -73,12 +74,13 @@ function MySessionsListItem({
     if (status["Filled"]) {
       handleOpenNA();
     } else if (status["Pending"]){
+      // axios call here??  
       setShow(true);
     } else {
       setShow(false);
     }   
   };
-  
+
   const handleClose = () => {
     setActiveEventInstrument(undefined);
     setShow(false);
@@ -91,7 +93,6 @@ function MySessionsListItem({
   const handleOpenNA = () => setShowNAvail(true);
 
   const instrumentsArr = [];
-  console.log("activeEventInstrument", activeEventInstrument)
 
   const instrumentSummary = events.map((event) => {
     event.event_instruments.map((event_i) => {
@@ -137,6 +138,18 @@ function MySessionsListItem({
         });
       });
       return instrumentsAry;
+    });
+  };
+
+  // this is giving the user_id ...
+  const getAttendeeData = () => {
+    const event = events.find((e) => e.id === id);
+
+    event.attendees.map((attd) => {
+      const attendeesAry = [];
+      attendeesAry.push(attd.user_id);
+      console.log("attendeesARY>>>", attendeesAry)
+      return attendeesAry;
     });
   };
 
@@ -253,6 +266,7 @@ function MySessionsListItem({
                 show={show}
                 onHide={handleClose}
                 onConfirm={handleConfirm}
+                attendee={attendee}
               />
               <AcceptedModal
                 show={showMsg}

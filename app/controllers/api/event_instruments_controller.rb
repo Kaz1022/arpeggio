@@ -50,8 +50,11 @@ class Api::EventInstrumentsController < ApplicationController
     end
   end
 
-  def event_instrument_attendee
-    
+  def attendee
+      @attendee = Attendee.joins(:user).joins(:event_instrument).where(event_instruments: {id: params[:id]})
+      # @attendee = Attendee.joins(:users).find(params[:id])
+  
+      render json: @attendee.as_json(:include => [:user])
   end
 
   # DELETE /event_instruments/1

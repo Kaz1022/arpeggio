@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get "/users/:user_id/sessions", to: "events#mysessions"
     get "/users/:user_id/favourites", to: "events#myfavourites"
     delete "/user_favourites/delete", to: "user_favourites#destroy"
+    get "/event_instruments/:id/attendee", to: "event_instruments#attendee"
   end
 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

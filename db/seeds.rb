@@ -192,8 +192,8 @@ event_instruments = EventInstrument.create!([
     event_id: 1,
     instrument_id: 1,
     status: [
-      {name:"Available", quantity: 2},
-      {name:"Pending", quantity: 0},
+      {name:"Available", quantity: 0},
+      {name:"Pending", quantity: 2},
       {name:"Filled", quantity: 0}
     ]
   },
@@ -262,6 +262,14 @@ attendee1 = Attendee.create!(
 )
 
 attendee2 = Attendee.create!(
+  {
+    user_id: 3,
+    event_instrument_id: 1,
+    accepted: false
+  }
+)
+
+  attendee3 = Attendee.create!(
   {
     user_id: 3,
     event_instrument_id: 7,

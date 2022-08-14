@@ -199,7 +199,7 @@ function EventListItem({
       console.log("confirmation request submitted");
       axios
         .put(
-          `/api/event_instruments/${eventInstrumentId}`, //THIS SHOULD GIVE USER_ID & CREATE ATTENDEE TABLE with accepted: false, WHen Org respomd with confirm then change to true
+          `/api/event_instruments/${eventInstrumentId}`,
           {
             status: [
               {
@@ -215,6 +215,13 @@ function EventListItem({
                 quantity: 0,
               },
             ],
+            //         attendee: [
+            //           {
+            //             accepted: false,
+            //             user_id: currentUser.userData.id,
+            //             event_instrument_id: event_instruments_id,
+            //           },
+            //         ],
           },
           {
             headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -229,13 +236,12 @@ function EventListItem({
             }, 1500);
             console.log("event update was successful");
             //>>>>>>>>>>>>>>>>>>>>
-            axios
+            return axios
               .post(
                 `/api/new_attendee`,
                 {
                   attendee: [
                     {
-                      id: 2, //HOW?
                       accepted: false,
                       user_id: currentUser.userData.id,
                       event_instrument_id: event_instruments_id,
@@ -257,6 +263,7 @@ function EventListItem({
               .catch((error) => {
                 console.log("event update error", error);
               });
+              //>>>>>>>>>>>>>>>>>>>>>>>>>>
             //How do i re render the browser to see the chnages immediately
           }
         })

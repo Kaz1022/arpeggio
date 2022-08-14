@@ -5,22 +5,7 @@ import "../../App.scss";
 import axios from "axios";
 import EventListItem from "../Events/EventListItem";
 import { Link } from "react-router-dom";
-
-const Styles = styled.div`
- display: flex;
- flex-direction: column;
- justify-content: center;
-
-  .btn {
-   font-weight: 600;
-   margin-left: 0.5rem;
-   padding: 8px 18px;
-   background: #bb0dbe;
-   color: #e2ef70;
-   border: 1px solid #e2ef70;
-  }
- }
-`;
+import {Styles} from '../styled-component/users-styled'
 
 function MyFavouritesList({ loggedInStatus }) {
   const [events, setEvents] = useState([]);

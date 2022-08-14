@@ -20,7 +20,7 @@ class Api::AttendeesController < ApplicationController
 
   # POST /attendee
   def create
-    @attendee = Attendee.create!(attendee_params)
+    @attendee = Attendee.new(attendee_params)
 
     if @attendee.save(attendee_params)
       render json: {
@@ -60,7 +60,9 @@ class Api::AttendeesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def attendee_params
-    params.require(:attendee).permit(attendees: [:accepted, :user_id, :event_instrument_id])
+    params.require(:attendee)
+    params.permit(attendees: [:accepted, :user_id, :event_instrument_id])
+    # params.permit(attendees: [:accepted, :user_id, :event_instrument_id])
   end
 
 end

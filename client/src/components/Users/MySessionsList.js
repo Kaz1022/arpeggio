@@ -4,22 +4,8 @@ import "../../scss/custom.scss";
 import axios from "axios";
 import MySessionsListItem from "./MySessionsListItem";
 import "../../App.scss";
+import { Styles } from "../styled-component/users-styled";
 
-const Styles = styled.div`
- display: flex;
- flex-direction: column;
- justify-content: center;
-
-  .btn {
-   font-weight: 600;
-   margin-left: 0.5rem;
-   padding: 8px 18px;
-   background: #bb0dbe;
-   color: #e2ef70;
-   border: 1px solid #e2ef70;
-  }
- }
-`;
 
 function MySessionsList() {
   const [events, setEvents] = useState([]);

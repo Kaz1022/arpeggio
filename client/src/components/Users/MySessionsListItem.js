@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import AcceptanceModal from "../Modals/AcceptanceModal";
 import AcceptedModal from "../Modals/AcceptedModal";
 import AlreadyFilledModal from "../Modals/AlreadyFilledModal";
-import axios from 'axios';
+import axios from "axios";
 import "../../scss/custom.scss";
 import "../../App.scss";
 import {
@@ -18,7 +18,8 @@ import {
   VocalImgF,
 } from "../styled-component/instrumenticons-styled";
 import { Img, EventStyles } from "../styled-component/mySessionListItem-styled";
-
+import CancelAttdModal from "../Modals/CancelAttdModal";
+import CancelSuceedModal from "../Modals/CancelSucceedModal";
 
 const InstrumentStatusComp = {
   Drum: {
@@ -62,23 +63,26 @@ function MySessionsListItem({
   const [show, setShow] = useState(false);
   const [showMsg, setShowMsg] = useState(false);
   const [showNAvail, setShowNAvail] = useState(false);
+  const [showRemove, setShowRemove] = useState(false);
+  const [showCanceled, setShowCanceled] = useState(false);
   const [instrStatus, setInstrStatus] = useState();
   const [activeEventInstrument, setActiveEventInstrument] = useState();
   const [attendee, setAttendee] = useState();
 
   const handleShow = (eventInstrumentId) => {
     setActiveEventInstrument(eventInstrumentId);
-    // Shows different Modal depends on the status but only works if there is one instruments. 
+    // Shows different Modal depends on the status but only works if there is one instruments.
     const status = instrumentsArr.find(
-      (e, i) => eventInstrumentId === e.event_instruments_id).status;
+      (e, i) => eventInstrumentId === e.event_instruments_id
+    ).status;
     if (status["Filled"]) {
-      handleOpenNA();
-    } else if (status["Pending"]){
-      // axios call here??  
+      handleOpenRM();
+    } else if (status["Pending"]) {
+      // axios call here??
       setShow(true);
     } else {
       setShow(false);
-    }   
+    }
   };
 
   const handleClose = () => {
@@ -91,6 +95,12 @@ function MySessionsListItem({
 
   const handleCloseNA = () => setShowNAvail(false);
   const handleOpenNA = () => setShowNAvail(true);
+
+  const handleCloseRM = () => setShowRemove(false);
+  const handleOpenRM = () => setShowRemove(true);
+
+  const handleCloseCld = () => setShowCanceled(false);
+  const handleOpenCld = () => setShowCanceled(true);
 
   const instrumentsArr = [];
 
@@ -148,25 +158,25 @@ function MySessionsListItem({
     event.attendees.map((attd) => {
       const attendeesAry = [];
       attendeesAry.push(attd.user_id);
-      console.log("attendeesARY>>>", attendeesAry)
+      console.log("attendeesARY>>>", attendeesAry);
       return attendeesAry;
     });
   };
 
   useEffect(function () {
     axios
-      .get(`/api/event_instruments/${id}`) 
+      .get(`/api/event_instruments/${id}`)
       .then((res) => setInstrStatus(res.data))
       .catch((err) => console.log(err));
   }, []);
-
 
   const handleConfirm = (eventInstrumentId) => {
     handleClose();
     console.log("confirmation button clicked submitted"); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
     const status = instrumentsArr.find(
-      (e, i) => eventInstrumentId === e.event_instruments_id).status;
-  
+      (e, i) => eventInstrumentId === e.event_instruments_id
+    ).status;
+
     const qtyA = status["Available"];
     const qtyP = status["Pending"];
     const qtyF = status["Filled"];
@@ -174,7 +184,7 @@ function MySessionsListItem({
       console.log("confirmation request submitted");
       axios
         .put(
-          `/api/event_instruments/${eventInstrumentId}`, 
+          `/api/event_instruments/${eventInstrumentId}`,
           {
             status: [
               {
@@ -198,7 +208,7 @@ function MySessionsListItem({
         .then((response) => {
           console.log("PUT response >>>", response);
           if (response.data.status === "updated") {
-              setTimeout(function () {
+            setTimeout(function () {
               handleOpenMsg();
             }, 1500);
             console.log("event update was successful");
@@ -214,7 +224,53 @@ function MySessionsListItem({
     }
   };
 
+  const handleRemove = (eventInstrumentId) => {
+    handleClose();
+    const status = instrumentsArr.find(
+      (e, i) => eventInstrumentId === e.event_instruments_id
+    ).status;
 
+    const qtyA = status["Available"];
+    const qtyP = status["Pending"];
+    const qtyF = status["Filled"];
+    if (status["Filled"] > 0) {
+      axios
+        .put(
+          `/api/event_instruments/${eventInstrumentId}`,
+          {
+            status: [
+              {
+                name: "Available",
+                quantity: qtyA + 1,
+              },
+              {
+                name: "Pending",
+                quantity: qtyP,
+              },
+              {
+                name: "Filled",
+                quantity: qtyF - 1,
+              },
+            ],
+          },
+          {
+            headers: { "Content-type": "application/json; charset=UTF-8" },
+          }
+        )
+        .then((response) => {
+          console.log("PUT response >>>", response);
+          if (response.data.status === "updated") {
+            setTimeout(function () {
+              handleOpenCld();
+            }, 1500);
+            console.log("event update was successful");
+          }
+        })
+        .catch((error) => {
+          console.log("event update error", error);
+        });
+    } 
+  };
 
   return (
     <EventStyles>
@@ -277,6 +333,17 @@ function MySessionsListItem({
                 show={showNAvail}
                 onHide={handleCloseNA}
                 onClose={handleOpenNA}
+              />
+              <CancelAttdModal
+                eventInstrumentId={activeEventInstrument}
+                show={showRemove}
+                onHide={handleCloseRM}
+                onConfirm={handleRemove}
+              />
+              <CancelSuceedModal
+                show={showCanceled}
+                onHide={handleCloseCld}
+                onClose={handleOpenCld}
               />
               <div className="instrument-icons">
                 <div className="icons">{getEventData()}</div>

@@ -75,6 +75,7 @@ function MySessionsListItem({
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id
     ).status;
+    console.log(status);
     if (status["Filled"]) {
       handleOpenRM();
     } else if (status["Pending"]) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BsHeartFill } from 'react-icons/bs';
+import { BsCurrencyBitcoin, BsHeartFill } from 'react-icons/bs';
 import TimeAgo from 'react-timeago';
 import ConfirmationModal from '../Modals/ConfirmationModal';
 import NotAvailableModal from '../Modals/NotAvailableModal';
@@ -67,7 +67,7 @@ function EventListItem({
  const [showNAvail, setShowNAvail] = useState(false);
  const [instrStatus, setInstrStatus] = useState([]);
  const [activeEventInstrument, setActiveEventInstrument] = useState();
- const [newAttendee, setNewAttendee] = useState([]);
+ const [attendees, setAttendees] = useState([]);
 
  const handleShow = (eventInstrumentId) => {
   setActiveEventInstrument(eventInstrumentId);
@@ -145,13 +145,18 @@ function EventListItem({
    .then((res) => setInstrStatus(res.data.status))
    .catch((err) => console.log(err));
 
+   axios
+   .get(`/api/attendees`) //if i click on the first event it will setInstr to entire first object
+   .then((res) => setAttendees(res.data))
+   .catch((err) => console.log(err));
+
   axios
    .get(`/api/user_favourites/${id}`, {
     params: { user_id: currentUser.userData.id },
    })
    .then((res) => setLike(res.data.like))
    .catch((err) => console.log(err));
- }, [newAttendee]);
+ }, []);
 
  const currentUser = JSON.parse(localStorage.getItem('user'));
 
@@ -213,6 +218,7 @@ function EventListItem({
     )
     .then((response) => {
      console.log('PUT response >>>', response);
+
      if (response.data.status === 'updated') {
       // setInstrStatus(response.data.status);
       setTimeout(function () {
@@ -220,7 +226,12 @@ function EventListItem({
       }, 1500);
       console.log('event update was successful');
       //>>>>>>>>>>>>>>>>>>>>
-      
+
+      const user = attendees.map((a) => {
+        return a.user_id
+      })
+      console.log(user)
+      if(!user.includes(currentUser.userData.id)){
       return axios.post(
        `/api/new_attendee`,
        {
@@ -234,13 +245,16 @@ function EventListItem({
         },
        }
       );
+     }else{
+       console.log("User already exists")
+    }
      }
     })
     .then((response) => {
      console.log('POST attendee response >>>', response.data);
      if (response.data.status === 'created') {
-      setNewAttendee((prev) => [...prev, response.data.attendee]);
-      console.log(newAttendee);
+      setAttendees((prev) => [...prev, response.data.attendee]);
+      console.log(attendees);
      }
     })
     .catch((error) => {

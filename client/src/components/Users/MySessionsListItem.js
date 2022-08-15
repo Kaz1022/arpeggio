@@ -76,19 +76,31 @@ function MySessionsListItem({
       (e, i) => eventInstrumentId === e.event_instruments_id
     ).status;
     console.log(status);
-    if (status["Filled"]) {
-      handleOpenRM();
-    } else if (status["Pending"]) {
+    if (status["Pending"]) {
       axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
       .then(response => {
         console.log(response.data);
         setAttendee(response.data[index -1])
       });
-      
       setShow(true);
+    } else if (status["Filled"]) {
+      handleOpenRM();
     } else {
       setShow(false);
     }
+    // if (status["Filled"]) {
+    //   handleOpenRM();
+    // } else if (status["Pending"]) {
+    //   axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
+    //   .then(response => {
+    //     console.log(response.data);
+    //     setAttendee(response.data[index -1])
+    //   });
+      
+    //   setShow(true);
+    // } else {
+    //   setShow(false);
+    // }
   };
 
   const handleClose = () => {
@@ -164,7 +176,7 @@ function MySessionsListItem({
       .catch((err) => console.log(err));
   }, []);
 
-  const handleConfirm = (eventInstrumentId) => {
+  const handleConfirm = (eventInstrumentId, attendeeId) => {
     handleClose();
     console.log("confirmation button clicked submitted"); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
     const status = instrumentsArr.find(
@@ -181,18 +193,9 @@ function MySessionsListItem({
           `/api/event_instruments/${eventInstrumentId}`,
           {
             status: [
-              {
-                name: "Available",
-                quantity: qtyA,
-              },
-              {
-                name: "Pending",
-                quantity: qtyP - 1,
-              },
-              {
-                name: "Filled",
-                quantity: qtyF + 1,
-              },
+              { name: "Available", quantity: qtyA },
+              { name: "Pending", quantity: qtyP - 1 },
+              { name: "Filled", quantity: qtyF + 1 }
             ],
           },
           {
@@ -206,6 +209,17 @@ function MySessionsListItem({
               handleOpenMsg();
             }, 1500);
             console.log("event update was successful");
+            return axios.put(
+              `/api/attendees/${attendee.id}`,
+              {
+               accepted: true
+              },
+              {
+               headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+               },
+              }
+             );
           }
         })
         .catch((error) => {

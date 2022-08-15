@@ -38,7 +38,7 @@ class Api::AttendeesController < ApplicationController
 
   # PATCH/PUT /attendee/1
   def update
-    @attendee = Attendee.includes(:event).find_by(attendee: {id: params[:id]})
+    @attendee = Attendee.find(params[:id])
     @attendee.update(accepted: params[:accepted])
 
     if @attendee.update(attendee_params)
@@ -64,7 +64,7 @@ class Api::AttendeesController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def attendee_params
     params.require(:attendee)
-    params.permit(:attendee, :accepted, :user_id, :event_instrument_id)
+    params.permit(:attendee, :accepted, :user_id, :event_instrument_id, :id)
   end
 
 end

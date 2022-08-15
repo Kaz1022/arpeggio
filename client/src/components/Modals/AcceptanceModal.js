@@ -15,7 +15,7 @@ function AcceptanceModal({show, onHide, onConfirm, eventInstrumentId, attendee})
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="primary" onClick={() => onConfirm(eventInstrumentId)} >Accept</Button>
+        <Button variant="primary" onClick={() => onConfirm(eventInstrumentId, attendee.id)} >Accept</Button>
         <Button variant="secondary" onClick={onHide}>Decline</Button>
       </Modal.Footer>
     </Modal>

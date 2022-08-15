@@ -57,7 +57,9 @@ class Api::EventsController < ApplicationController
           event_id: @event.id, 
           instrument: @instrument, 
           status: [
-            { name:"Available", quantity: instrument[:quantity] }
+            { name:"Available", quantity: instrument[:quantity] },
+            { name:"Pending", quantity: 0 },
+            { name:"Filled", quantity: 0 }
           ]
         })
       end     

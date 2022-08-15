@@ -22,14 +22,11 @@ function Artists() {
        <MarinaIcon src="../assets/images/marina.jpg" />
        <div className="feature">MARINA BEKKER</div>
        <div className="description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis
-        finibus ex, sit amet faucibus ante. Integer vel est sit amet mi pharetra
-        maximus. Integer et augue sagittis, semper dui et, gravida elit. Quisque
-        pellentesque commodo mi, vitae aliquam ante euismod quis. Praesent
-        lobortis dictum urna faucibus ultrices. Vivamus tincidunt mi eget nulla
-        laoreet, a consectetur sapien mollis.
+        Our little band plays with React with a backing of Ruby on Rails to
+        create melodies everyone can enjoy! Arpeggio is meant to bring people
+        together of all skill levels so we can create and enjoy.
        </div>
-       <div className='social-icons'>
+       <div className="social-icons">
         <a href="https://github.com/Mari-bekker">
          <Github />
         </a>
@@ -42,14 +39,13 @@ function Artists() {
        <KazIcon src="../assets/images/kaz.jpg" />
        <div className="feature">KAZ BAYNTON</div>
        <div className="description">
-        Aenean tempor dui pretium lorem tempor, vitae commodo nulla elementum.
-        Ut semper orci rhoncus odio pellentesque, eu viverra leo tempus. Mauris
-        tempus, mi ac molestie posuere, sem nisl laoreet libero, sit amet
-        viverra orci ipsum at quam. Phasellus quam orci, dignissim sit amet diam
-        eu, rhoncus ornare nunc. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit.
+        Through Apreggio, I found my tribe! Before meeting my band members, I
+        was just starting to learn Rails melody and did not know much about
+        playing React and Rails together. Apreggio gave me an opportunity to
+        learn and push myself with new instruments, such as React Bootstrap,
+        Twilio, and Rails Active Storage, to create something from scratch.
        </div>
-       <div className='social-icons'>
+       <div className="social-icons">
         <a href="https://github.com/Kaz1022">
          <Github />
         </a>
@@ -68,7 +64,7 @@ function Artists() {
         really love HTML Rock with lots of SASS Guitar, but Arpeggio really
         opened my eyes to Classical React with the Rails melody.
        </div>
-       <div className='social-icons'>
+       <div className="social-icons">
         <a href="https://github.com/Michaela-K">
          <Github />
         </a>

@@ -30,7 +30,7 @@ function NavigationAfterLogin(props) {
               <NavDropdown.Item as={Link} to="/myprofile">MY PROFILE</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/session/new">CREATE A SESSION</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/mysessions">MY SESSIONS</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/events">FIND A SESSION</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/events">BROWSE SESSIONS</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={handleLogoutClick}>
                 LOGOUT

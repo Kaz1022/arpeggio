@@ -3,7 +3,7 @@ class Api::EventsController < ApplicationController
   
   # GET /events
   def index
-    @events = Event.with_attached_event_image.includes([:user, :attendees, :event_instruments, :instruments]).all
+    @events = Event.with_attached_event_image.includes([:user, :attendees, :event_instruments, :instruments]).all.by_recently_created
 
     render json: @events.as_json(:include => [:user, :attendees, :event_instruments, :instruments], methods: [:event_image_data])
   end
@@ -11,7 +11,8 @@ class Api::EventsController < ApplicationController
   def search
     @events = Event.with_attached_event_image.joins(:instruments)
     .where(instruments: { name: params[:instrument] })
-    .where('city = ? AND level = ? AND genre = ?', params[:city], params[:level], params[:genre])  
+    .where('city = ? AND level = ? AND genre = ?', params[:city], params[:level], params[:genre])
+
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
   end
 
@@ -23,7 +24,7 @@ class Api::EventsController < ApplicationController
   # GET /users/:user_id/sessions
   def mysessions
     @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments, :attendees])
-    .where(user_id: params[:user_id])
+    .where(user_id: params[:user_id]).by_recently_created
 
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments, :attendees, :user], methods: [:event_image_data])
   end
@@ -56,7 +57,9 @@ class Api::EventsController < ApplicationController
           event_id: @event.id, 
           instrument: @instrument, 
           status: [
-            { name:"Available", quantity: instrument[:quantity] }
+            { name:"Available", quantity: instrument[:quantity] },
+            { name:"Pending", quantity: 0 },
+            { name:"Filled", quantity: 0 }
           ]
         })
       end     

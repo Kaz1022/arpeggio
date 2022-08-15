@@ -22,21 +22,21 @@ import '../../App.scss';
 import { EventStyles } from '../styled-component/mySessionListItem-styled';
 
 const InstrumentStatusComp = {
-  Drum: {
-    Available: DrumImgA,
-    Pending: DrumImgP,
-    Filled: DrumImgF,
-  },
-  Guitar: {
-    Available: GuitarImgA,
-    Pending: GuitarImgP,
-    Filled: GuitarImgF,
-  },
-  Vocal: {
-    Available: VocalImgA,
-    Pending: VocalImgP,
-    Filled: VocalImgF,
-  },
+ Drum: {
+  Available: DrumImgA,
+  Pending: DrumImgP,
+  Filled: DrumImgF,
+ },
+ Guitar: {
+  Available: GuitarImgA,
+  Pending: GuitarImgP,
+  Filled: GuitarImgF,
+ },
+ Vocal: {
+  Available: VocalImgA,
+  Pending: VocalImgP,
+  Filled: VocalImgF,
+ },
 };
 
 function EventListItem({
@@ -79,7 +79,7 @@ function EventListItem({
   setActiveEventInstrument(undefined);
   setShow(false);
  };
-  console.log("evnets page events>>>>", events)
+ console.log('evnets page events>>>>', events);
 
  const handleCloseMsg = () => setShowMsg(false);
  const handleOpenMsg = () => setShowMsg(true);
@@ -114,18 +114,18 @@ function EventListItem({
    instrumentsArr.push(instrument);
   });
  });
- 
+
  const getEventData = () => {
-   const event = events.find((e) => e.id === id);
-   
-   const instrumentsById = event.instruments.reduce((acc, val) => {
+  const event = events.find((e) => e.id === id);
+
+  const instrumentsById = event.instruments.reduce((acc, val) => {
    acc[val.id] = val;
    return acc;
   }, {});
-  
+
   return event.event_instruments.map((ei) => {
-    const name = instrumentsById[ei.instrument_id].name;
-    const instrumentsAry = [];
+   const name = instrumentsById[ei.instrument_id].name;
+   const instrumentsAry = [];
    ei.status.forEach((item) => {
     const Comp = InstrumentStatusComp[name][item.name];
     [...Array(item.quantity)].forEach((v, i) => {
@@ -144,10 +144,9 @@ function EventListItem({
   });
  };
 
- // need to get user_favourites
  useEffect(function () {
   axios
-   .get(`/api/event_instruments/${id}`) 
+   .get(`/api/event_instruments/${id}`)
    .then((res) => setInstrStatus(res.data.status))
    .catch((err) => console.log(err));
 
@@ -202,20 +201,22 @@ function EventListItem({
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).status;
   const eventUser = instrumentsArr.map((e, i) => {
-    let userId;
-    if(e.event_id === eventId){
-      e.attendees.map((a) => {return userId = a.user_id})
-    }
-    return userId;
+   let userId;
+   if (e.event_id === eventId) {
+    e.attendees.map((a) => {
+     return (userId = a.user_id);
+    });
+   }
+   return userId;
   });
-   
-   console.log(eventUser, currentUser.userData.id)
+
+  console.log(eventUser, currentUser.userData.id);
   const event_instruments_id = instrumentsArr.find(
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).event_instruments_id;
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
-  
+
   if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
    console.log('confirmation request submitted');
    axios

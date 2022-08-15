@@ -67,18 +67,24 @@ function MySessionsListItem({
   const [showCanceled, setShowCanceled] = useState(false);
   const [instrStatus, setInstrStatus] = useState();
   const [activeEventInstrument, setActiveEventInstrument] = useState();
-  const [attendee, setAttendee] = useState();
+  const [attendee, setAttendee] = useState({user: {handle: "Test"}});
 
-  const handleShow = (eventInstrumentId) => {
+  const handleShow = (eventInstrumentId, index) => {
     setActiveEventInstrument(eventInstrumentId);
     // Shows different Modal depends on the status but only works if there is one instruments.
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id
     ).status;
+    console.log(status);
     if (status["Filled"]) {
       handleOpenRM();
     } else if (status["Pending"]) {
-      // axios call here??
+      axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
+      .then(response => {
+        console.log(response.data);
+        setAttendee(response.data[index -1])
+      });
+      
       setShow(true);
     } else {
       setShow(false);
@@ -141,25 +147,13 @@ function MySessionsListItem({
         const Comp = InstrumentStatusComp[name][item.name];
         [...Array(item.quantity)].forEach((v, i) => {
           instrumentsAry.push(
-            <div key={`selector-${i++}`} onClick={() => handleShow(ei.id)}>
+            <div key={`selector-${i++}`} onClick={() => handleShow(ei.id, i)}>
               <Comp />
             </div>
           );
         });
       });
       return instrumentsAry;
-    });
-  };
-
-  // this is giving the user_id ...
-  const getAttendeeData = () => {
-    const event = events.find((e) => e.id === id);
-
-    event.attendees.map((attd) => {
-      const attendeesAry = [];
-      attendeesAry.push(attd.user_id);
-      console.log("attendeesARY>>>", attendeesAry);
-      return attendeesAry;
     });
   };
 

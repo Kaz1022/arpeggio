@@ -1,7 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Link } from 'react-router-dom';
 
-function AcceptanceModal({show, onHide, onConfirm, eventInstrumentId}) {
+function AcceptanceModal({show, onHide, onConfirm, eventInstrumentId, attendee}) {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -9,7 +10,7 @@ function AcceptanceModal({show, onHide, onConfirm, eventInstrumentId}) {
       </Modal.Header>
 
       <Modal.Body>
-        <p><a href="/applicant">@APPLICANT</a> is sending a request to attend.</p>
+        <p><Link to="/applicant" state={{ id: attendee?.user.id }} >@{attendee?.user.handle}</Link> is sending a request to attend.</p>
         <p>How would you like to response?</p>
       </Modal.Body>
 

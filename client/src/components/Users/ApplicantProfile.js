@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {Button} from 'react-bootstrap';
 import '../../scss/custom.scss';
@@ -10,18 +11,19 @@ function ApplicantProfile(props) {
 
     const [applicant, setApplicant] = useState({});
     const [applicantImg, setApplicantImg] = useState("");
-    const [applicantInstruments, setApplicantInstruments] = useState({});
+    // const [applicantInstruments, setApplicantInstruments] = useState({});
 
-    // const currentUser = JSON.parse(localStorage.getItem("user"));
+    const location = useLocation()
+    const { id } = location.state
     
     useEffect(function () {
       // needs applicants id 
       axios
-        .get(`/api/users/4`)
+        .get(`/api/users/${id}`)
         .then((res) => {
           setApplicant(res.data.user);
           setApplicantImg(res.data.image);
-          setApplicantInstruments(res.data.instruments);
+          // setApplicantInstruments(res.data.instruments);
           console.log("user instruments>>", res.data.instruments);
         })
         .then((err) => console.log(err));
@@ -57,8 +59,8 @@ function ApplicantProfile(props) {
               <div className="user-location">
                 <strong>Location:&nbsp;&nbsp;</strong>{applicant.city}, {applicant.country}
               </div>
-              {applicantInstruments && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{applicantInstruments.name}</div>
-              }
+              {/* {applicantInstruments && <div className="user-instruments"><strong>Instrument(s) I play:&nbsp;&nbsp;</strong>{applicantInstruments.name}</div>
+              } */}
               <div className="about-me">
                 <strong>About Me&nbsp;&nbsp;</strong>
               </div>

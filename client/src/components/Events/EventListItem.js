@@ -6,17 +6,7 @@ import NotAvailableModal from '../Modals/NotAvailableModal';
 import MesssageSentModal from '../Modals/MessageSentModal';
 import axios from 'axios';
 
-import {
- DrumImgA,
- DrumImgP,
- DrumImgF,
- GuitarImgA,
- GuitarImgP,
- GuitarImgF,
- VocalImgA,
- VocalImgP,
- VocalImgF,
-} from '../styled-component/icons-styled';
+import {DrumImgA,DrumImgP,DrumImgF,GuitarImgA,GuitarImgP,GuitarImgF,VocalImgA,VocalImgP,VocalImgF,} from '../styled-component/icons-styled';
 import '../../scss/custom.scss';
 import '../../App.scss';
 import { EventStyles } from '../styled-component/mySessionListItem-styled';
@@ -65,11 +55,13 @@ function EventListItem({
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
- const [instrStatus, setInstrStatus] = useState([]);
  const [activeEventId, setActiveEventId] = useState();
  const [activeEventInstrument, setActiveEventInstrument] = useState();
- const [attendees, setAttendees] = useState([]);
+//  const [eventAttendees, setEventAttendees] = useState([]);
 
+//  const handleRender = () =>{
+//   setEventAttendees(eventAttendees)
+//  } 
  const handleShow = (eventInstrumentId, eventId) => {
   setActiveEventInstrument(eventInstrumentId);
   setActiveEventId(eventId);
@@ -123,24 +115,21 @@ function EventListItem({
    return acc;
   }, {});
   
-  // let finalNum = 0;
-  //  function incr(num){
-  //   return finalNum  = finalNum + num; 
-  //  }
-  
   return event.event_instruments.map((ei) => {
    const name = instrumentsById[ei.instrument_id].name;
    const instrumentsAry = [];
    ei.status.forEach((item) => {
     const Comp = InstrumentStatusComp[name][item.name];
+    // console.log("item", item);
     [...Array(item.quantity)].forEach((v, i) => {
      instrumentsAry.push(
       <div
        className="render-icon"
+      //  key={`selector-${ei.id}-${item.name}-${i}`}
        key={`selector-${i}`}
        onClick={() => handleShow(ei.id, ei.event_id)}
       >
-       <Comp />
+       <Comp attendees={eventAttendees}/>
       </div>
      );
     });
@@ -151,15 +140,11 @@ function EventListItem({
 
  useEffect(function () {
   axios
-   .get(`/api/event_instruments/${id}`)
-   .then((res) => setInstrStatus(res.data.status))
-   .catch((err) => console.log(err));
-
-  axios
    .get(`/api/attendees`)
-   .then((res) => setAttendees(res.data))
+   .then((res) => {setEventAttendees(res.data); 
+    console.log('api/attendees data', res.data); 
+    console.log('eventAttendees', eventAttendees)})
    .catch((err) => console.log(err));
-
   axios
    .get(`/api/user_favourites/${id}`, {
     params: { user_id: currentUser.userData.id },
@@ -167,6 +152,10 @@ function EventListItem({
    .then((res) => setLike(res.data.like))
    .catch((err) => console.log(err));
  }, []);
+
+ useEffect( function(){
+ handleRender()
+ }, [eventAttendees])
 
  const currentUser = JSON.parse(localStorage.getItem('user'));
 
@@ -202,6 +191,7 @@ function EventListItem({
  const handleConfirm = (eventInstrumentId, eventId) => {
   handleClose();
   console.log('confirmation button clicked submitted');
+
   const status = instrumentsArr.find(
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).status;
@@ -215,31 +205,53 @@ function EventListItem({
    return userId;
   });
 
-  console.log(eventUser, currentUser.userData.id);
   const event_instruments_id = instrumentsArr.find(
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).event_instruments_id;
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
-
+  
   if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
+  const status = [ { name: 'Available', quantity: qtyA - 1 },
+  { name: 'Pending', quantity: qtyP + 1 },
+  { name: 'Filled', quantity: 0 },]
    console.log('confirmation request submitted');
    axios
     .put(
      `/api/event_instruments/${eventInstrumentId}`,
      {
-      status: [
-       { name: 'Available', quantity: qtyA - 1 },
-       { name: 'Pending', quantity: qtyP + 1 },
-       { name: 'Filled', quantity: 0 },
-      ],
+      status: status
      },
      {
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
      }
     )
     .then((response) => {
-     console.log('PUT response >>>', response);
+    //  console.log('PUT response >>>', response);
+      console.log("events", events);
+      const event =  events.find((e) => {
+        return e.id === eventId
+      })
+      console.log("event find", event);
+      const eventInstrument = event.event_instruments.find((instrument) =>{
+        return instrument.id === eventInstrumentId
+      })
+      eventInstrument.status = status;
+      event.event_instruments = event.event_instruments.map((instrument) =>{
+        if( instrument.id === eventInstrumentId){
+          return eventInstrument
+        }else{
+          return instrument
+        }
+      })
+      const newEvents = events.map((e) =>{
+        if(e.id === eventId){
+          return event
+        }else{
+          return e
+        }
+      })
+      setEvents(newEvents)
 
      setTimeout(function () {
       handleOpenMsg();
@@ -261,10 +273,11 @@ function EventListItem({
      );
     })
     .then((response) => {
-     console.log('POST attendee response >>>', response.data);
+    //  console.log('POST attendee response >>>', response.data);
      if (response.data.status === 'created') {
-      setAttendees((prev) => [...prev, response.data.attendee]);
-      console.log(attendees);
+      //  setEventAttendees((prev) => [...prev, response.data.attendee]);
+      //  console.log(eventAttendees);  //at this point its still 2, it needs to go through useEffect & update?
+       //Re-render HERE
      }
     })
     .catch((error) => {
@@ -280,7 +293,7 @@ function EventListItem({
  };
 
  return (
-  <EventStyles>
+  <EventStyles attendees={eventAttendees}>
    <div className="card">
     <div className="eventCard">
      <div className="left">

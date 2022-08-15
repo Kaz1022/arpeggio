@@ -237,15 +237,15 @@ function MySessionsListItem({
             status: [
               {
                 name: "Available",
-                quantity: qtyA + 1,
+                quantity: qtyA + 1
               },
               {
                 name: "Pending",
-                quantity: qtyP,
+                quantity: qtyP
               },
               {
                 name: "Filled",
-                quantity: qtyF - 1,
+                quantity: qtyF - 1
               },
             ],
           },

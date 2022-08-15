@@ -185,11 +185,11 @@ function EventListItem({
   }
   setLike((prevLike) => !prevLike);
  };
+ 
  // const [newAttendee, setNewAttendee] = useEffect()
- //  console.log(instrStatus)
  const handleConfirm = (eventInstrumentId) => {
   handleClose();
-  console.log('confirmation button clicked submitted'); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+  console.log('confirmation button clicked submitted');
   const status = instrumentsArr.find(
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).status;
@@ -225,25 +225,21 @@ function EventListItem({
       return axios
       .post(
        `/api/new_attendee`,
-       {attendee: [
          {
           accepted: false,
           user_id: currentUser.userData.id,
           event_instrument_id: event_instruments_id,
          },
-        ],
-       },
        {
         headers: {
          'Content-type': 'application/json; charset=UTF-8',
         },
        }
-      );
+      )
      }
     })
     .then((response) => {
-     console.log('POST attendee response >>>', response);
-     console.log(response);
+     console.log('POST attendee response >>>', response.data);
      // if (response.data.status === "updated") {
      // setNewAttendee(response.data)
      // console.log(newAttendee);

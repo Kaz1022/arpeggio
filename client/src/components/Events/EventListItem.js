@@ -79,7 +79,7 @@ function EventListItem({
   setActiveEventInstrument(undefined);
   setShow(false);
  };
- console.log('evnets page events>>>>', events);
+//  console.log('evnets page events>>>>', events);
 
  const handleCloseMsg = () => setShowMsg(false);
  const handleOpenMsg = () => setShowMsg(true);
@@ -122,7 +122,12 @@ function EventListItem({
    acc[val.id] = val;
    return acc;
   }, {});
-
+  
+  // let finalNum = 0;
+  //  function incr(num){
+  //   return finalNum  = finalNum + num; 
+  //  }
+  
   return event.event_instruments.map((ei) => {
    const name = instrumentsById[ei.instrument_id].name;
    const instrumentsAry = [];
@@ -132,7 +137,7 @@ function EventListItem({
      instrumentsAry.push(
       <div
        className="render-icon"
-       key={`selector-${i++}`}
+       key={`selector-${i}`}
        onClick={() => handleShow(ei.id, ei.event_id)}
       >
        <Comp />

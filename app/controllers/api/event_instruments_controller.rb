@@ -36,13 +36,15 @@ class Api::EventInstrumentsController < ApplicationController
   # PATCH/PUT /event_instruments/1
   def update
     @event_instrument = EventInstrument.includes(:event).find_by(event_instruments: {id: params[:id]})
-    @event_instrument.update(status: params[:status])  #sending status and qty as params? 
+    @event_instrument.update(status: params[:status])  
 
-    if @event_instrument.update(event_instrument_params) # would params below change due to api change
-      # @attendee = Attendee.create!(attendee_params) if params[:user_id]
+    if @event_instrument.update(event_instrument_params)
+    #if params[:user_id]
+    # @attendee = Attendee.create!(attendee_params) 
       render json: {
         status: :updated, 
-        event_instrument: @event_instrument.to_json
+        event_instrument: @event_instrument.to_json,
+        # attendee: @attendee.to_json
     }
 
     else

@@ -89,7 +89,7 @@ export const EventStyles = styled.div`
 }
 .icon-container{
   width:100%;
-  margin-right: 20px;
+  margin-right: 15px;
 
   .instr-icon{
   height:140px;
@@ -103,6 +103,10 @@ export const EventStyles = styled.div`
       outline: none;
   }
   }
+
+}
+.render-icon{
+ margin-right: 30px;
 }
 
 }

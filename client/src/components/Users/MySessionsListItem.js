@@ -16,7 +16,7 @@ import {
   VocalImgA,
   VocalImgP,
   VocalImgF,
-} from "../styled-component/instrumenticons-styled";
+} from "../styled-component/icons-styled";
 import { Img, EventStyles } from "../styled-component/mySessionListItem-styled";
 import CancelAttdModal from "../Modals/CancelAttdModal";
 import CancelSuceedModal from "../Modals/CancelSucceedModal";

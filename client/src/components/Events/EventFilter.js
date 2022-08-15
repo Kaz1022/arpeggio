@@ -1,37 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import '../../scss/custom.scss';
 import axios from 'axios';
 import EventListItem from './EventListItem';
+import { EventFilterStyles } from '../styled-component/eventStyles-styled';
 import '../../App.scss';
-
-const Styles = styled.div`
- display: flex;
- flex-direction: column;
- justify-content: center;
-
- .form {
-  margin: 2rem 13rem;
-  display: flex;
-  justify-content: center;
-
-  .form-select{
-    &:focus {
-      outline: none;
-      box-shadow: 0px 0px 4px 0.01px #b819a2b2;
-    }
-  }
-
-  .btn {
-   font-weight: 600;
-   margin-left: 0.5rem;
-   padding: 8px 18px;
-   background: #bb0dbe;
-   color: #e2ef70;
-   border: 1px solid #e2ef70;
-  }
- }
-`;
 
 function EventFilter() {
  const [events, setEvents] = useState([]);
@@ -94,7 +66,7 @@ const levelResult = makeUniqueArray('level', events)
 const genreResult = makeUniqueArray('genre', events)
 
  return (
-  <Styles>
+  <EventFilterStyles>
    <div className="form dropdowns">
     <select className="form-select" onChange={onChangeCity}>
      <option value="0"> Select City....</option>
@@ -195,7 +167,7 @@ const genreResult = makeUniqueArray('genre', events)
         </>
        );
       })}
-  </Styles>
+  </EventFilterStyles>
  );
 }
 

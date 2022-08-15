@@ -10,7 +10,7 @@ function NotAvailableModal(props) {
       </Modal.Header>
 
       <Modal.Body>
-        <p>It looks like this event is either Pending or Filled. </p>
+        <p>It looks like you have already applied for a spot at this event or this position is Unavailable. </p>
       </Modal.Body>
 
       <Modal.Footer>

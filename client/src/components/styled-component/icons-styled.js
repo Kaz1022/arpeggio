@@ -16,6 +16,9 @@ import marina from '../../assets/images/marina.jpg';
 import kaz from '../../assets/images/kaz.jpg';
 import michaela from '../../assets/images/michaela.jpg';
 
+import { BsGithub } from 'react-icons/bs';
+import { BsLinkedin } from 'react-icons/bs';
+
 import connect from '../../assets/images/connect.jpg';
 import collaborate from '../../assets/images/collaborate.jpg';
 import learn from '../../assets/images/learn.jpg';
@@ -129,6 +132,17 @@ export const MarinaIcon = styled.img.attrs({
   object-fit: cover;
  }
  `;
+
+ export const Github = styled(BsGithub)`
+ transform: scale(2.8);
+ margin: 0px 30px;
+ color: lightgrey;
+`;
+export const Linkedin = styled(BsLinkedin)`
+transform: scale(2.8);
+margin: 0px 30px;
+color: lightgrey;
+`;
 
 
  //FEATURE ICONS

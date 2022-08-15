@@ -24,12 +24,7 @@ function Artists() {
       <KazIcon src="../assets/images/kaz.jpg" />
       <div className="feature">KAZ BAYNTON</div>
       <div className="description">
-       Aenean tempor dui pretium lorem tempor, vitae commodo nulla elementum. Ut
-       semper orci rhoncus odio pellentesque, eu viverra leo tempus. Mauris
-       tempus, mi ac molestie posuere, sem nisl laoreet libero, sit amet viverra
-       orci ipsum at quam. Phasellus quam orci, dignissim sit amet diam eu,
-       rhoncus ornare nunc. Lorem ipsum dolor sit amet, consectetur adipiscing
-       elit.
+       Through Apreggio, I found my tribe! Before meeting my band members, I was just starting to learn Rails melody and did not know much about playing React and Rails together. Apreggio gave me an opportunity to learn and push myself with new instruments, such as React Bootstrap, Twilio, and Rails Active Storage, to create something from scratch. 
       </div>
      </div>
      <div className="user3">

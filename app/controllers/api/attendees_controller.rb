@@ -66,3 +66,4 @@ class Api::AttendeesController < ApplicationController
   end
 
 end
+

@@ -22,21 +22,21 @@ import '../../App.scss';
 import { EventStyles } from '../styled-component/mySessionListItem-styled';
 
 const InstrumentStatusComp = {
- Drum: {
-  Available: DrumImgA,
-  Pending: DrumImgP,
-  Filled: DrumImgP,
- },
- Guitar: {
-  Available: GuitarImgA,
-  Pending: GuitarImgP,
-  Filled: GuitarImgP,
- },
- Vocal: {
-  Available: VocalImgA,
-  Pending: VocalImgP,
-  Filled: VocalImgP,
- },
+  Drum: {
+    Available: DrumImgA,
+    Pending: DrumImgP,
+    Filled: DrumImgF,
+  },
+  Guitar: {
+    Available: GuitarImgA,
+    Pending: GuitarImgP,
+    Filled: GuitarImgF,
+  },
+  Vocal: {
+    Available: VocalImgA,
+    Pending: VocalImgP,
+    Filled: VocalImgF,
+  },
 };
 
 function EventListItem({
@@ -79,6 +79,7 @@ function EventListItem({
   setActiveEventInstrument(undefined);
   setShow(false);
  };
+  console.log("evnets page events>>>>", events)
 
  const handleCloseMsg = () => setShowMsg(false);
  const handleOpenMsg = () => setShowMsg(true);
@@ -146,12 +147,12 @@ function EventListItem({
  // need to get user_favourites
  useEffect(function () {
   axios
-   .get(`/api/event_instruments/${id}`) //if i click on the first event it will setInstr to entire first object
+   .get(`/api/event_instruments/${id}`) 
    .then((res) => setInstrStatus(res.data.status))
    .catch((err) => console.log(err));
 
   axios
-   .get(`/api/attendees`) //if i click on the first event it will setInstr to entire first object
+   .get(`/api/attendees`)
    .then((res) => setAttendees(res.data))
    .catch((err) => console.log(err));
 

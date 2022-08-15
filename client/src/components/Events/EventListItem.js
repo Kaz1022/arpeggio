@@ -66,11 +66,13 @@ function EventListItem({
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
  const [instrStatus, setInstrStatus] = useState([]);
+ const [activeEventId, setActiveEventId] = useState();
  const [activeEventInstrument, setActiveEventInstrument] = useState();
  const [attendees, setAttendees] = useState([]);
 
- const handleShow = (eventInstrumentId) => {
+ const handleShow = (eventInstrumentId, eventId) => {
   setActiveEventInstrument(eventInstrumentId);
+  setActiveEventId(eventId);
   setShow(true);
  };
  const handleClose = () => {
@@ -89,14 +91,17 @@ function EventListItem({
  const instrumentsArr = [];
 
  const instrumentSummary = events.map((event) => {
+  const user_id = event.user_id;
+  const attendees = event.attendees;
   event.event_instruments.map((event_i) => {
-
    const instrument_name = event.instruments.find(
     (inst) => inst.id === event_i.instrument_id
    ).name;
 
    const instrument = {
     name: instrument_name,
+    user_id: user_id,
+    attendees: attendees,
     event_id: event_i.event_id,
     event_instruments_id: event_i.id,
     status: event_i.status.reduce((acc, curr, i) => {
@@ -108,18 +113,18 @@ function EventListItem({
    instrumentsArr.push(instrument);
   });
  });
-
+ 
  const getEventData = () => {
-  const event = events.find((e) => e.id === id);
-
-  const instrumentsById = event.instruments.reduce((acc, val) => {
+   const event = events.find((e) => e.id === id);
+   
+   const instrumentsById = event.instruments.reduce((acc, val) => {
    acc[val.id] = val;
    return acc;
   }, {});
-
+  
   return event.event_instruments.map((ei) => {
-   const name = instrumentsById[ei.instrument_id].name;
-   const instrumentsAry = [];
+    const name = instrumentsById[ei.instrument_id].name;
+    const instrumentsAry = [];
    ei.status.forEach((item) => {
     const Comp = InstrumentStatusComp[name][item.name];
     [...Array(item.quantity)].forEach((v, i) => {
@@ -127,7 +132,7 @@ function EventListItem({
       <div
        className="render-icon"
        key={`selector-${i++}`}
-       onClick={() => handleShow(ei.id)}
+       onClick={() => handleShow(ei.id, ei.event_id)}
       >
        <Comp />
       </div>
@@ -145,7 +150,7 @@ function EventListItem({
    .then((res) => setInstrStatus(res.data.status))
    .catch((err) => console.log(err));
 
-   axios
+  axios
    .get(`/api/attendees`) //if i click on the first event it will setInstr to entire first object
    .then((res) => setAttendees(res.data))
    .catch((err) => console.log(err));
@@ -189,18 +194,28 @@ function EventListItem({
   setLike((prevLike) => !prevLike);
  };
 
- const handleConfirm = (eventInstrumentId) => {
+ const handleConfirm = (eventInstrumentId, eventId) => {
   handleClose();
   console.log('confirmation button clicked submitted');
   const status = instrumentsArr.find(
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).status;
+  const eventUser = instrumentsArr.map((e, i) => {
+    let userId;
+    if(e.event_id === eventId){
+      e.attendees.map((a) => {return userId = a.user_id})
+    }
+    return userId;
+  });
+   
+   console.log(eventUser, currentUser.userData.id)
   const event_instruments_id = instrumentsArr.find(
    (e, i) => eventInstrumentId === e.event_instruments_id
   ).event_instruments_id;
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
-  if (status['Available'] > 0) {
+  
+  if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
    console.log('confirmation request submitted');
    axios
     .put(
@@ -219,36 +234,24 @@ function EventListItem({
     .then((response) => {
      console.log('PUT response >>>', response);
 
-     if (response.data.status === 'updated') {
-      // setInstrStatus(response.data.status);
-      setTimeout(function () {
-       handleOpenMsg();
-      }, 1500);
-      console.log('event update was successful');
-      //>>>>>>>>>>>>>>>>>>>>
-
-      const user = attendees.map((a) => {
-        return a.user_id
-      })
-      console.log(user)
-      if(!user.includes(currentUser.userData.id)){
-      return axios.post(
-       `/api/new_attendee`,
-       {
-        accepted: false,
-        user_id: currentUser.userData.id,
-        event_instrument_id: event_instruments_id,
+     setTimeout(function () {
+      handleOpenMsg();
+     }, 1500);
+     console.log('event update was successful');
+     //>>>>>>>>>>>>>>>>>>>>
+     return axios.post(
+      `/api/new_attendee`,
+      {
+       accepted: false,
+       user_id: currentUser.userData.id,
+       event_instrument_id: event_instruments_id,
+      },
+      {
+       headers: {
+        'Content-type': 'application/json; charset=UTF-8',
        },
-       {
-        headers: {
-         'Content-type': 'application/json; charset=UTF-8',
-        },
-       }
-      );
-     }else{
-       console.log("User already exists")
-    }
-     }
+      }
+     );
     })
     .then((response) => {
      console.log('POST attendee response >>>', response.data);
@@ -333,6 +336,7 @@ function EventListItem({
        <div className="spots-heading">AVAILABLE SPOTS</div>
        <ConfirmationModal
         eventInstrumentId={activeEventInstrument}
+        eventId={activeEventId}
         show={show}
         onHide={handleClose}
         onConfirm={handleConfirm}

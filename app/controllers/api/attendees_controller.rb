@@ -9,8 +9,10 @@ class Api::AttendeesController < ApplicationController
   
   # GET /attendee/1
   def show
-    @attendee = Attendee.find(params[:id])
-    render json: @attendee
+    @attendee = Attendee.joins(:user).joins(:event_instrument).find(params[:id])
+    # @attendee = Attendee.joins(:users).find(params[:id])
+
+    render json: @attendee.as_json(:include => [:user])
   end
 
   def new

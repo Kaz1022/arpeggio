@@ -14,19 +14,19 @@ end
 
 users = User.create!([
   {
-    first_name: "John",
+    first_name: "Kazuko",
     last_name: "Smith",
-    handle: "Jonhny",
+    handle: "Kaz",
     email: "johnsmith@test.com",
     password: "password",
     phone: "778-229-5711",
     city: "Toronto",
     country: "Canada",
     profile_public: true,
-    bio: "Hey I live in Toronto, I like hanging out with poeple!"
+    bio: "Hey! I live in Toronto! I play guitar and piano for fun! Looking forward to meeting new poeple and jam together! I also travel a lot so it will be great if I can find a session that I can join while I'm in a different city!"
   },
   {
-    first_name: "Emily",
+    first_name: "Mari",
     last_name: "Brown",
     handle: "MMusic",
     email: "emilybrown@test.com",
@@ -35,31 +35,31 @@ users = User.create!([
     city: "Toronto",
     country: "Canada",
     profile_public: true,
-    bio: "Hey I love singing, playing instruments and beer!"
+    bio: "Hey I love singing, playing different kind of instruments and beer! I occasionally play at a small bar in Toronto. Sometimes I like to have more players when I perform! Let's connect!"
   },
   {
-    first_name: "Michaela",
+    first_name: "Mike",
     last_name: "Lee",
     handle: "Mikey",
     email: "mikelee@test.com",
     password: "password",
-    phone: "647-395-7365",
+    phone: "7782295711",
     city: "Vancouver",
     country: "Canada",
     profile_public: true,
     bio: "I love going to gigs in Van!"
   },
   {
-    first_name: "Anna",
+    first_name: "Michaela",
     last_name: "Clark",
     handle: "Ananas",
-    email: "annaclark@test.com",
+    email: "michaela@test.com",
     password: "password",
-    phone: "778-229-5711",
-    city: "Vancouver",
+    phone: "647-395-7365",
+    city: "Toronto",
     country: "Canada",
     profile_public: true,
-    bio: "I live in East Van, let's hang!!"
+    bio: "Hello there! I like hanging out with poeple and creating music together. I am often practicing in my garage on the weekend. I like any genres and always open to discover new things!"
   },
   {
     first_name: "David",
@@ -192,8 +192,8 @@ event_instruments = EventInstrument.create!([
     event_id: 1,
     instrument_id: 1,
     status: [
-      {name:"Available", quantity: 2},
-      {name:"Pending", quantity: 0},
+      {name:"Available", quantity: 0},
+      {name:"Pending", quantity: 2},
       {name:"Filled", quantity: 0}
     ]
   },
@@ -262,6 +262,14 @@ attendee1 = Attendee.create!(
 )
 
 attendee2 = Attendee.create!(
+  {
+    user_id: 3,
+    event_instrument_id: 1,
+    accepted: false
+  }
+)
+
+  attendee3 = Attendee.create!(
   {
     user_id: 3,
     event_instrument_id: 7,

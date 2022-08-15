@@ -57,11 +57,7 @@ function EventListItem({
  const [showNAvail, setShowNAvail] = useState(false);
  const [activeEventId, setActiveEventId] = useState();
  const [activeEventInstrument, setActiveEventInstrument] = useState();
-//  const [eventAttendees, setEventAttendees] = useState([]);
 
-//  const handleRender = () =>{
-//   setEventAttendees(eventAttendees)
-//  } 
  const handleShow = (eventInstrumentId, eventId) => {
   setActiveEventInstrument(eventInstrumentId);
   setActiveEventId(eventId);
@@ -129,7 +125,7 @@ function EventListItem({
        key={`selector-${i}`}
        onClick={() => handleShow(ei.id, ei.event_id)}
       >
-       <Comp attendees={eventAttendees}/>
+       <Comp/>
       </div>
      );
     });
@@ -140,22 +136,12 @@ function EventListItem({
 
  useEffect(function () {
   axios
-   .get(`/api/attendees`)
-   .then((res) => {setEventAttendees(res.data); 
-    console.log('api/attendees data', res.data); 
-    console.log('eventAttendees', eventAttendees)})
-   .catch((err) => console.log(err));
-  axios
    .get(`/api/user_favourites/${id}`, {
     params: { user_id: currentUser.userData.id },
    })
    .then((res) => setLike(res.data.like))
    .catch((err) => console.log(err));
  }, []);
-
- useEffect( function(){
- handleRender()
- }, [eventAttendees])
 
  const currentUser = JSON.parse(localStorage.getItem('user'));
 
@@ -273,12 +259,7 @@ function EventListItem({
      );
     })
     .then((response) => {
-    //  console.log('POST attendee response >>>', response.data);
-     if (response.data.status === 'created') {
-      //  setEventAttendees((prev) => [...prev, response.data.attendee]);
-      //  console.log(eventAttendees);  //at this point its still 2, it needs to go through useEffect & update?
-       //Re-render HERE
-     }
+     console.log('POST attendee response >>>', response.data);
     })
     .catch((error) => {
      console.log(`Error: ${error.request}`);
@@ -293,7 +274,7 @@ function EventListItem({
  };
 
  return (
-  <EventStyles attendees={eventAttendees}>
+  <EventStyles>
    <div className="card">
     <div className="eventCard">
      <div className="left">

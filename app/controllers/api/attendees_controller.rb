@@ -62,7 +62,7 @@ class Api::AttendeesController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def attendee_params
     params.require(:attendee)
-    params.permit(:accepted, :user_id, :event_instrument_id)
+    params.permit(:attendee, :accepted, :user_id, :event_instrument_id)
   end
 
 end

@@ -65,8 +65,9 @@ function EventListItem({
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
- const [instrStatus, setInstrStatus] = useState();
+ const [instrStatus, setInstrStatus] = useState([]);
  const [activeEventInstrument, setActiveEventInstrument] = useState();
+ const [newAttendee, setNewAttendee] = useState([]);
 
  const handleShow = (eventInstrumentId) => {
   setActiveEventInstrument(eventInstrumentId);
@@ -89,7 +90,6 @@ function EventListItem({
 
  const instrumentSummary = events.map((event) => {
   event.event_instruments.map((event_i) => {
-   //This is the status objects
 
    const instrument_name = event.instruments.find(
     (inst) => inst.id === event_i.instrument_id
@@ -108,8 +108,6 @@ function EventListItem({
    instrumentsArr.push(instrument);
   });
  });
-
- //  console.log(instrumentsArr)
 
  const getEventData = () => {
   const event = events.find((e) => e.id === id);
@@ -144,7 +142,7 @@ function EventListItem({
  useEffect(function () {
   axios
    .get(`/api/event_instruments/${id}`) //if i click on the first event it will setInstr to entire first object
-   .then((res) => setInstrStatus(res.data))
+   .then((res) => setInstrStatus(res.data.status))
    .catch((err) => console.log(err));
 
   axios
@@ -153,7 +151,7 @@ function EventListItem({
    })
    .then((res) => setLike(res.data.like))
    .catch((err) => console.log(err));
- }, []);
+ }, [newAttendee]);
 
  const currentUser = JSON.parse(localStorage.getItem('user'));
 
@@ -185,8 +183,7 @@ function EventListItem({
   }
   setLike((prevLike) => !prevLike);
  };
- 
- // const [newAttendee, setNewAttendee] = useEffect()
+
  const handleConfirm = (eventInstrumentId) => {
   handleClose();
   console.log('confirmation button clicked submitted');
@@ -203,10 +200,11 @@ function EventListItem({
    axios
     .put(
      `/api/event_instruments/${eventInstrumentId}`,
-     {status: [
-       {name: 'Available',quantity: qtyA - 1,},
-       {name: 'Pending',quantity: qtyP + 1,},
-       {name: 'Filled',quantity: 0,},
+     {
+      status: [
+       { name: 'Available', quantity: qtyA - 1 },
+       { name: 'Pending', quantity: qtyP + 1 },
+       { name: 'Filled', quantity: 0 },
       ],
      },
      {
@@ -216,49 +214,45 @@ function EventListItem({
     .then((response) => {
      console.log('PUT response >>>', response);
      if (response.data.status === 'updated') {
-      // setInstrStatus(prev => [...prev, response.data]);
+      // setInstrStatus(response.data.status);
       setTimeout(function () {
        handleOpenMsg();
       }, 1500);
       console.log('event update was successful');
       //>>>>>>>>>>>>>>>>>>>>
-      return axios
-      .post(
+      
+      return axios.post(
        `/api/new_attendee`,
-         {
-          accepted: false,
-          user_id: currentUser.userData.id,
-          event_instrument_id: event_instruments_id,
-         },
+       {
+        accepted: false,
+        user_id: currentUser.userData.id,
+        event_instrument_id: event_instruments_id,
+       },
        {
         headers: {
          'Content-type': 'application/json; charset=UTF-8',
         },
        }
-      )
+      );
      }
     })
     .then((response) => {
      console.log('POST attendee response >>>', response.data);
-     // if (response.data.status === "updated") {
-     // setNewAttendee(response.data)
-     // console.log(newAttendee);
-     // }
+     if (response.data.status === 'created') {
+      setNewAttendee((prev) => [...prev, response.data.attendee]);
+      console.log(newAttendee);
+     }
     })
     .catch((error) => {
      console.log(`Error: ${error.request}`);
-     console.log("Error", error)
+     console.log('Error', error);
     });
    //>>>>>>>>>>>>>>>>>>>>>>>>>>
-   //How do i re render the browser to see the chnages immediately
   } else {
    setTimeout(function () {
     handleOpenNA();
    }, 2500);
   }
-
-  //  }
-  // })
  };
 
  return (

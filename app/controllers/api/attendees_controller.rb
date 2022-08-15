@@ -55,6 +55,7 @@ class Api::AttendeesController < ApplicationController
 
   # DELETE /attendee/1
   def destroy
+    @attendee = Attendee.find(params[:id])
     @attendee.destroy
   end
 
@@ -68,4 +69,3 @@ class Api::AttendeesController < ApplicationController
   end
 
 end
-

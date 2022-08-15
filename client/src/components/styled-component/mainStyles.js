@@ -203,7 +203,8 @@ h4{
 .user1,
 .user2,
 .user3 {
- height: 45vh;
+position: relative;
+ height: 47vh;
  width: 30rem;
  padding: 3rem;
  text-align: center;
@@ -218,9 +219,13 @@ h4{
  height: 100%;
  display:flex;
  align-items: center;
- // border: 3px solid blue;
  font-family: 'Roboto', sans-serif;
  font-size: 1.3rem;
+}
+.social-icons{
+  position: absolute;
+  top: 88%;
+  margin: 20px;
 }
 `;
 

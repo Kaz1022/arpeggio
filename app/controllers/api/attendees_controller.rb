@@ -28,7 +28,7 @@ class Api::AttendeesController < ApplicationController
     if @attendee.save
       render json: {
         status: :created, 
-        attendee: @attendee.to_json
+        attendee: @attendee
       }
     else
       render :new

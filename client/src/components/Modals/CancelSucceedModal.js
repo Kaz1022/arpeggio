@@ -1,16 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function NotAvailableModal(props) {
+function CancelSuceedModal(props) {
 
   return (
     <Modal show={props.show} onHide={props.onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>WHOOPS !</Modal.Title>
+        <Modal.Title>Canceld!</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <p>It looks like this event is either Pending or Filled. </p>
+        <p>Your spot is available now! </p>
       </Modal.Body>
 
       <Modal.Footer>
@@ -20,4 +20,4 @@ function NotAvailableModal(props) {
   );
 }
 
-export default NotAvailableModal;
+export default CancelSuceedModal;

@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function NotAvailableModal(props) {
+function AlreadyFilledModal(props) {
 
   return (
     <Modal show={props.show} onHide={props.onHide}>
@@ -10,7 +10,7 @@ function NotAvailableModal(props) {
       </Modal.Header>
 
       <Modal.Body>
-        <p>It looks like this event is either Pending or Filled. </p>
+        <p>It looks like you already have filled the spot! </p>
       </Modal.Body>
 
       <Modal.Footer>
@@ -20,4 +20,4 @@ function NotAvailableModal(props) {
   );
 }
 
-export default NotAvailableModal;
+export default AlreadyFilledModal;

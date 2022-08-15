@@ -2,14 +2,17 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users
     resources :events
+    resources :attendees
     resources :event_instruments
     resources :sessions, only: [:create]
     resources :sms_messages, only: [:create]
     resources :user_favourites, only: [:create, :show] 
+    resources :attendees, only: [:create, :show]
 
     get :logged_in, to: "sessions#logged_in"
     delete :logout, to: "sessions#logout"
     post :signup, to: "users#create"
+    post :new_attendee, to: "attendees#create"
     post :new_event, to: "events#create"
     get "/myprofile", to: "users#show"
     get "/events/search/:city/:level/:genre/:instrument", to: "events#search"

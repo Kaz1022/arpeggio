@@ -16,7 +16,7 @@ users = User.create!([
   {
     first_name: "John",
     last_name: "Smith",
-    handle: "Johnny",
+    handle: "Jonhny",
     email: "johnsmith@test.com",
     password: "password",
     phone: "778-229-5711",
@@ -28,7 +28,7 @@ users = User.create!([
   {
     first_name: "Emily",
     last_name: "Brown",
-    handle: "EmMusic",
+    handle: "MMusic",
     email: "emilybrown@test.com",
     password: "password",
     phone: "647-701-7160",
@@ -38,7 +38,7 @@ users = User.create!([
     bio: "Hey I love singing, playing instruments and beer!"
   },
   {
-    first_name: "Mike",
+    first_name: "Michaela",
     last_name: "Lee",
     handle: "Mikey",
     email: "mikelee@test.com",
@@ -246,8 +246,8 @@ event_instruments = EventInstrument.create!([
     event_id: 5,
     instrument_id: 9,
     status: [
-      {name:"Available", quantity: 1},
-      {name:"Pending", quantity: 0},
+      {name:"Available", quantity: 0},
+      {name:"Pending", quantity: 1},
       {name:"Filled", quantity: 0}
     ]
   }
@@ -257,6 +257,14 @@ attendee1 = Attendee.create!(
   {
     user_id: 2,
     event_instrument_id: 1,
+    accepted: false
+  }
+)
+
+attendee2 = Attendee.create!(
+  {
+    user_id: 3,
+    event_instrument_id: 7,
     accepted: false
   }
 )
@@ -271,4 +279,4 @@ events[0].event_image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg
 events[1].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
 events[2].event_image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
 events[3].event_image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")
-events[4].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
+events[4].event_image.attach(io: open_asset("event5.jpg"), filename: "event2.jpg", content_type: "application/jpeg")

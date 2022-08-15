@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  include OrderableByTimestamp
+  
   belongs_to :user
   has_one_attached :event_image
   has_many :event_instruments

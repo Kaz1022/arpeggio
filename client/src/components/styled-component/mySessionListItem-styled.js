@@ -122,17 +122,22 @@ export const EventStyles = styled.div`
   .timeago{
     background-color: rgba(187, 13, 190, 0.28);
     border-radius: 5px;
-    font-size: 1.25rem;
+    font-size: 20px;
     color:white;
     font-family: 'Oswald', sans-serif;
     position: absolute;
-    top:93.5%;
-    left: 40%;
+    top:94.5%;
+    left: 1%;
   }
   .main_image{
     width: 100%;
     min-height: 50vh;
     object-fit: cover;
+  }
+  .edit-button{
+    position: absolute;
+    top:90.8%;
+    right: 0.1%;
   }
 }
 `;

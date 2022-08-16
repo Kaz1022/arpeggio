@@ -113,7 +113,6 @@ export const EventStyles = styled.div`
 
 //RIGHT
 .right{
-  // background-color: lightpink;
   position: relative;
   height: 100%;
   width:100%;
@@ -136,7 +135,7 @@ export const EventStyles = styled.div`
   }
   .edit-button{
     position: absolute;
-    top:90.8%;
+    top:88%;
     right: 0.1%;
   }
 }

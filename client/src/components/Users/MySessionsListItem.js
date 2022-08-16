@@ -59,33 +59,33 @@ function MySessionsListItem({
   instruments,
   instrument_quantity,
   events,
+  setEvents
 }) {
   const [show, setShow] = useState(false);
   const [showMsg, setShowMsg] = useState(false);
   const [showNAvail, setShowNAvail] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
   const [showCanceled, setShowCanceled] = useState(false);
-  const [instrStatus, setInstrStatus] = useState();
+  const [activeEventId, setActiveEventId] = useState();
   const [activeEventInstrument, setActiveEventInstrument] = useState();
   const [attendee, setAttendee] = useState({user: {handle: "Test"}});
 
-  const handleShow = (eventInstrumentId, index) => {
+  const handleShow = (eventInstrumentId, index, eventId) => {
     setActiveEventInstrument(eventInstrumentId);
+    setActiveEventId(eventId);
+   
     // Shows different Modal depends on the status but only works if there is one instruments.
-    const status = instrumentsArr.find(
-      (e, i) => eventInstrumentId === e.event_instruments_id
-    ).status;
-    console.log(status);
-    if (status["Filled"]) {
-      handleOpenRM();
-    } else if (status["Pending"]) {
-      axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
+    axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
       .then(response => {
-        console.log(response.data);
         setAttendee(response.data[index -1])
-      });
-      
+    });
+  
+    const status = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).status;
+    
+    if (status["Pending"]) {
       setShow(true);
+    } else if (status["Filled"]) {
+      handleOpenRM();
     } else {
       setShow(false);
     }
@@ -147,7 +147,7 @@ function MySessionsListItem({
         const Comp = InstrumentStatusComp[name][item.name];
         [...Array(item.quantity)].forEach((v, i) => {
           instrumentsAry.push(
-            <div className="render-icon" key={`selector-${i++}`} onClick={() => handleShow(ei.id, i)}>
+            <div className="render-icon" key={`selector-${i++}`} onClick={() => handleShow(ei.id, i, ei.event_id)}>
               <Comp />
             </div>
           );
@@ -157,55 +157,75 @@ function MySessionsListItem({
     });
   };
 
-  useEffect(function () {
-    axios
-      .get(`/api/event_instruments/${id}`)
-      .then((res) => setInstrStatus(res.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  const handleConfirm = (eventInstrumentId) => {
+  const handleConfirm = (eventInstrumentId, attendeeId, eventId) => {
     handleClose();
-    console.log("confirmation button clicked submitted"); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+    console.log("confirmation button clicked submitted");
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id
     ).status;
-
+      
     const qtyA = status["Available"];
     const qtyP = status["Pending"];
     const qtyF = status["Filled"];
+
     if (status["Pending"] > 0) {
       console.log("confirmation request submitted");
+      const status = [
+        { name: "Available", quantity: qtyA },
+        { name: "Pending", quantity: qtyP - 1 },
+        { name: "Filled", quantity: qtyF + 1 }
+      ]
+
       axios
         .put(
           `/api/event_instruments/${eventInstrumentId}`,
           {
-            status: [
-              {
-                name: "Available",
-                quantity: qtyA,
-              },
-              {
-                name: "Pending",
-                quantity: qtyP - 1,
-              },
-              {
-                name: "Filled",
-                quantity: qtyF + 1,
-              },
-            ],
+            status: status,
           },
           {
             headers: { "Content-type": "application/json; charset=UTF-8" },
           }
         )
         .then((response) => {
-          console.log("PUT response >>>", response);
+          const event =  events.find((e) => {
+            return e.id === eventId
+          })
+          const eventInstrument = event.event_instruments.find((instrument) =>{
+            return instrument.id === eventInstrumentId
+          })
+          eventInstrument.status = status;
+          event.event_instruments = event.event_instruments.map((instrument) =>{
+            if( instrument.id === eventInstrumentId){
+              return eventInstrument
+            }else{
+              return instrument
+            }
+          })
+          const newEvents = events.map((e) =>{
+            if(e.id === eventId){
+              return event
+            }else{
+              return e
+            }
+          })
+          setEvents(newEvents)
+
           if (response.data.status === "updated") {
             setTimeout(function () {
               handleOpenMsg();
             }, 1500);
             console.log("event update was successful");
+            return axios.put(
+              `/api/attendees/${attendeeId}`,
+              {
+               accepted: true
+              },
+              {
+               headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+               },
+              }
+             );
           }
         })
         .catch((error) => {
@@ -218,7 +238,7 @@ function MySessionsListItem({
     }
   };
 
-  const handleRemove = (eventInstrumentId) => {
+  const handleRemove = (eventInstrumentId, attendeeId) => {
     handleClose();
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id
@@ -235,15 +255,15 @@ function MySessionsListItem({
             status: [
               {
                 name: "Available",
-                quantity: qtyA + 1,
+                quantity: qtyA + 1
               },
               {
                 name: "Pending",
-                quantity: qtyP,
+                quantity: qtyP
               },
               {
                 name: "Filled",
-                quantity: qtyF - 1,
+                quantity: qtyF - 1
               },
             ],
           },
@@ -257,7 +277,8 @@ function MySessionsListItem({
             setTimeout(function () {
               handleOpenCld();
             }, 1500);
-            console.log("event update was successful");
+            console.log("event update was successful, attendee id>>>", attendeeId);
+            return axios.delete(`/api/attendees/${attendeeId}`);
           }
         })
         .catch((error) => {
@@ -313,6 +334,7 @@ function MySessionsListItem({
               <div className="spots-heading">AVAILABLE SPOTS</div>
               <AcceptanceModal
                 eventInstrumentId={activeEventInstrument}
+                eventId={activeEventId}
                 show={show}
                 onHide={handleClose}
                 onConfirm={handleConfirm}
@@ -333,6 +355,7 @@ function MySessionsListItem({
                 show={showRemove}
                 onHide={handleCloseRM}
                 onConfirm={handleRemove}
+                attendee={attendee}
               />
               <CancelSuceedModal
                 show={showCanceled}

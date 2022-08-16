@@ -12,6 +12,7 @@ class Api::EventsController < ApplicationController
     @events = Event.with_attached_event_image.joins(:instruments)
     .where(instruments: { name: params[:instrument] })
     .where('city = ? AND level = ? AND genre = ?', params[:city], params[:level], params[:genre])
+    .by_recently_created
 
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
   end
@@ -32,10 +33,10 @@ class Api::EventsController < ApplicationController
   # GET /users/:user_id/favourites
   def myfavourites
 
-    @events = Event.with_attached_event_image.joins(:user_favourites)
+    @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments, :attendees]).joins(:user_favourites)
     .where(user_favourites: { user_id: params[:user_id] })
 
-    render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
+    render json: @events.as_json(:include => [:user, :event_instruments, :instruments, :attendees], methods: [:event_image_data])
   end
 
   

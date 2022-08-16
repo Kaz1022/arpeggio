@@ -161,6 +161,21 @@ events= Event.create!([
     genre: "Alternative Rock",
     description: "Hi! I live in downtown Toronto and looking for a vocalist who wants to sing at a bar!",
     post_active: true
+  },
+  {
+    user_id: 5,
+    title: "Looking for a guitarist ASAP!",
+    created_at: "2022-08-10 10:30:30",
+    event_date: "2022-08-30",
+    start_time: "18:00:00",
+    end_time: "19:00:00",
+    city: "Toronto",
+    country: "Canada",
+    level: "Beginner Friendly",
+    venue_style: "At a park",
+    genre: "Alternative Rock",
+    description: "Hi! I need someone ASAP for my event Please contact me for details!",
+    post_active: true
   }
 ])
 
@@ -250,6 +265,15 @@ event_instruments = EventInstrument.create!([
       {name:"Pending", quantity: 1},
       {name:"Filled", quantity: 0}
     ]
+  },
+  {
+    event_id: 6,
+    instrument_id: 1,
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
   }
 ])
 
@@ -287,4 +311,5 @@ events[0].event_image.attach(io: open_asset("event1.jpg"), filename: "event1.jpg
 events[1].event_image.attach(io: open_asset("event2.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
 events[2].event_image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg", content_type: "application/jpeg")
 events[3].event_image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")
-events[4].event_image.attach(io: open_asset("event5.jpg"), filename: "event2.jpg", content_type: "application/jpeg")
+events[4].event_image.attach(io: open_asset("event5.jpg"), filename: "event5.jpg", content_type: "application/jpeg")
+events[5].event_image.attach(io: open_asset("event6.jpg"), filename: "event6.jpg", content_type: "application/jpeg")

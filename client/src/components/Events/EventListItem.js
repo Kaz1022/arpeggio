@@ -6,7 +6,17 @@ import NotAvailableModal from '../Modals/NotAvailableModal';
 import MesssageSentModal from '../Modals/MessageSentModal';
 import axios from 'axios';
 
-import {DrumImgA,DrumImgP,DrumImgF,GuitarImgA,GuitarImgP,GuitarImgF,VocalImgA,VocalImgP,VocalImgF,} from '../styled-component/icons-styled';
+import {
+ DrumImgA,
+ DrumImgP,
+ DrumImgF,
+ GuitarImgA,
+ GuitarImgP,
+ GuitarImgF,
+ VocalImgA,
+ VocalImgP,
+ VocalImgF,
+} from '../styled-component/icons-styled';
 import '../../scss/custom.scss';
 import '../../App.scss';
 import { EventStyles } from '../styled-component/mySessionListItem-styled';
@@ -35,8 +45,6 @@ function EventListItem({
  user,
  userPhone,
  date,
- start,
- end,
  city,
  country,
  level,
@@ -67,7 +75,7 @@ function EventListItem({
   setActiveEventInstrument(undefined);
   setShow(false);
  };
-//  console.log('evnets page events>>>>', events);
+ //  console.log('events page events>>>>', events);
 
  const handleCloseMsg = () => setShowMsg(false);
  const handleOpenMsg = () => setShowMsg(true);
@@ -77,8 +85,8 @@ function EventListItem({
 
  const [like, setLike] = useState(false);
 
+ //INSTRUMENTS ARRAY
  const instrumentsArr = [];
-
  const instrumentSummary = events.map((event) => {
   const user_id = event.user_id;
   const attendees = event.attendees;
@@ -103,6 +111,7 @@ function EventListItem({
   });
  });
 
+ //GET EVENT DATA
  const getEventData = () => {
   const event = events.find((e) => e.id === id);
 
@@ -110,22 +119,21 @@ function EventListItem({
    acc[val.id] = val;
    return acc;
   }, {});
-  
+
   return event.event_instruments.map((ei) => {
    const name = instrumentsById[ei.instrument_id].name;
    const instrumentsAry = [];
    ei.status.forEach((item) => {
     const Comp = InstrumentStatusComp[name][item.name];
-    // console.log("item", item);
     [...Array(item.quantity)].forEach((v, i) => {
      instrumentsAry.push(
       <div
        className="render-icon"
-      //  key={`selector-${ei.id}-${item.name}-${i}`}
+       //  key={`selector-${ei.id}-${item.name}-${i}`}
        key={`selector-${i}`}
        onClick={() => handleShow(ei.id, ei.event_id)}
       >
-       <Comp/>
+       <Comp />
       </div>
      );
     });
@@ -196,52 +204,51 @@ function EventListItem({
   ).event_instruments_id;
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
-  
+
   if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
-  const status = [ { name: 'Available', quantity: qtyA - 1 },
-  { name: 'Pending', quantity: qtyP + 1 },
-  { name: 'Filled', quantity: 0 },]
+   const status = [
+    { name: 'Available', quantity: qtyA - 1 },
+    { name: 'Pending', quantity: qtyP + 1 },
+    { name: 'Filled', quantity: 0 },
+   ];
    console.log('confirmation request submitted');
    axios
     .put(
      `/api/event_instruments/${eventInstrumentId}`,
      {
-      status: status
+      status: status,
      },
      {
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
      }
     )
     .then((response) => {
-    //  console.log('PUT response >>>', response);
-      console.log("events", events);
-      const event =  events.find((e) => {
-        return e.id === eventId
-      })
-      console.log("event find", event);
-      const eventInstrument = event.event_instruments.find((instrument) =>{
-        return instrument.id === eventInstrumentId
-      })
-      eventInstrument.status = status;
-      event.event_instruments = event.event_instruments.map((instrument) =>{
-        if( instrument.id === eventInstrumentId){
-          return eventInstrument
-        }else{
-          return instrument
-        }
-      })
-      const newEvents = events.map((e) =>{
-        if(e.id === eventId){
-          return event
-        }else{
-          return e
-        }
-      })
-      setEvents(newEvents)
+      console.log('PUT response >>>', response);
+    //  console.log('events', events);
+     const event = events.find((e) => {
+      return e.id === eventId;
+     });
+    //  console.log('event find', event);
+     const eventInstrument = event.event_instruments.find((instrument) => {
+      return instrument.id === eventInstrumentId;
+     });
+     eventInstrument.status = status;
+     event.event_instruments = event.event_instruments.map((instrument) => {
+      if (instrument.id === eventInstrumentId) {
+       return eventInstrument;
+      } else {
+       return instrument;
+      }
+     });
+     const newEvents = events.map((e) => {
+      if (e.id === eventId) {
+       return event;
+      } else {
+       return e;
+      }
+     });
+     setEvents(newEvents);
 
-     setTimeout(function () {
-      handleOpenMsg();
-     }, 1500);
      console.log('event update was successful');
      //>>>>>>>>>>>>>>>>>>>>
      return axios.post(
@@ -265,6 +272,9 @@ function EventListItem({
      console.log(`Error: ${error.request}`);
      console.log('Error', error);
     });
+   setTimeout(function () {
+    handleOpenMsg();
+   }, 1500);
    //>>>>>>>>>>>>>>>>>>>>>>>>>>
   } else {
    setTimeout(function () {

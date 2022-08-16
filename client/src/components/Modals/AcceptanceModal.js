@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 
-function AcceptanceModal({ show, onHide, onConfirm, eventInstrumentId, attendee }) {
+function AcceptanceModal({ show, onHide, onConfirm, eventInstrumentId, attendee, eventId }) {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -15,7 +15,7 @@ function AcceptanceModal({ show, onHide, onConfirm, eventInstrumentId, attendee 
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="primary" onClick={() => onConfirm(eventInstrumentId, attendee.id)} >Accept</Button>
+        <Button variant="primary" onClick={() => onConfirm(eventInstrumentId, attendee.id, eventId)} >Accept</Button>
         <Button variant="secondary" onClick={onHide}>Decline</Button>
       </Modal.Footer>
     </Modal>

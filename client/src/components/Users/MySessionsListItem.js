@@ -59,18 +59,22 @@ function MySessionsListItem({
   instruments,
   instrument_quantity,
   events,
+  setEvents
 }) {
   const [show, setShow] = useState(false);
   const [showMsg, setShowMsg] = useState(false);
   const [showNAvail, setShowNAvail] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
   const [showCanceled, setShowCanceled] = useState(false);
-  const [instrStatus, setInstrStatus] = useState();
+  const [activeEventId, setActiveEventId] = useState();
   const [activeEventInstrument, setActiveEventInstrument] = useState();
   const [attendee, setAttendee] = useState({user: {handle: "Test"}});
 
-  const handleShow = (eventInstrumentId, index) => {
+  const handleShow = (eventInstrumentId, index, eventId) => {
     setActiveEventInstrument(eventInstrumentId);
+    console.log("handleShow arguments >>>", eventInstrumentId, index, eventId)
+    setActiveEventId(eventId);
+    console.log("after setting eventId > ", activeEventId)
     // Shows different Modal depends on the status but only works if there is one instruments.
 
     axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
@@ -147,7 +151,7 @@ function MySessionsListItem({
         const Comp = InstrumentStatusComp[name][item.name];
         [...Array(item.quantity)].forEach((v, i) => {
           instrumentsAry.push(
-            <div className="render-icon" key={`selector-${i++}`} onClick={() => handleShow(ei.id, i)}>
+            <div className="render-icon" key={`selector-${i++}`} onClick={() => handleShow(ei.id, i, ei.event_id)}>
               <Comp />
             </div>
           );
@@ -157,41 +161,71 @@ function MySessionsListItem({
     });
   };
 
-  useEffect(function () {
-    axios
-      .get(`/api/event_instruments/${id}`) // <<< the id is event id 
-      .then((res) => setInstrStatus(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(function () {
+  //   axios
+  //     .get(`/api/event_instruments/${id}`) // <<< the id is event id 
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
-  const handleConfirm = (eventInstrumentId, attendeeId) => {
+  const handleConfirm = (eventInstrumentId, attendeeId, eventId) => {
     handleClose();
-    console.log("confirmation button clicked submitted"); //create attendees table(accepted:false, user_id: 1, event_instruments_id: 1)
+    console.log("confirmation button clicked submitted");
+    // NOT GETTING eventId 
+    console.log("handle Confirm eventId>>", arguments[2]);
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id
     ).status;
-
+      console.log("front end status >>>", status);
     const qtyA = status["Available"];
     const qtyP = status["Pending"];
     const qtyF = status["Filled"];
+
     if (status["Pending"] > 0) {
       console.log("confirmation request submitted");
+      const status = [
+        { name: "Available", quantity: qtyA },
+        { name: "Pending", quantity: qtyP - 1 },
+        { name: "Filled", quantity: qtyF + 1 }
+      ]
+
       axios
         .put(
           `/api/event_instruments/${eventInstrumentId}`,
           {
-            status: [
-              { name: "Available", quantity: qtyA },
-              { name: "Pending", quantity: qtyP - 1 },
-              { name: "Filled", quantity: qtyF + 1 }
-            ],
+            status: status,
           },
           {
             headers: { "Content-type": "application/json; charset=UTF-8" },
           }
         )
         .then((response) => {
-          console.log("PUT response >>>", response);
+          console.log("events >>>", events);
+          console.log("event id >>>>", eventId)
+          const event =  events.find((e) => {
+            return e.id === eventId
+          })
+          console.log("event find", event);
+          const eventInstrument = event.event_instruments.find((instrument) =>{
+            return instrument.id === eventInstrumentId
+          })
+          eventInstrument.status = status;
+          event.event_instruments = event.event_instruments.map((instrument) =>{
+            if( instrument.id === eventInstrumentId){
+              return eventInstrument
+            }else{
+              return instrument
+            }
+          })
+          const newEvents = events.map((e) =>{
+            if(e.id === eventId){
+              return event
+            }else{
+              return e
+            }
+          })
+          setEvents(newEvents)
+
           if (response.data.status === "updated") {
             setTimeout(function () {
               handleOpenMsg();
@@ -316,6 +350,7 @@ function MySessionsListItem({
               <div className="spots-heading">AVAILABLE SPOTS</div>
               <AcceptanceModal
                 eventInstrumentId={activeEventInstrument}
+                eventId={activeEventId}
                 show={show}
                 onHide={handleClose}
                 onConfirm={handleConfirm}

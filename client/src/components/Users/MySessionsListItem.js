@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
+import TimeAgo from 'react-timeago';
 import AcceptanceModal from "../Modals/AcceptanceModal";
 import AcceptedModal from "../Modals/AcceptedModal";
 import AlreadyFilledModal from "../Modals/AlreadyFilledModal";
@@ -369,9 +370,11 @@ function MySessionsListItem({
           </div>
 
           <div className="right">
-            <div>
+            {/* <div>
               <Img src={image} />
-            </div>
+            </div> */}
+            <img className="main_image" src={image} alt="" />
+            <TimeAgo className="timeago" date={created}></TimeAgo>
             <div className="edit-button">
               <Button variant="dark">EDIT</Button>
             </div>

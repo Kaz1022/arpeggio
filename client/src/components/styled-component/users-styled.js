@@ -32,6 +32,9 @@ export const UserStyles = styled.div`
     font-family: "Oswald", sans-serif;
     margin-bottom: 2.5rem;
   }
+  h1{
+    font-family: "Oswald", sans-serif;
+  }
 
 .userCard{
   height: 50vh;

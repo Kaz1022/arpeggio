@@ -120,16 +120,24 @@ export const EventStyles = styled.div`
   flex:1;
 
   .timeago{
+    background-color: rgba(187, 13, 190, 0.28);
+    border-radius: 5px;
+    font-size: 20px;
     color:white;
-    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
     position: absolute;
-    top:94%;
-    left: 40%;
+    top:94.5%;
+    left: 1%;
   }
   .main_image{
     width: 100%;
     min-height: 50vh;
     object-fit: cover;
+  }
+  .edit-button{
+    position: absolute;
+    top:90.8%;
+    right: 0.1%;
   }
 }
 `;

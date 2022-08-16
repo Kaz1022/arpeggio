@@ -98,7 +98,7 @@ events= Event.create!([
     country: "Canada",
     level: "Beginner Friendly",
     venue_style: "In my garage",
-    genre: "Alternative rock",
+    genre: "Alternative Rock",
     description: "Hi! I live in downtown Toronto and looking for two guitarists to jam with me! All levels are welcome. My current favourite band is Arkells.",
     post_active: true
   },
@@ -158,7 +158,7 @@ events= Event.create!([
     country: "Canada",
     level: "Beginner Friendly",
     venue_style: "At a small bar",
-    genre: "Alternative rock",
+    genre: "Alternative Rock",
     description: "Hi! I live in downtown Toronto and looking for a vocalist who wants to sing at a bar!",
     post_active: true
   }

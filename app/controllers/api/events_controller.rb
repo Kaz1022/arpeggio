@@ -12,6 +12,7 @@ class Api::EventsController < ApplicationController
     @events = Event.with_attached_event_image.joins(:instruments)
     .where(instruments: { name: params[:instrument] })
     .where('city = ? AND level = ? AND genre = ?', params[:city], params[:level], params[:genre])
+    .by_recently_created
 
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments], methods: [:event_image_data])
   end

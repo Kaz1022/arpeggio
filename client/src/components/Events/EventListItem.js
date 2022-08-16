@@ -223,31 +223,47 @@ function EventListItem({
      }
     )
     .then((response) => {
-      console.log('PUT response >>>', response);
-    //  console.log('events', events);
-     const event = events.find((e) => {
-      return e.id === eventId;
-     });
-    //  console.log('event find', event);
-     const eventInstrument = event.event_instruments.find((instrument) => {
-      return instrument.id === eventInstrumentId;
-     });
-     eventInstrument.status = status;
-     event.event_instruments = event.event_instruments.map((instrument) => {
-      if (instrument.id === eventInstrumentId) {
-       return eventInstrument;
-      } else {
-       return instrument;
-      }
-     });
-     const newEvents = events.map((e) => {
-      if (e.id === eventId) {
-       return event;
-      } else {
-       return e;
-      }
-     });
-     setEvents(newEvents);
+     console.log('PUT response >>>', response);
+      const organizerNum = userPhone.replace(/[^0-9]/g, '') 
+
+      const currentUser = JSON.parse(localStorage.getItem("user"));
+      
+      let sms_message = {
+        mobile_number: `+1${organizerNum}`, 
+        message: `${currentUser.userData.first_name} wants to join your session "${title}"! Text ${currentUser.userData.phone} for futher chat! Accept the offer on your browser!`
+    }
+    
+      axios.post("/api/sms_messages", 
+        {sms_message}
+        ).then(res => console.log(res))
+        .catch(error => {
+        console.log("sending SMS error", error)
+      })
+     
+      console.log("events", events);
+      const event =  events.find((e) => {
+        return e.id === eventId
+      })
+      console.log("event find", event);
+      const eventInstrument = event.event_instruments.find((instrument) =>{
+        return instrument.id === eventInstrumentId
+      })
+      eventInstrument.status = status;
+      event.event_instruments = event.event_instruments.map((instrument) =>{
+        if( instrument.id === eventInstrumentId){
+          return eventInstrument
+        }else{
+          return instrument
+        }
+      })
+      const newEvents = events.map((e) =>{
+        if(e.id === eventId){
+          return event
+        }else{
+          return e
+        }
+      })
+      setEvents(newEvents)
 
      console.log('event update was successful');
      //>>>>>>>>>>>>>>>>>>>>

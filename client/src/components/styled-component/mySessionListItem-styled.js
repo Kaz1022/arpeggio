@@ -120,10 +120,13 @@ export const EventStyles = styled.div`
   flex:1;
 
   .timeago{
+    background-color: rgba(187, 13, 190, 0.28);
+    border-radius: 5px;
+    font-size: 1.25rem;
     color:white;
-    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
     position: absolute;
-    top:94%;
+    top:93.5%;
     left: 40%;
   }
   .main_image{

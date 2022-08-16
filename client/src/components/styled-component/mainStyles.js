@@ -204,7 +204,7 @@ h4{
 .user2,
 .user3 {
 position: relative;
- height: 47vh;
+ height: 580px;
  width: 30rem;
  padding: 3rem;
  text-align: center;

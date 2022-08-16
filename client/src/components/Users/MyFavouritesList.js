@@ -14,7 +14,7 @@ function MyFavouritesList({ loggedInStatus }) {
     axios
       .get(`/api/users/${currentUser.userData.id}/favourites`)
       .then((res) => setEvents(res.data))
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err));
   }, []);
 
   const myfavourites = events.map((eachSession) => {

@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function CancelAttdModal({show, onHide, onConfirm, eventInstrumentId}) {
+function CancelAttdModal({show, onHide, onConfirm, eventInstrumentId, attendee}) {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -13,7 +13,7 @@ function CancelAttdModal({show, onHide, onConfirm, eventInstrumentId}) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="primary" onClick={() => onConfirm(eventInstrumentId)} >Yes, cancel the spot!</Button>
+        <Button variant="primary" onClick={() => onConfirm(eventInstrumentId, attendee.id)} >Yes, cancel the spot!</Button>
         <Button variant="secondary" onClick={onHide}>No, keep it filled.</Button>
       </Modal.Footer>
     </Modal>

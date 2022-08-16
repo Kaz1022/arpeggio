@@ -72,19 +72,15 @@ function MySessionsListItem({
 
   const handleShow = (eventInstrumentId, index, eventId) => {
     setActiveEventInstrument(eventInstrumentId);
-    console.log("handleShow arguments >>>", eventInstrumentId, index, eventId)
     setActiveEventId(eventId);
-    console.log("after setting eventId > ", activeEventId)
+   
     // Shows different Modal depends on the status but only works if there is one instruments.
-
     axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
       .then(response => {
-        console.log(response.data);
         setAttendee(response.data[index -1])
     });
   
     const status = instrumentsArr.find((e, i) => eventInstrumentId === e.event_instruments_id).status;
-    console.log(status);
     
     if (status["Pending"]) {
       setShow(true);
@@ -161,22 +157,13 @@ function MySessionsListItem({
     });
   };
 
-  // useEffect(function () {
-  //   axios
-  //     .get(`/api/event_instruments/${id}`) // <<< the id is event id 
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   const handleConfirm = (eventInstrumentId, attendeeId, eventId) => {
     handleClose();
     console.log("confirmation button clicked submitted");
-    // NOT GETTING eventId 
-    console.log("handle Confirm eventId>>", arguments[2]);
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id
     ).status;
-      console.log("front end status >>>", status);
+      
     const qtyA = status["Available"];
     const qtyP = status["Pending"];
     const qtyF = status["Filled"];
@@ -200,12 +187,9 @@ function MySessionsListItem({
           }
         )
         .then((response) => {
-          console.log("events >>>", events);
-          console.log("event id >>>>", eventId)
           const event =  events.find((e) => {
             return e.id === eventId
           })
-          console.log("event find", event);
           const eventInstrument = event.event_instruments.find((instrument) =>{
             return instrument.id === eventInstrumentId
           })

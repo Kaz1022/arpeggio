@@ -1,6 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import SmsButton from './SmsButton';
 
 function ConfirmationModal(props) {
 
@@ -16,7 +15,6 @@ function ConfirmationModal(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        {/* <SmsButton userPhone={props.userPhone} title={props.title} onClick={() => props.onConfirm(props.eventInstrumentId, props.eventId) }/> */}
         <Button variant="primary" onClick={() => props.onConfirm(props.eventInstrumentId, props.eventId) } >Yes! Send Text</Button>
         <Button variant="secondary" onClick={props.onHide}>Cancel</Button>
       </Modal.Footer>

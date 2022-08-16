@@ -176,6 +176,21 @@ events= Event.create!([
     genre: "Alternative Rock",
     description: "Hi! I need someone ASAP for my event Please contact me for details!",
     post_active: true
+  },
+  {
+    user_id: 3,
+    title: "Looking for a drummer and guitarist!",
+    created_at: "2022-08-11 10:30:30",
+    event_date: "2022-08-28",
+    start_time: "18:00:00",
+    end_time: "19:00:00",
+    city: "Toronto",
+    country: "Canada",
+    level: "Beginner Friendly",
+    venue_style: "At a park",
+    genre: "Alternative Rock",
+    description: "Hi! We often hang out and outside and play music! Wanna join?",
+    post_active: true
   }
 ])
 
@@ -274,6 +289,24 @@ event_instruments = EventInstrument.create!([
       {name:"Pending", quantity: 0},
       {name:"Filled", quantity: 0}
     ]
+  },
+  {
+    event_id: 7,
+    instrument_id: 1,
+    status: [
+      {name:"Available", quantity: 1},
+      {name:"Pending", quantity: 0},
+      {name:"Filled", quantity: 0}
+    ]
+  },
+  {
+    event_id: 7,
+    instrument_id: 7,
+    status: [
+      {name:"Available", quantity: 0},
+      {name:"Pending", quantity: 1},
+      {name:"Filled", quantity: 0}
+    ]
   }
 ])
 
@@ -301,6 +334,14 @@ attendee2 = Attendee.create!(
   }
 )
 
+  attendee4 = Attendee.create!(
+  {
+    user_id: 1,
+    event_instrument_id: 10,
+    accepted: false
+  }
+)
+
 users[0].image.attach(io: open_asset("user1.jpg"), filename: "user1.jpg", content_type: "application/jpeg")
 users[1].image.attach(io: open_asset("user2.jpg"), filename: "user2.jpg", content_type: "application/jpeg")
 users[2].image.attach(io: open_asset("user3.jpg"), filename: "user3.jpg", content_type: "application/jpeg")
@@ -313,3 +354,4 @@ events[2].event_image.attach(io: open_asset("event3.jpg"), filename: "event3.jpg
 events[3].event_image.attach(io: open_asset("event4.jpg"), filename: "event4.jpg", content_type: "application/jpeg")
 events[4].event_image.attach(io: open_asset("event5.jpg"), filename: "event5.jpg", content_type: "application/jpeg")
 events[5].event_image.attach(io: open_asset("event6.jpg"), filename: "event6.jpg", content_type: "application/jpeg")
+events[6].event_image.attach(io: open_asset("event7.jpg"), filename: "event7.jpg", content_type: "application/jpeg")

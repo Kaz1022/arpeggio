@@ -128,7 +128,7 @@ export const EventStyles = styled.div`
     color:white;
     font-family: 'Oswald', sans-serif;
     position: absolute;
-    top:89.7%;
+    top:88.5%;
     right:78%;
   }
   .main_image{

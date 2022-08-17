@@ -135,7 +135,7 @@ events= Event.create!([
   {
     user_id: 4,
     title: "Roof Top Jam",
-    created_at: "2022-07-29 11:45:30",
+    created_at: "2022-08-14 11:45:30",
     event_date: "2022-08-22",
     start_time: "18:00:00",
     end_time: "20:00:00",
@@ -165,7 +165,7 @@ events= Event.create!([
   {
     user_id: 5,
     title: "Looking for a guitarist ASAP!",
-    created_at: "2022-08-10 10:30:30",
+    created_at: "2022-08-05 10:30:30",
     event_date: "2022-08-30",
     start_time: "18:00:00",
     end_time: "19:00:00",

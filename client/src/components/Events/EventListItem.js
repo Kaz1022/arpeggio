@@ -236,21 +236,21 @@ function EventListItem({
     )
     .then((response) => {
      console.log('PUT response >>>', response);
-    //   const organizerNum = userPhone.replace(/[^0-9]/g, '') 
+      const organizerNum = userPhone.replace(/[^0-9]/g, '') 
 
-    //   const currentUser = JSON.parse(localStorage.getItem("user"));
+      const currentUser = JSON.parse(localStorage.getItem("user"));
       
-    //   let sms_message = {
-    //     mobile_number: `+1${organizerNum}`, 
-    //     message: `${currentUser.userData.first_name} wants to join your session "${title}"! Text ${currentUser.userData.phone} for futher chat! Accept the offer on your browser!`
-    // }
+      let sms_message = {
+        mobile_number: `+1${organizerNum}`, 
+        message: `${currentUser.userData.first_name} wants to join your session "${title}"! Text ${currentUser.userData.phone} for futher chat! Accept the offer on your browser!`
+    }
     
-    //   axios.post("/api/sms_messages", 
-    //     {sms_message}
-    //     ).then(res => console.log(res))
-    //     .catch(error => {
-    //     console.log("sending SMS error", error)
-    //   })
+      axios.post("/api/sms_messages", 
+        {sms_message}
+        ).then(res => console.log(res))
+        .catch(error => {
+        console.log("sending SMS error", error)
+      })
      
       console.log("events", events);
       const event =  events.find((e) => {

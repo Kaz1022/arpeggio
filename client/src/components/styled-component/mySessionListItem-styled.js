@@ -116,7 +116,6 @@ export const EventStyles = styled.div`
 
 //RIGHT
 .right{
-
   position: relative;
   height: 100%;
   width:100%;

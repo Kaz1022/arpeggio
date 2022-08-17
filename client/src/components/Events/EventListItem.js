@@ -204,7 +204,7 @@ function EventListItem({
   ).event_instruments_id;
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
-  console.log(eventUser.includes(currentUser.userData.id))
+  // console.log(eventUser.includes(currentUser.userData.id))
 
   if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
    const status = [
@@ -225,21 +225,21 @@ function EventListItem({
     )
     .then((response) => {
      console.log('PUT response >>>', response);
-    //   const organizerNum = userPhone.replace(/[^0-9]/g, '') 
+      const organizerNum = userPhone.replace(/[^0-9]/g, '') 
 
-    //   const currentUser = JSON.parse(localStorage.getItem("user"));
+      const currentUser = JSON.parse(localStorage.getItem("user"));
       
-    //   let sms_message = {
-    //     mobile_number: `+1${organizerNum}`, 
-    //     message: `${currentUser.userData.first_name} wants to join your session "${title}"! Text ${currentUser.userData.phone} for futher chat! Accept the offer on your browser!`
-    // }
+      let sms_message = {
+        mobile_number: `+1${organizerNum}`, 
+        message: `${currentUser.userData.first_name} wants to join your session "${title}"! Text ${currentUser.userData.phone} for futher chat! Accept the offer on your browser!`
+    }
     
-    //   axios.post("/api/sms_messages", 
-    //     {sms_message}
-    //     ).then(res => console.log(res))
-    //     .catch(error => {
-    //     console.log("sending SMS error", error)
-    //   })
+      axios.post("/api/sms_messages", 
+        {sms_message}
+        ).then(res => console.log(res))
+        .catch(error => {
+        console.log("sending SMS error", error)
+      })
      
       console.log("events", events);
       const event =  events.find((e) => {

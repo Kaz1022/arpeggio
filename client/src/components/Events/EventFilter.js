@@ -56,8 +56,8 @@ function EventFilter() {
 
 const makeUniqueArray = (key, arr) => {
   const result = [
-    ...new Map(arr?.map(item => [item[key], item])).values()
-  ]
+    ...new Map(arr?.map(item => [item[key], item])).values()  //item is each of the events //[item[key], item] is an array with eg. Toronto at [0], and an event object at [1] 
+  ] 
   return result
 }
 

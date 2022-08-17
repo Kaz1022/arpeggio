@@ -9,15 +9,15 @@ object-fit: cover;
 export const EventStyles = styled.div`
 
 .card{
-  display:flex;
-  flex-direction: column;
-  align-items:center;
+  // display:flex;
+  // flex-direction: column;
+  // align-items:center;
   border: none;  
   padding: 0rem 5rem;
 }
 .eventCard{
-  height: fit-content;
-  max-height: 90vh;
+  height: 100%;
+  // max-height: 50vh;
   width: 100%;
   margin: 30px;
   padding:0;
@@ -42,6 +42,9 @@ export const EventStyles = styled.div`
 
 //LEFT
 .left{
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
   position: relative;
   padding: 1em 2em;
   height: 100%;
@@ -113,7 +116,7 @@ export const EventStyles = styled.div`
 
 //RIGHT
 .right{
-  // background-color: lightpink;
+
   position: relative;
   height: 100%;
   width:100%;
@@ -126,8 +129,8 @@ export const EventStyles = styled.div`
     color:white;
     font-family: 'Oswald', sans-serif;
     position: absolute;
-    top:94.5%;
-    left: 1%;
+    top:89.7%;
+    right:78%;
   }
   .main_image{
     width: 100%;
@@ -136,8 +139,8 @@ export const EventStyles = styled.div`
   }
   .edit-button{
     position: absolute;
-    top:90.8%;
-    right: 0.1%;
+    bottom:89%;
+    right:1%;
   }
 }
 `;

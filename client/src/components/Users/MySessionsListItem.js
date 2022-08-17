@@ -103,7 +103,11 @@ function MySessionsListItem({
   const handleCloseNA = () => setShowNAvail(false);
   const handleOpenNA = () => setShowNAvail(true);
 
-  const handleCloseRM = () => setShowRemove(false);
+  const handleCloseRM = () => {
+    setActiveEventInstrument(undefined);
+    setShowRemove(false);
+  };
+
   const handleOpenRM = () => setShowRemove(true);
 
   const handleCloseCld = () => setShowCanceled(false);
@@ -240,7 +244,7 @@ function MySessionsListItem({
   };
 
   const handleRemove = (eventInstrumentId, attendeeId) => {
-    handleClose();
+     handleCloseRM();
     const status = instrumentsArr.find(
       (e, i) => eventInstrumentId === e.event_instruments_id
     ).status;

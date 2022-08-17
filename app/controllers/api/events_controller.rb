@@ -35,6 +35,7 @@ class Api::EventsController < ApplicationController
 
     @events = Event.with_attached_event_image.includes([:user, :event_instruments, :instruments, :attendees]).joins(:user_favourites)
     .where(user_favourites: { user_id: params[:user_id] })
+    .by_recently_created
 
     render json: @events.as_json(:include => [:user, :event_instruments, :instruments, :attendees], methods: [:event_image_data])
   end

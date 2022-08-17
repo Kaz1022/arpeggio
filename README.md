@@ -15,15 +15,17 @@ This is our final group project at LighthouseLabs and we are proud that we accom
 
 # Final Product
 ## HOME PAGE
-![filtering]()
-## BROWSE EVENTS 
-![mylisting]()
+![homegif2](https://user-images.githubusercontent.com/90123125/185229847-5aab5d2f-9fe5-440e-8b99-8cd626cac453.gif)
 
-## LIKE/UNLIKE EVENTS 
+## BROWSE EVENTS 
+![browse](https://user-images.githubusercontent.com/90123125/185230117-401ab6e0-8f19-4c07-bcbb-f534a559b369.gif)
+
 ## RESERVE YOUR SPOT
-![favourite]()
+![reserve](https://user-images.githubusercontent.com/90123125/185230348-18d0c996-4442-43a8-80d2-b61d530ae638.gif)
+
 ## ACCEPT/CANCEL APPLICANT 
-![favourite]()
+![acceptcancel](https://user-images.githubusercontent.com/90123125/185230381-d6756d35-b486-4d43-8aef-2bdf3b04051a.gif)
+
 
 ## Getting Started
 1. Fork this repository and clone it onto your local device.

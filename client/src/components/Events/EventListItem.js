@@ -75,7 +75,6 @@ function EventListItem({
   setActiveEventInstrument(undefined);
   setShow(false);
  };
- //  console.log('events page events>>>>', events);
 
  const handleCloseMsg = () => setShowMsg(false);
  const handleOpenMsg = () => setShowMsg(true);
@@ -84,6 +83,13 @@ function EventListItem({
  const handleOpenNA = () => setShowNAvail(true);
 
  const [like, setLike] = useState(false);
+
+ useEffect(function () {
+  axios
+   .get(`/api/events`)
+   .then((res) => setEvents(res.data))
+   .catch((err) => console.log(err));
+ }, [showMsg]);
 
  //INSTRUMENTS ARRAY
  const instrumentsArr = [];
@@ -204,7 +210,8 @@ function EventListItem({
   ).event_instruments_id;
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
-  // console.log(eventUser.includes(currentUser.userData.id))
+
+  console.log(eventUser.includes(currentUser.userData.id))
 
   if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
    const status = [

@@ -24,7 +24,7 @@ function Artists() {
        <div className="description">
         Our little band plays with React with a backing of Ruby on Rails to
         create melodies everyone can enjoy! Arpeggio is meant to bring people
-        together of all skill levels so we can create and enjoy.
+        together of all skill levels so we can create and enjoy. While Rails is intuitive in itself, making it work in harmony with a different FE framework and language was a real challenge. 
        </div>
        <div className="social-icons">
         <a href="https://github.com/Mari-bekker">

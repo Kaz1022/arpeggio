@@ -17,9 +17,6 @@ function NewEvent (props) {
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")	
 
-	const [instrument, setInstrument] = useState("Vocal")
-	const [quantity, setQuantity] = useState("1")
-
 	const [instruments, setInstruments] = useState([
 		{
 			name: 'Vocal',
@@ -81,7 +78,6 @@ function NewEvent (props) {
 			})
 			.then(resp => resp.json())
 			.then(data => {
-					console.log('updated event', data)
 					navigate('/mysessions');
 			})
 			}
@@ -223,7 +219,6 @@ function NewEvent (props) {
 													newInstruments[index] = { ...newInstruments[index] };
 													newInstruments[index].name = e.target.value
 													setInstruments(newInstruments)
-													console.log('HERE')
 												}} 
 												value={instr.name}
 											>
@@ -250,7 +245,6 @@ function NewEvent (props) {
 												}}
 												required
 											/>	
-											{/* <button type='button'>Delete</button> */}
 										</>
 									})
 								}
@@ -263,28 +257,6 @@ function NewEvent (props) {
 								>
 									Add more Instruments
 								</button>
-
-								{/* <label htmlFor="Instrument">Instruments needed for session </label>
-								<select onChange={e => setInstrument(e.target.value)}>
-								<option value="Vocal">Vocal</option>
-								<option value="Guitar">Guitar</option>
-								<option value="Keyboard">Keyboard</option>
-								<option value="Violin">Violin</option>
-								<option value="Flute">Flute</option>
-								<option value="Drum">Drum</option>
-								<option value="Banjo">Banjo</option>
-								</select>
-
-								<label htmlFor="description">quantity</label>
-								<input
-									type="text"
-									name="quantity"
-									placeholder="How many?"
-									value ={quantity}
-									onChange={e => setQuantity(e.target.value)}
-									required
-
-								/>	 */}
 
 								<button type="submit">
 									Create a new event

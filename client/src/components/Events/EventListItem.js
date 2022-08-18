@@ -135,8 +135,7 @@ function EventListItem({
       <div
        className="render-icon"
        key={`selector-${generateKey(i)}`}
-       onClick={() => userSignedUp ? console.log("Nope you can't sign up again") : handleShow(ei.id, ei.event_id)}  
-       // inside of onClick userSignerUp ? console.log("Nope you can't sign up again") : handleShow(ei.id, ei.event_id)
+       onClick={() => userSignedUp ?  handleOpenNA() : handleShow(ei.id, ei.event_id)}  
       >
        <Comp />
       </div>

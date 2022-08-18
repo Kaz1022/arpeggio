@@ -61,13 +61,9 @@ const makeUniqueArray = (key, arr) => {
   return result
 }
 
-const cityResult = makeUniqueArray('city', events) //item is each of the events //[item[key], item] is an array with eg. Toronto at [0], and an event object at [1] 
+const cityResult = makeUniqueArray('city', events)
 const levelResult = makeUniqueArray('level', events)
 const genreResult = makeUniqueArray('genre', events)
-
-const generateKey = (id, index) => {
-  return `${ id }_${index}_${Math.random(id)}`;
-}
 
  return (
   <EventFilterStyles>
@@ -75,7 +71,7 @@ const generateKey = (id, index) => {
     <select className="form-select" onChange={onChangeCity}>
      <option value="0"> Select City....</option>
      {cityResult.map((eventItem, i) => (
-      <option key={generateKey(eventItem.id, i)} value={eventItem.id}>
+      <option key={eventItem.id} value={eventItem.id}>
        {eventItem.city}
       </option>
      ))}
@@ -83,7 +79,7 @@ const generateKey = (id, index) => {
     <select className="form-select" onChange={onChangeInstrument}>
      <option value="0"> Select Instrument....</option>
      {instruments.map((eventItem, i) => (
-      <option key={generateKey(eventItem.id,i)} value={eventItem.id}>
+      <option key={eventItem.id} value={eventItem.id}>
        {eventItem.name}
       </option>
      ))}
@@ -91,7 +87,7 @@ const generateKey = (id, index) => {
     <select className="form-select" onChange={onChangeLevel}>
      <option value="0"> Select Level....</option>
      {levelResult.map((eventItem,i) => (
-      <option key={generateKey(eventItem.id,i)} value={eventItem.id}>
+      <option key={eventItem.id} value={eventItem.id}>
        {eventItem.level}
       </option>
      ))}
@@ -99,7 +95,7 @@ const generateKey = (id, index) => {
     <select className="form-select" onChange={onChangeGenre}>
      <option value="0"> Select Genre....</option>
      {genreResult.map((eventItem,i) => (
-      <option key={generateKey(eventItem.id,i)} value={eventItem.id}>
+      <option key={eventItem.id} value={eventItem.id}>
        {eventItem.genre}
       </option>
      ))}
@@ -111,14 +107,13 @@ const generateKey = (id, index) => {
    <br />
    <br />
    {query.length === 0
-    ? events.map((item) => {
+    ? events.map((item) => {  //you cant add keys to fragments - the key must be on the parent most elemnt of the map
        return (
-        <>
          <EventListItem
           key={item.id}
           id={item.id}
           title={item.title}
-          // user={item.user.handle}
+          user={item.user.handle}
           userPhone={item.user.phone}
           date={item.event_date}
           start={item.start_time}
@@ -138,17 +133,16 @@ const generateKey = (id, index) => {
           events={events}
           setEvents={setEvents}
          />
-        </>
        );
       })
     : query.map((item) => {
        return (
-        <>
+
          <EventListItem
           key={item.id}
           id={item.id}
           title={item.title}
-          // user={item.user.handle}
+          user={item.user.handle}
           userPhone={item.user.phone}
           date={item.event_date}
           start={item.start_time}
@@ -168,7 +162,6 @@ const generateKey = (id, index) => {
           events={events}
           setEvents={setEvents}
          />
-        </>
        );
       })}
   </EventFilterStyles>

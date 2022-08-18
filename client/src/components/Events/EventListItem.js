@@ -75,7 +75,6 @@ function EventListItem({
   setActiveEventInstrument(undefined);
   setShow(false);
  };
- //  console.log('events page events>>>>', events);
 
  const handleCloseMsg = () => setShowMsg(false);
  const handleOpenMsg = () => setShowMsg(true);
@@ -84,6 +83,13 @@ function EventListItem({
  const handleOpenNA = () => setShowNAvail(true);
 
  const [like, setLike] = useState(false);
+
+ useEffect(function () {
+  axios
+   .get(`/api/events`)
+   .then((res) => setEvents(res.data))
+   .catch((err) => console.log(err));
+ }, [showMsg]);
 
  //INSTRUMENTS ARRAY
  const instrumentsArr = [];
@@ -111,6 +117,10 @@ function EventListItem({
   });
  });
 
+ const generateKey = (index) => {
+  return `${index}_${Math.random(index)}`;
+}
+
  //GET EVENT DATA
  const getEventData = () => {
   const event = events.find((e) => e.id === id);
@@ -129,8 +139,7 @@ function EventListItem({
      instrumentsAry.push(
       <div
        className="render-icon"
-       //  key={`selector-${ei.id}-${item.name}-${i}`}
-       key={`selector-${i}`}
+       key={`selector-${generateKey(i)}`}
        onClick={() => handleShow(ei.id, ei.event_id)}
       >
        <Comp />
@@ -160,7 +169,6 @@ function EventListItem({
    axios
     .post('/api/user_favourites', { myfavourite })
     .then((response) => {
-     // console.log("axios call response>", response);
     })
     .catch((error) => {
      console.log('Clicking Heart', error);
@@ -205,6 +213,8 @@ function EventListItem({
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
 
+  // console.log(eventUser.includes(currentUser.userData.id))
+
   if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
    const status = [
     { name: 'Available', quantity: qtyA - 1 },
@@ -240,11 +250,10 @@ function EventListItem({
         console.log("sending SMS error", error)
       })
      
-      console.log("events", events);
       const event =  events.find((e) => {
         return e.id === eventId
       })
-      console.log("event find", event);
+     
       const eventInstrument = event.event_instruments.find((instrument) =>{
         return instrument.id === eventInstrumentId
       })

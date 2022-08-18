@@ -7,7 +7,7 @@ class Api::AttendeesController < ApplicationController
     render json: @attendee
   end
   
-  # GET /attendee/1
+  # # GET /attendee/1
   def show
     @attendee = Attendee.joins(:user).joins(:event_instrument).find(params[:id])
     # @attendee = Attendee.joins(:users).find(params[:id])
@@ -16,7 +16,7 @@ class Api::AttendeesController < ApplicationController
   end
 
   def new
-    @attendee = Attendee.new
+    # @attendee = Attendee.new
   end
 
 
@@ -53,7 +53,7 @@ class Api::AttendeesController < ApplicationController
     end
   end
 
-  # DELETE /attendee/1
+  #DELETE /attendee/1
   def destroy
     @attendee = Attendee.find(params[:id])
     @attendee.destroy
@@ -64,8 +64,8 @@ class Api::AttendeesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def attendee_params
-    params.require(:attendee)
-    params.permit(:attendee, :accepted, :user_id, :event_instrument_id, :id)
+    # params.require(:attendee)
+    params.permit(:accepted, :user_id, :event_instrument_id, :id)
   end
 
 end

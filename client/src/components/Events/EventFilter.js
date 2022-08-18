@@ -56,8 +56,8 @@ function EventFilter() {
 
 const makeUniqueArray = (key, arr) => {
   const result = [
-    ...new Map(arr?.map(item => [item[key], item])).values()
-  ]
+    ...new Map(arr?.map(item => [item[key], item])).values()  
+  ] 
   return result
 }
 
@@ -70,7 +70,7 @@ const genreResult = makeUniqueArray('genre', events)
    <div className="form dropdowns">
     <select className="form-select" onChange={onChangeCity}>
      <option value="0"> Select City....</option>
-     {cityResult.map((eventItem) => (
+     {cityResult.map((eventItem, i) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.city}
       </option>
@@ -78,7 +78,7 @@ const genreResult = makeUniqueArray('genre', events)
     </select>
     <select className="form-select" onChange={onChangeInstrument}>
      <option value="0"> Select Instrument....</option>
-     {instruments.map((eventItem) => (
+     {instruments.map((eventItem, i) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.name}
       </option>
@@ -86,7 +86,7 @@ const genreResult = makeUniqueArray('genre', events)
     </select>
     <select className="form-select" onChange={onChangeLevel}>
      <option value="0"> Select Level....</option>
-     {levelResult.map((eventItem) => (
+     {levelResult.map((eventItem,i) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.level}
       </option>
@@ -94,7 +94,7 @@ const genreResult = makeUniqueArray('genre', events)
     </select>
     <select className="form-select" onChange={onChangeGenre}>
      <option value="0"> Select Genre....</option>
-     {genreResult.map((eventItem) => (
+     {genreResult.map((eventItem,i) => (
       <option key={eventItem.id} value={eventItem.id}>
        {eventItem.genre}
       </option>
@@ -107,9 +107,8 @@ const genreResult = makeUniqueArray('genre', events)
    <br />
    <br />
    {query.length === 0
-    ? events.map((item) => {
+    ? events.map((item) => {  //you cant add keys to fragments - the key must be on the parent most elemnt of the map
        return (
-        <>
          <EventListItem
           key={item.id}
           id={item.id}
@@ -134,12 +133,11 @@ const genreResult = makeUniqueArray('genre', events)
           events={events}
           setEvents={setEvents}
          />
-        </>
        );
       })
     : query.map((item) => {
        return (
-        <>
+
          <EventListItem
           key={item.id}
           id={item.id}
@@ -164,7 +162,6 @@ const genreResult = makeUniqueArray('genre', events)
           events={events}
           setEvents={setEvents}
          />
-        </>
        );
       })}
   </EventFilterStyles>

@@ -20,7 +20,7 @@ export const Styles = styled.div`
 //USERS
 export const UserStyles = styled.div`
 .base-container {
-  width: 100vw;
+  width: 100%;
   height: 80vh;
   margin-top: 2rem;
   display: flex;

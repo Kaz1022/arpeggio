@@ -29,7 +29,7 @@ import create from '../../assets/images/create.jpg';
 export const MainImg = styled.img.attrs({
   src: `${main}`,
  })`
-  width: 100vw;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;

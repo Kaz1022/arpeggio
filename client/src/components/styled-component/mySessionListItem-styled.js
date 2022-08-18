@@ -7,6 +7,7 @@ object-fit: cover;
 `;
 
 export const EventStyles = styled.div`
+width: 100%;
 
 .card{
   // display:flex;

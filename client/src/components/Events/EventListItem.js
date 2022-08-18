@@ -84,13 +84,6 @@ function EventListItem({
 
  const [like, setLike] = useState(false);
 
- useEffect(function () {
-  axios
-   .get(`/api/events`)
-   .then((res) => setEvents(res.data))
-   .catch((err) => console.log(err));
- }, [showMsg]);
-
  //INSTRUMENTS ARRAY
  const instrumentsArr = [];
  const instrumentSummary = events.map((event) => {
@@ -140,7 +133,8 @@ function EventListItem({
       <div
        className="render-icon"
        key={`selector-${generateKey(i)}`}
-       onClick={() => handleShow(ei.id, ei.event_id)}
+       onClick={() => handleShow(ei.id, ei.event_id)}  
+       // inside of onClick userSignerUp ? console.log("Nope you can't sign up again") : handleShow(ei.id, ei.event_id)
       >
        <Comp />
       </div>

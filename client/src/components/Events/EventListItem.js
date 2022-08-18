@@ -59,12 +59,14 @@ function EventListItem({
  instrument_quantity,
  events,
  setEvents,
+ setFavEvents
 }) {
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
  const [showNAvail, setShowNAvail] = useState(false);
  const [activeEventId, setActiveEventId] = useState();
  const [activeEventInstrument, setActiveEventInstrument] = useState();
+ const [userSignedUp, setUserSignedUp] = useState(false);
 
  const handleShow = (eventInstrumentId, eventId) => {
   setActiveEventInstrument(eventInstrumentId);
@@ -133,7 +135,7 @@ function EventListItem({
       <div
        className="render-icon"
        key={`selector-${generateKey(i)}`}
-       onClick={() => handleShow(ei.id, ei.event_id)}  
+       onClick={() => userSignedUp ? console.log("Nope you can't sign up again") : handleShow(ei.id, ei.event_id)}  
        // inside of onClick userSignerUp ? console.log("Nope you can't sign up again") : handleShow(ei.id, ei.event_id)
       >
        <Comp />
@@ -171,7 +173,7 @@ function EventListItem({
    axios
     .delete(`/api/user_favourites/delete`, { data: { myfavourite } })
     .then((response) => {
-     setEvents((prev) => {
+     setFavEvents((prev) => {
       return prev.filter((item) => {
        return item.id !== response.data.event_id;
       });
@@ -267,6 +269,7 @@ function EventListItem({
         }
       })
       setEvents(newEvents)
+      setUserSignedUp(true);
 
      console.log('event update was successful');
      //>>>>>>>>>>>>>>>>>>>>

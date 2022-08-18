@@ -75,7 +75,7 @@ function MySessionsListItem({
     setActiveEventInstrument(eventInstrumentId);
     setActiveEventId(eventId);
    
-    // Shows different Modal depends on the status but only works if there is one instruments.
+    // Shows different Modal depends on the status
     axios.get(`/api/event_instruments/${eventInstrumentId}/attendee`)
       .then(response => {
         setAttendee(response.data[index -1])

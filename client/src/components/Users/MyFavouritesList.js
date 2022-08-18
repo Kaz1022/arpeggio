@@ -39,6 +39,7 @@ function MyFavouritesList({ loggedInStatus }) {
         created={eachSession.created_at}
         events={events}
         setEvents={setEvents}
+        setFavEvents={setEvents}
       />
     );
   });

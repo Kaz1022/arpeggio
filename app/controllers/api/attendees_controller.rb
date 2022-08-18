@@ -2,10 +2,10 @@ class Api::AttendeesController < ApplicationController
   # before_action :set_attendee, only: %i[show update destroy]
   
   # GET /attendee
-  # def index
-  #   @attendee = Attendee.all
-  #   render json: @attendee
-  # end
+  def index
+    @attendee = Attendee.all
+    render json: @attendee
+  end
   
   # # GET /attendee/1
   def show
@@ -15,9 +15,9 @@ class Api::AttendeesController < ApplicationController
     render json: @attendee.as_json(:include => [:user])
   end
 
-  # def new
-  #   # @attendee = Attendee.new
-  # end
+  def new
+    # @attendee = Attendee.new
+  end
 
 
   # POST /attendee
@@ -37,27 +37,27 @@ class Api::AttendeesController < ApplicationController
   end
 
   # PATCH/PUT /attendee/1
-  # def update
-  #   @attendee = Attendee.find(params[:id])
-  #   @attendee.update(accepted: params[:accepted])
+  def update
+    @attendee = Attendee.find(params[:id])
+    @attendee.update(accepted: params[:accepted])
 
-  #   if @attendee.update(attendee_params)
+    if @attendee.update(attendee_params)
 
-  #     render json: {
-  #       status: :updated, 
-  #       attendee: @attendee.to_json
-  #   }
+      render json: {
+        status: :updated, 
+        attendee: @attendee.to_json
+    }
 
-  #   else
-  #     render json: @attendee.errors, status: :unprocessable_entity
-  #   end
-  # end
+    else
+      render json: @attendee.errors, status: :unprocessable_entity
+    end
+  end
 
-  # # DELETE /attendee/1
-  # def destroy
-  #   @attendee = Attendee.find(params[:id])
-  #   @attendee.destroy
-  # end
+  #DELETE /attendee/1
+  def destroy
+    @attendee = Attendee.find(params[:id])
+    @attendee.destroy
+  end
 
 
   private

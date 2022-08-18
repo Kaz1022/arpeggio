@@ -139,7 +139,6 @@ function EventListItem({
      instrumentsAry.push(
       <div
        className="render-icon"
-       //  key={`selector-${ei.id}-${item.name}-${i}`}
        key={`selector-${generateKey(i)}`}
        onClick={() => handleShow(ei.id, ei.event_id)}
       >
@@ -170,7 +169,6 @@ function EventListItem({
    axios
     .post('/api/user_favourites', { myfavourite })
     .then((response) => {
-     // console.log("axios call response>", response);
     })
     .catch((error) => {
      console.log('Clicking Heart', error);
@@ -215,7 +213,7 @@ function EventListItem({
   const qtyA = status['Available'];
   const qtyP = status['Pending'];
 
-  console.log(eventUser.includes(currentUser.userData.id))
+  // console.log(eventUser.includes(currentUser.userData.id))
 
   if (status['Available'] > 0 && !eventUser.includes(currentUser.userData.id)) {
    const status = [
@@ -252,11 +250,10 @@ function EventListItem({
         console.log("sending SMS error", error)
       })
      
-      console.log("events", events);
       const event =  events.find((e) => {
         return e.id === eventId
       })
-      console.log("event find", event);
+     
       const eventInstrument = event.event_instruments.find((instrument) =>{
         return instrument.id === eventInstrumentId
       })

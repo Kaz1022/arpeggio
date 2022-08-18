@@ -59,6 +59,7 @@ function EventListItem({
  instrument_quantity,
  events,
  setEvents,
+ setFavEvents
 }) {
  const [show, setShow] = useState(false);
  const [showMsg, setShowMsg] = useState(false);
@@ -171,7 +172,7 @@ function EventListItem({
    axios
     .delete(`/api/user_favourites/delete`, { data: { myfavourite } })
     .then((response) => {
-     setEvents((prev) => {
+     setFavEvents((prev) => {
       return prev.filter((item) => {
        return item.id !== response.data.event_id;
       });
